@@ -1,0 +1,212 @@
+/* ===== Palette & base ===== */
+:root {
+  --evergreen: #1f5d45;
+  --evergreen-ink: #12382a;
+  --ochre: #c58c1b;
+  --ochre-track: #f2e7c9;
+  --bone: #f6f2ea;
+  --cream: #fff9ed;
+  --ink: #2b2b2b;
+  --shadow: 0 6px 20px rgba(18, 56, 42, 0.12);
+}
+
+/* Card container */
+.recommendation-card-main {
+  background: #fff;
+  border: 1px solid rgba(18, 56, 42, 0.06);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  display: grid;
+  gap: 12px;
+  padding-bottom: 14px;
+  transition: transform 120ms ease, box-shadow 120ms ease,
+    border-color 120ms ease;
+}
+.recommendation-card-main:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(18, 56, 42, 0.16);
+  border-color: rgba(18, 56, 42, 0.12);
+}
+
+/* Image header */
+#product-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  background: var(--bone);
+  filter: saturate(1.05) contrast(1.02);
+}
+
+/* Title + preparation */
+#product-name {
+  margin: 8px 16px 0;
+  font-size: clamp(18px, 2.4vw, 22px);
+  line-height: 1.2;
+  font-weight: 800;
+  color: var(--evergreen-ink);
+}
+#product-preparation {
+  margin: 0 16px;
+  color: #5b5b5b;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* ===== Match percent ring badge =====
+     Set with: <div class="recommendation-percent" style="--match:87">87% match</div>
+     Fallback is 87 if --match not supplied.
+  */
+.recommendation-percent {
+  --size: 64px;
+  --thickness: 10px;
+  --match: 87; /* fallback */
+  --pct: calc(var(--match) * 1%);
+
+  margin: 4px 16px 0;
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 10px;
+  align-items: center;
+
+  /* pill background behind ring + label */
+  padding: 6px 10px 6px 6px;
+  border-radius: 999px;
+  background: rgba(255, 249, 237, 0.9);
+  border: 1px solid rgba(197, 140, 27, 0.28);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 8px rgba(31, 93, 69, 0.14);
+}
+
+/* The ring */
+.recommendation-percent::before {
+  content: "";
+  width: var(--size);
+  height: var(--size);
+  display: inline-block;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--ochre) 0turn calc(var(--pct) * 1turn),
+    var(--ochre-track) 0 1turn
+  );
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(50% - var(--thickness)),
+    #000 calc(50% - var(--thickness) + 1px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(50% - var(--thickness)),
+    #000 calc(50% - var(--thickness) + 1px)
+  );
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* The % text */
+.recommendation-percent::after {
+  content: attr(data-label);
+  /* If you want dynamic text, set data-label="87% match" on the element.
+       Otherwise we’ll show the existing inner text. */
+}
+.recommendation-percent {
+  position: relative;
+  isolation: isolate;
+}
+.recommendation-percent span,
+.recommendation-percent b {
+  font-weight: 800;
+  color: var(--evergreen);
+}
+
+/* Tags */
+.product-tags {
+  margin: 0 16px;
+}
+.product-tags-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.characteristic-tag {
+  display: inline-block;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--evergreen-ink);
+  background: linear-gradient(180deg, #fff 0%, #fff 60%, #f9f2df 100%);
+  border: 1px solid rgba(31, 93, 69, 0.18);
+  transition: transform 80ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+.characteristic-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(31, 93, 69, 0.18);
+}
+
+/* Link + CTA */
+.product-link,
+.bookmark {
+  margin: 4px 16px 0;
+}
+.product-link {
+  display: inline-block;
+  font-weight: 800;
+  color: var(--evergreen);
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 2px;
+  transition: color 120ms ease, opacity 120ms ease;
+}
+.product-link:hover {
+  color: #0e3b2f;
+}
+
+.bookmark {
+  justify-self: start;
+  margin-top: 8px;
+  appearance: none;
+  background: var(--evergreen);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(31, 93, 69, 0.25);
+  transition: filter 120ms ease, transform 60ms ease;
+}
+.bookmark:hover {
+  filter: brightness(1.06);
+}
+.bookmark:active {
+  transform: translateY(1px);
+}
+
+/* Spacing adjustments on small screens */
+@media (max-width: 420px) {
+  .recommendation-percent {
+    --size: 56px;
+    --thickness: 9px;
+  }
+  #product-name {
+    font-size: 18px;
+  }
+}
+
+/* Optional: subtle focus styles for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--evergreen) 65%, white);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
