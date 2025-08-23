@@ -1,0 +1,17 @@
+<section>
+  <h2>recommended for you</h2>
+
+  <div *ngIf="loading">Loading...</div>
+
+  <div *ngFor="let item of products; trackBy: trackById">
+    <app-recommendation-card
+      [name]="item.name"
+      [preparation]="item.preparation"
+      [matchPercentage]="item.matchPercentage"
+      [tagSlugs]="item.tagSlugs"
+      [imageUrl]="item.imageUrl"
+      [productUrl]="item.productUrl"
+    >
+    </app-recommendation-card>
+  </div>
+</section>
