@@ -4,7 +4,7 @@ export const MOCK_PRODUCTS: Product[] = [
   {
     id: '1',
     name: 'Kiyona Matcha',
-    preparation: { id: 'prep1', name: 'Usucha' },
+    preparation: { id: 'prep1', name: 'Usucha', slug: 'usucha' },
     matchPercentage: 87,
     tags: [
       { id: 'tag1', slug: 'astringent', label: 'astringent' },
@@ -19,7 +19,7 @@ export const MOCK_PRODUCTS: Product[] = [
   {
     id: '2',
     name: 'Kohata Matcha',
-    preparation: { id: 'prep2', name: 'Koicha' },
+    preparation: { id: 'prep2', slug: 'koicha', name: 'Koicha' },
     matchPercentage: 82,
     tags: [
       { id: 'tag4', slug: 'oceanic', label: 'oceanic' },
@@ -34,7 +34,7 @@ export const MOCK_PRODUCTS: Product[] = [
   {
     id: '3',
     name: 'Yamagumo Matcha',
-    preparation: { id: 'prep1', name: 'Usucha' },
+    preparation: { id: 'prep1', slug: 'koicha', name: 'Usucha' },
     matchPercentage: 82,
     tags: [
       { id: 'tag1', slug: 'astringent', label: 'astringent' },
