@@ -1,9 +1,12 @@
+import { Tag } from './tag';
+import { Preparation } from './preparation';
+
 export interface Product {
-  id: number;
+  id: string;
   name: string;
-  preparation: string;
+  preparation: Preparation;
   matchPercentage: number;
   imageUrl: string;
-  tagSlugs: string[];
+  tags: Tag[];
   productUrl: string;
 }

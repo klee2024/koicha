@@ -1,23 +1,21 @@
 <div class="recommendation-card-main">
-  <img
-    src="https://kettl.co/cdn/shop/files/bb609d71-b5fb-48b4-b7eb-11028ce3e738.jpg?v=1752611694"
-    id="product-image"
-  />
-  <h2 id="product-name">Name</h2>
-  <p id="product-preparation">Usucha</p>
-  <div class="recommendation-percent">87% match</div>
-  <div class="product-tags">
-    <ul class="product-tags-list">
-      <!-- TODO: the characteristic tag ids should map to unique ids in the characteristics db -->
-      <li><a href="" class="characteristic-tag" id="tag1">astringent</a></li>
-      <li><a href="" class="characteristic-tag" id="tag2">cocoa</a></li>
-      <li><a href="" class="characteristic-tag" id="tag3">nutty</a></li>
+  <img src="{{ imageUrl }}" id="product-image" />
+  <h2 class="product-name">{{ name }}</h2>
+  <p class="product-preparation" id="{{ preparation.id }}">
+    {{ preparation.name }}
+  </p>
+  <div class="recommendation-percent">{{ matchPercentage }}% match</div>
+  <div class="product-tagSlugs">
+    <ul class="product-tagSlugs-list">
+      <li *ngFor="let tag of tags; trackBy: trackById">
+        <!-- TODO: set up a router for the tag links -->
+        <a href="tagSlugs/{{ tag.slug }}" class="characteristic-tag">{{
+          tag.label
+        }}</a>
+      </li>
     </ul>
   </div>
-  <a
-    href="https://kettl.co/collections/matcha-green-tea/products/yamagumo-matcha"
-    class="product-link"
-    target="_blank"
+  <a href="{{ productUrl }}" class="product-link" target="_blank"
     >Find it here</a
   >
   <button class="bookmark">Save For Later</button>

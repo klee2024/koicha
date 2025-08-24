@@ -122,11 +122,11 @@
   color: var(--evergreen);
 }
 
-/* Tags */
-.product-tags {
+/* tagSlugs */
+.product-tagSlugs {
   margin: 0 16px;
 }
-.product-tags-list {
+.product-tagSlugs-list {
   list-style: none;
   padding: 0;
   margin: 6px 0 0;

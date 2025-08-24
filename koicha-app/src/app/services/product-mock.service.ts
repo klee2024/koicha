@@ -15,7 +15,7 @@ export class ProductMockService {
     return of(MOCK_PRODUCTS).pipe(delay(500));
   }
 
-  getProductsById(id: number): Observable<Product | undefined> {
+  getProductsById(id: string): Observable<Product | undefined> {
     return of(MOCK_PRODUCTS.find((p) => p.id === id)).pipe(delay(300));
   }
 }

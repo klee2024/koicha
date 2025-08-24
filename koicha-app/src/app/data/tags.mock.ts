@@ -1,11 +1,11 @@
-import { Tag } from '../models/tags';
+import { Tag } from '../models/tag';
 
-export const MOCK_TAGS: Record<string, Tag> = {
-  Astringent: { slug: 'astringent', label: 'astringent' },
-  Cocoa: { slug: 'cocoa', label: 'cocoa' },
-  Nutty: { slug: 'nutty', label: 'nutty' },
-  Oceanic: { slug: 'oceanic', label: 'oceanic' },
-  Savory: { slug: 'savory', label: 'savory' },
-  Umami: { slug: 'umami', label: 'umami' },
-  Verdant: { slug: 'verdant', label: 'verdant' },
-};
+export const MOCK_TAGS: Tag[] = [
+  { id: 'tag1', slug: 'astringent', label: 'astringent' },
+  { id: 'tag2', slug: 'cocoa', label: 'cocoa' },
+  { id: 'tag3', slug: 'nutty', label: 'nutty' },
+  { id: 'tag4', slug: 'oceanic', label: 'oceanic' },
+  { id: 'tag5', slug: 'savory', label: 'savory' },
+  { id: 'tag6', slug: 'umami', label: 'umami' },
+  { id: 'tag7', slug: 'verdant', label: 'verdant' },
+];
