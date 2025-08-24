@@ -1,17 +1,23 @@
 <section>
-  <h2>recommended for you</h2>
+  <div class="header">
+    <h2>recommended for you</h2>
+  </div>
 
-  <div *ngIf="loading">Loading...</div>
+  <div class="filters"></div>
 
-  <div *ngFor="let item of filteredProducts; trackBy: trackById">
-    <app-recommendation-card
-      [name]="item.name"
-      [preparation]="item.preparation"
-      [matchPercentage]="item.matchPercentage"
-      [tags]="item.tags"
-      [imageUrl]="item.imageUrl"
-      [productUrl]="item.productUrl"
-    >
-    </app-recommendation-card>
+  <div class="feed">
+    <div *ngIf="loading">Loading...</div>
+
+    <div *ngFor="let item of filteredProducts; trackBy: trackById">
+      <app-recommendation-card
+        [name]="item.name"
+        [preparation]="item.preparation"
+        [matchPercentage]="item.matchPercentage"
+        [tags]="item.tags"
+        [imageUrl]="item.imageUrl"
+        [productUrl]="item.productUrl"
+      >
+      </app-recommendation-card>
+    </div>
   </div>
 </section>

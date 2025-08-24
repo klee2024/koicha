@@ -7,11 +7,8 @@
   <div class="recommendation-percent">{{ matchPercentage }}% match</div>
   <div class="product-tagSlugs">
     <ul class="product-tagSlugs-list">
-      <li *ngFor="let tag of tags; trackBy: trackById">
-        <!-- TODO: set up a router for the tag links -->
-        <a href="tagSlugs/{{ tag.slug }}" class="characteristic-tag">{{
-          tag.label
-        }}</a>
+      <li *ngFor="let tag of tags; trackBy: trackById" id="{{ tag.id }}">
+        {{ tag.label }}
       </li>
     </ul>
   </div>
