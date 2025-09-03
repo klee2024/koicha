@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 
 import { ProductMockService } from '../../services/product-mock.service';
+import { TagsMockService } from '../../services/tags-mock.service';
+import { PreparationsMockService } from '../../services/preparations-mock.service';
 import { CommonModule } from '@angular/common';
 import { RecommendationCardComponent } from '../recommendation-card/recommendation-card.component';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
+import { Preparation } from '../../models/preparation';
+import { Tag } from '../../models/tag';
 
 @Component({
   selector: 'app-recommendation-feed',
@@ -19,12 +23,16 @@ export class RecommendationFeedComponent implements OnInit {
   filteredProducts: Product[] = [];
   activeTagSlugs: string[] = [];
   activePrepSlug?: string = undefined;
+  allTags: Tag[] = [];
+  allPreps: Preparation[] = [];
   loading = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductMockService
+    private productService: ProductMockService,
+    private tagService: TagsMockService,
+    private prepService: PreparationsMockService
   ) {}
 
   ngOnInit() {
@@ -37,6 +45,14 @@ export class RecommendationFeedComponent implements OnInit {
       this.route.queryParamMap.subscribe((queryParams) =>
         this.applyFiltersFromParams(queryParams)
       );
+    });
+    this.tagService.getTags().subscribe((data) => {
+      this.allTags = data;
+      console.log('all tags on init: ', this.allTags);
+    });
+    this.prepService.getPreparations().subscribe((data) => {
+      this.allPreps = data;
+      console.log('all preps on init: ', this.allPreps);
     });
   }
 

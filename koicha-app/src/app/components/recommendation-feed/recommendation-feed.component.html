@@ -3,10 +3,30 @@
     <h2>recommended for you</h2>
   </div>
 
-  <div class="filters"></div>
+  <div class="filters">
+    <div id="tags">
+      <h3>tags</h3>
+      <ul id="tags-list" *ngFor="let tag of allTags; trackBy: trackById">
+        <li [id]="tag.id" (click)="toggleTag(tag.slug)">{{ tag.label }}</li>
+      </ul>
+    </div>
+    <div id="preps">
+      <h3>preparations</h3>
+      <ul id="preps-list" *ngFor="let prep of allPreps; trackBy: trackById">
+        <li [id]="prep.id" (click)="setPreparation(prep.slug)">
+          {{ prep.name }}
+        </li>
+      </ul>
+    </div>
+    <button id="clear-filters" (click)="clearFilters()">Clear Tags</button>
+  </div>
 
   <div class="feed">
     <div *ngIf="loading">Loading...</div>
+
+    <div *ngIf="filteredProducts.length == 0">
+      No products found. You have unique taste!
+    </div>
 
     <div *ngFor="let item of filteredProducts; trackBy: trackById">
       <app-recommendation-card
