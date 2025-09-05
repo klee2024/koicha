@@ -11,7 +11,7 @@ import { Preparation } from '../../models/preparation';
   styleUrl: './recommendation-card.component.css',
 })
 export class RecommendationCardComponent {
-  @Input() id!: number;
+  @Input() id!: string;
   @Input() name!: string;
   @Input() preparation!: Preparation;
   @Input() matchPercentage!: number;
@@ -21,5 +21,11 @@ export class RecommendationCardComponent {
 
   trackById(index: number, item: { id: string }) {
     return item.id;
+  }
+
+  // TODO: build this service out
+  addToBookmarks(id: string) {
+    // call a service to add this to the customer's bookmarks
+    console.log(`${id} added to saved products`);
   }
 }
