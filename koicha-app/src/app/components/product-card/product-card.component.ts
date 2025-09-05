@@ -10,7 +10,7 @@ import { Preparation } from '../../models/preparation';
   templateUrl: './recommendation-card.component.html',
   styleUrl: './recommendation-card.component.css',
 })
-export class RecommendationCardComponent {
+export class ProductCardComponent {
   @Input() id!: string;
   @Input() name!: string;
   @Input() preparation!: Preparation;

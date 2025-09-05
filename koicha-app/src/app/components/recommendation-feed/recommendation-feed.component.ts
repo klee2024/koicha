@@ -5,7 +5,7 @@ import { ProductMockService } from '../../services/product-mock.service';
 import { TagsMockService } from '../../services/tags-mock.service';
 import { PreparationsMockService } from '../../services/preparations-mock.service';
 import { CommonModule } from '@angular/common';
-import { RecommendationCardComponent } from '../recommendation-card/recommendation-card.component';
+import { ProductCardComponent } from '../product-card/product-card.component';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 import { Preparation } from '../../models/preparation';
@@ -14,7 +14,7 @@ import { Tag } from '../../models/tag';
 @Component({
   selector: 'app-recommendation-feed',
   standalone: true,
-  imports: [CommonModule, RecommendationCardComponent],
+  imports: [CommonModule, ProductCardComponent],
   templateUrl: './recommendation-feed.component.html',
   styleUrl: './recommendation-feed.component.css',
 })

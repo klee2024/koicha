@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { RecommendationCardComponent } from './components/recommendation-card/recommendation-card.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 import { RecommendationFeedComponent } from './components/recommendation-feed/recommendation-feed.component';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    RecommendationCardComponent,
-    RecommendationFeedComponent,
-  ],
+  imports: [RouterOutlet, ProductCardComponent, RecommendationFeedComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
