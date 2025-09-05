@@ -4,11 +4,11 @@ import { Tag } from '../../models/tag';
 import { Preparation } from '../../models/preparation';
 
 @Component({
-  selector: 'app-recommendation-card',
+  selector: 'app-product-card',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './recommendation-card.component.html',
-  styleUrl: './recommendation-card.component.css',
+  templateUrl: './product-card.component.html',
+  styleUrl: './product-card.component.css',
 })
 export class ProductCardComponent {
   @Input() id!: string;
