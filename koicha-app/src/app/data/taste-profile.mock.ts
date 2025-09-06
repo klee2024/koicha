@@ -2,44 +2,45 @@ import { TasteProfile } from '../models/taste-profile';
 
 export const MOCK_TASTE_PROFILE: TasteProfile = {
   mainCharacterstics: {
-    umami: 4,
-    creamy: 5,
-    nutty: 3,
-    grassy: 3,
-    astringent: 1,
-    floral: 2,
+    umami: 80,
+    floral: 30,
+    astringent: 20,
+    grassy: 30,
+    nutty: 65,
+    creamy: 55,
   },
   subCharacteristics: {
     umami: [
-      { label: 'Seaweed', value: 4 },
-      { label: 'Brothy', value: 3 },
-      { label: 'Miso', value: 2 },
-    ],
-    creamy: [
-      { label: 'Milky', value: 5 },
-      { label: 'Buttery', value: 4 },
-      { label: 'Custard', value: 3 },
-      { label: 'Velvety', value: 4 },
-    ],
-    nutty: [
-      { label: 'Cocoa', value: 3 },
-      { label: 'Chestnut', value: 2 },
-      { label: 'Hazelnut', value: 4 },
-    ],
-    grassy: [
-      { label: 'Grass', value: 2 },
-      { label: 'Spinach', value: 3 },
-      { label: 'Edamame', value: 2 },
-    ],
-    astringent: [
-      { label: 'Oceanic', value: 2 },
-      { label: 'Woody', value: 3 },
-      { label: 'Mineral', value: 1 },
+      { label: 'Seaweed', value: 80 },
+      { label: 'Brothy', value: 60 },
+      { label: 'Miso', value: 40 },
     ],
     floral: [
-      { label: 'White Chocolate', value: 4 },
-      { label: 'Honey', value: 2 },
-      { label: 'Floral', value: 3 },
+      { label: 'White Chocolate', value: 80 },
+      { label: 'Honey', value: 40 },
+      { label: 'Floral', value: 60 },
+    ],
+    astringent: [
+      { label: 'Oceanic', value: 40 },
+      { label: 'Woody', value: 60 },
+      { label: 'Mineral', value: 20 },
+    ],
+    grassy: [
+      { label: 'Grass', value: 40 },
+      { label: 'Spinach', value: 60 },
+      { label: 'Edamame', value: 40 },
+    ],
+
+    nutty: [
+      { label: 'Cocoa', value: 60 },
+      { label: 'Chestnut', value: 40 },
+      { label: 'Hazelnut', value: 80 },
+    ],
+    creamy: [
+      { label: 'Milky', value: 20 },
+      { label: 'Buttery', value: 80 },
+      { label: 'Custard', value: 20 },
+      { label: 'Velvety', value: 60 },
     ],
   },
 };
