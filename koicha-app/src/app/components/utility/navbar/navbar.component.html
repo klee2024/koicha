@@ -1,5 +1,13 @@
 <nav class="nav">
   <a
+    routerLink="/explore"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    aria-current="page"
+  >
+    explore
+  </a>
+  <a
     routerLink="/recommended-for-you"
     routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: true }"

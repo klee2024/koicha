@@ -3,11 +3,12 @@ import { ProductCardComponent } from '../utility/product-card/product-card.compo
 import { Product } from '../../models/product';
 import { BookmarksMockService } from '../../services/bookmarks-mock.service';
 import { CommonModule } from '@angular/common';
+import { FeedComponent } from '../utility/feed/feed.component';
 
 @Component({
   selector: 'app-bookmark-shelf',
   standalone: true,
-  imports: [ProductCardComponent, CommonModule],
+  imports: [ProductCardComponent, CommonModule, FeedComponent],
   templateUrl: './bookmark-shelf.component.html',
   styleUrl: './bookmark-shelf.component.css',
 })
