@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Tag } from '../../models/tag';
-import { Preparation } from '../../models/preparation';
+import { Tag } from '../../../models/tag';
+import { Preparation } from '../../../models/preparation';
 
 @Component({
   selector: 'app-product-card',

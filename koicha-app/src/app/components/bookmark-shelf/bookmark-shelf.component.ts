@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductCardComponent } from '../product-card/product-card.component';
+import { ProductCardComponent } from '../utility/product-card/product-card.component';
 import { Product } from '../../models/product';
 import { BookmarksMockService } from '../../services/bookmarks-mock.service';
 import { CommonModule } from '@angular/common';
