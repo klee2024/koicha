@@ -8,7 +8,7 @@ import { FeedComponent } from '../utility/feed/feed.component';
 @Component({
   selector: 'app-bookmark-shelf',
   standalone: true,
-  imports: [ProductCardComponent, CommonModule, FeedComponent],
+  imports: [CommonModule, FeedComponent],
   templateUrl: './bookmark-shelf.component.html',
   styleUrl: './bookmark-shelf.component.css',
 })
