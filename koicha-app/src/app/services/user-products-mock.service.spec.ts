@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BookmarksMockService } from './bookmarks-mock.service';
+import { UserProductsService } from './user-products-mock.service';
 
-describe('BookmarksMockService', () => {
-  let service: BookmarksMockService;
+describe('UserProductsService', () => {
+  let service: UserProductsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BookmarksMockService);
+    service = TestBed.inject(UserProductsService);
   });
 
   it('should be created', () => {
