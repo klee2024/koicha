@@ -28,4 +28,12 @@ export class ProductCardComponent {
     // call a service to add this to the customer's bookmarks
     console.log(`${id} added to saved products`);
   }
+
+  addToUserTastedCount(userId: string, productId: string) {
+    console.log('increment product count');
+  }
+
+  reviewProduct(userId: string, productId: string) {
+    console.log('user reviewed product');
+  }
 }

@@ -16,4 +16,13 @@
     >Find it here</a
   >
   <button class="bookmark" (click)="addToBookmarks(id)">Save For Later</button>
+  <button
+    class="productCompletedCount"
+    (click)="addToUserTastedCount('placeholder user', id)"
+  >
+    Tried it
+  </button>
+  <button class="userReview" (click)="reviewProduct('placeholder user', id)">
+    Review
+  </button>
 </div>
