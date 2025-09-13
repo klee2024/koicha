@@ -3,6 +3,7 @@ import { RecommendationFeedComponent } from './components/recommendation-feed/re
 import { BookmarkShelfComponent } from './components/bookmark-shelf/bookmark-shelf.component';
 import { TasteProfileComponent } from './components/taste-profile/taste-profile.component';
 import { ExploreComponent } from './components/explore/explore.component';
+import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 
 export const routes: Routes = [
   { path: 'recommended-for-you', component: RecommendationFeedComponent },
@@ -10,4 +11,5 @@ export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'explore' },
   { path: 'tea-shelf', component: BookmarkShelfComponent },
   { path: 'taste-profile', component: TasteProfileComponent },
+  { path: 'user-reviews', component: UserReviewsComponent },
 ];
