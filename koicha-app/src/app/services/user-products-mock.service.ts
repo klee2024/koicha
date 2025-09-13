@@ -4,6 +4,7 @@ import { Product } from '../models/product';
 import { MOCK_BOOKMARKS } from '../data/bookmarks.mock';
 import { UserReview } from '../models/review';
 import { MOCK_REVIEWS } from '../data/reviews.mock';
+import { UserReviewRequest } from '../models/review-request';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class UserProductsService {
   createUserProductReview(
     userId: string,
     productId: string,
-    payload: UserReview
+    payload: UserReviewRequest
   ) {
     return of({ success: true }).pipe(delay(500));
   }

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tag } from '../../../models/tag';
 import { Preparation } from '../../../models/preparation';
+import { UserProductsService } from '../../../services/user-products-mock.service';
 
 @Component({
   selector: 'app-product-card',
@@ -19,21 +20,38 @@ export class ProductCardComponent {
   @Input() tags!: Tag[];
   @Input() productUrl!: string;
 
-  trackById(index: number, item: { id: string }) {
-    return item.id;
-  }
+  constructor(private userProductService: UserProductsService) {}
 
-  // TODO: build this service out
   addToBookmarks(id: string) {
     // call a service to add this to the customer's bookmarks
-    console.log(`${id} added to saved products`);
+    this.userProductService
+      .createUserBookmark('placeholder user id', this.id)
+      .subscribe((data) => {
+        console.log(`${id} added to saved products`);
+      });
   }
 
   addToUserTastedCount(userId: string, productId: string) {
-    console.log('increment product count');
+    this.userProductService
+      .addToUserTasteCount('placeholder user id', this.id)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 
+  // TODO: replace with real values from inputs
   reviewProduct(userId: string, productId: string) {
-    console.log('user reviewed product');
+    this.userProductService
+      .createUserProductReview('placeholder user id', this.id, {
+        userId: 'placeholder',
+        productId: this.id,
+        userRanking: 0,
+        userReviewText: 'testing',
+      })
+      .subscribe((data) => console.log(data));
+  }
+
+  trackById(index: number, item: { id: string }) {
+    return item.id;
   }
 }
