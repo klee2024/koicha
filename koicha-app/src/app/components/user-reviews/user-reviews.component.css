@@ -1,0 +1,114 @@
+/* Notion‑like clean layout with mid‑century accents */
+
+:host {
+  --ink: #253238; /* deep ink */
+  --muted: #6b7280; /* neutral gray */
+  --border: #e6e6e6; /* soft border */
+  --card-bg: #fffdf8; /* warm off‑white */
+  --accent: #c06b3e; /* terracotta */
+  --accent-2: #2c6e6f; /* deep teal */
+}
+
+/* Optional header paragraph (demo text) */
+p {
+  margin: 12px auto 0;
+  max-width: 900px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.user-reviews {
+  max-width: 900px;
+  margin: 16px auto 40px;
+  padding: 0 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.product-review {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px 14px 18px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+    0 6px 16px rgba(0, 0, 0, 0.06);
+  transition: transform 120ms ease, box-shadow 160ms ease;
+  overflow: hidden;
+}
+
+.product-review::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  opacity: 0.95;
+}
+
+.product-review:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06),
+    0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Remove bullets and tighten spacing */
+.product-review-fields {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  row-gap: 6px;
+  color: var(--ink);
+}
+
+/* Product name */
+.product-review-fields li:first-child {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+}
+
+/* Brand label */
+.product-review-fields li:nth-child(2) {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+  margin-top: -2px;
+}
+
+/* Ranking pill */
+.product-review-fields li:nth-child(3) {
+  margin-top: 6px;
+  width: max-content;
+  background: rgba(192, 107, 62, 0.08); /* terracotta tint */
+  color: var(--accent);
+  border: 1px solid rgba(192, 107, 62, 0.25);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* Review text */
+.product-review-fields li:nth-child(4) {
+  line-height: 1.5;
+}
+
+/* Meta: count finished */
+.product-review-fields li:nth-child(5) {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Subtle divider between cards on small screens */
+@media (max-width: 640px) {
+  .product-review {
+    border-radius: 10px;
+    padding: 14px 14px 12px 14px;
+  }
+}

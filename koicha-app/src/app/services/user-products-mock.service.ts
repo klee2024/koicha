@@ -44,7 +44,7 @@ export class UserProductsService {
     return of({ success: true }).pipe(delay(500));
   }
 
-  getUserProductReview(userId: string, productId: string) {
+  getUserProductReviews(userId: string) {
     return of(MOCK_REVIEWS).pipe(delay(200));
   }
 
