@@ -43,14 +43,14 @@
 }
 
 /* Title + preparation */
-#product-name {
+.product-name {
   margin: 8px 16px 0;
   font-size: clamp(18px, 2.4vw, 22px);
   line-height: 1.2;
   font-weight: 800;
   color: var(--evergreen-ink);
 }
-#product-preparation {
+.product-preparation {
   margin: 0 16px;
   color: #5b5b5b;
   font-weight: 600;
@@ -134,7 +134,8 @@
   flex-wrap: wrap;
   gap: 8px;
 }
-.characteristic-tag {
+/* Style tag items directly for current markup */
+.product-tagSlugs-list li {
   display: inline-block;
   text-decoration: none;
   padding: 6px 10px;
@@ -147,7 +148,7 @@
   border: 1px solid rgba(31, 93, 69, 0.18);
   transition: transform 80ms ease, box-shadow 120ms ease, background 120ms ease;
 }
-.characteristic-tag:hover {
+.product-tagSlugs-list li:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 14px rgba(31, 93, 69, 0.18);
 }
@@ -175,7 +176,7 @@
   margin-top: 8px;
   appearance: none;
   background: var(--evergreen);
-  color: #0e3b2f;
+  color: #ffffff;
   border: none;
   padding: 10px 14px;
   border-radius: 12px;
@@ -192,13 +193,39 @@
   transform: translateY(1px);
 }
 
+/* Secondary CTAs (tasted + review) with mid‑century accents */
+.productCompletedCount,
+.userReview {
+  justify-self: start;
+  margin: 6px 16px 0;
+  appearance: none;
+  background: rgba(192, 107, 62, 0.08); /* terracotta tint */
+  color: var(--evergreen-ink);
+  border: 1px solid rgba(192, 107, 62, 0.25);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: background 120ms ease, transform 60ms ease, box-shadow 120ms ease;
+}
+.productCompletedCount:hover,
+.userReview:hover {
+  background: rgba(192, 107, 62, 0.12);
+  box-shadow: 0 4px 12px rgba(31, 93, 69, 0.15);
+}
+.productCompletedCount:active,
+.userReview:active {
+  transform: translateY(1px);
+}
+
 /* Spacing adjustments on small screens */
 @media (max-width: 420px) {
   .recommendation-percent {
     --size: 56px;
     --thickness: 9px;
   }
-  #product-name {
+  .product-name {
     font-size: 18px;
   }
 }
@@ -209,4 +236,133 @@ button:focus-visible {
   outline: 3px solid color-mix(in oklab, var(--evergreen) 65%, white);
   outline-offset: 2px;
   border-radius: 10px;
+}
+
+/* ==========================================================
+   New Mid‑Century Notion Theme (overrides previous styles)
+   ========================================================== */
+
+:host {
+  --mc-bg: #fffdf6; /* warm off‑white */
+  --mc-ink: #252b2e; /* deep neutral */
+  --mc-muted: #6b6f76; /* slate gray */
+  --mc-border: #e8e2d8; /* soft border */
+  --mc-accent: #c56a46; /* terracotta */
+  --mc-accent-2: #2e6f6b; /* teal */
+  --mc-accent-3: #d1b25e; /* mustard */
+  --mc-shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.08);
+}
+
+.product-card-main {
+  background: var(--mc-bg);
+  border: 1px solid var(--mc-border);
+  border-radius: 16px;
+  box-shadow: var(--mc-shadow);
+  overflow: hidden;
+  color: var(--mc-ink);
+  display: grid;
+  gap: 10px;
+  padding-bottom: 14px;
+  transition: transform 140ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+.product-card-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06), 0 16px 36px rgba(0,0,0,.10);
+  border-color: color-mix(in oklab, var(--mc-border) 70%, var(--mc-accent) 30%);
+}
+
+/* Image: soften and frame */
+#product-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid var(--mc-border);
+  filter: saturate(1.03) contrast(1.01);
+  background: #f3efe7;
+}
+
+/* Heading + meta */
+.product-name {
+  margin: 10px 16px 0;
+  font-weight: 800;
+  letter-spacing: .2px;
+  font-size: clamp(18px, 2.2vw, 22px);
+  color: var(--mc-ink);
+}
+.product-preparation {
+  margin: 2px 16px 0;
+  color: var(--mc-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: .06em;
+}
+
+/* Replace ring with a simple pill */
+.recommendation-percent::before,
+.recommendation-percent::after { content: none; display: none; }
+.recommendation-percent {
+  margin: 6px 16px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--mc-accent) 30%, white);
+  background: color-mix(in oklab, var(--mc-accent) 8%, white);
+  color: var(--mc-accent);
+  font-weight: 700;
+  font-size: .86rem;
+}
+.recommendation-percent::marker { content: none; }
+.recommendation-percent i {
+  width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+  background: linear-gradient(180deg, var(--mc-accent), var(--mc-accent-2));
+}
+
+/* Tags: mid‑century chips */
+.product-tagSlugs { margin: 2px 16px 0; }
+.product-tagSlugs-list {
+  list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px;
+}
+.product-tagSlugs-list li {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: var(--mc-ink);
+  background: linear-gradient(180deg, #fff 0%, #fff 60%, #faf4e4 100%);
+  border: 1px solid color-mix(in oklab, var(--mc-accent-3) 28%, white);
+  transition: transform 80ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+.product-tagSlugs-list li:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.12); }
+
+/* Link: subtle underline with arrow */
+.product-link { margin: 6px 16px 0; display: inline-flex; align-items: center; gap: 6px; font-weight: 800; color: var(--mc-accent-2); text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 2px; }
+.product-link::after { content: '↗'; font-size: .9em; }
+.product-link:hover { color: color-mix(in oklab, var(--mc-accent-2) 80%, black); }
+
+/* CTAs */
+.bookmark { justify-self: start; margin: 10px 16px 0; appearance: none; background: var(--mc-accent); color: #fff; border: none; padding: 10px 14px; border-radius: 12px; font-weight: 800; letter-spacing: .2px; cursor: pointer; box-shadow: 0 6px 16px rgba(197,106,70,.28); transition: filter 120ms ease, transform 60ms ease; }
+.bookmark:hover { filter: brightness(1.04); }
+.bookmark:active { transform: translateY(1px); }
+
+.productCompletedCount, .userReview {
+  justify-self: start; margin: 6px 16px 0; appearance: none;
+  background: color-mix(in oklab, var(--mc-accent) 10%, white);
+  color: var(--mc-ink);
+  border: 1px solid color-mix(in oklab, var(--mc-accent) 30%, white);
+  padding: 8px 12px; border-radius: 999px; font-weight: 700; letter-spacing: .2px;
+  cursor: pointer; transition: background 120ms ease, transform 60ms ease, box-shadow 120ms ease;
+}
+.productCompletedCount:hover, .userReview:hover { background: color-mix(in oklab, var(--mc-accent) 14%, white); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+.productCompletedCount:active, .userReview:active { transform: translateY(1px); }
+
+/* Responsive tweaks */
+@media (max-width: 420px) {
+  .product-name { font-size: 18px; }
+  .bookmark { padding: 9px 12px; border-radius: 10px; }
 }
