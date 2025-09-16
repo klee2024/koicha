@@ -1,11 +1,28 @@
 <div class="user-reviews">
+  <ng-container *ngIf="selectedProduct$ | async as selectedProduct">
+    <div class="selected-product-card">
+      <app-product-card
+        [id]="selectedProduct.id"
+        [name]="selectedProduct.name"
+        [preparation]="selectedProduct.preparation"
+        [matchPercentage]="selectedProduct.matchPercentage"
+        [tags]="selectedProduct.tags"
+        [imageUrl]="selectedProduct.imageUrl"
+        [productUrl]="selectedProduct.productUrl"
+        [exit]="true"
+        [productCardVisible]="true"
+        (closed)="clearSelection()"
+      ></app-product-card>
+    </div>
+  </ng-container>
   <div
     class="product-review"
     *ngFor="let review of userProductReviews; trackBy: trackById"
   >
     <ul class="product-review-fields" id="{{ review.productId }}">
-      <!-- TODO: selecting the product name or anywhere in the div should bring up the product card -->
-      <li>{{ review.productName }}</li>
+      <li (click)="showProductCard(review.productId)">
+        {{ review.productName }}
+      </li>
       <li>{{ review.productBrand }}</li>
       <li>Ranking: {{ review.userRanking }}</li>
       <li>{{ review.userReviewText }}</li>

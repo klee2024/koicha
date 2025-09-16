@@ -112,3 +112,25 @@ p {
     padding: 14px 14px 12px 14px;
   }
 }
+
+/* ==============================
+   Centered overlay for selection
+   ============================== */
+.selected-product-card {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: color-mix(in oklab, black 22%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+/* Constrain the embedded product card size via the host element */
+.selected-product-card app-product-card {
+  width: min(92vw, 460px);
+  max-height: 86vh;
+  overflow: auto;
+  border-radius: 16px; /* ensures rounded corners if child uses overflow */
+}

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tag } from '../../../models/tag';
 import { Preparation } from '../../../models/preparation';
@@ -19,6 +19,9 @@ export class ProductCardComponent {
   @Input() imageUrl!: string;
   @Input() tags!: Tag[];
   @Input() productUrl!: string;
+  @Input() exit: boolean = false;
+  @Input() productCardVisible: boolean = false;
+  @Output() closed = new EventEmitter<void>();
 
   constructor(private userProductService: UserProductsService) {}
 
@@ -53,5 +56,10 @@ export class ProductCardComponent {
 
   trackById(index: number, item: { id: string }) {
     return item.id;
+  }
+
+  closeProductCard() {
+    this.productCardVisible = false;
+    this.closed.emit();
   }
 }

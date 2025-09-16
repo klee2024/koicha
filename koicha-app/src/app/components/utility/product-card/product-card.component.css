@@ -23,11 +23,9 @@
   display: grid;
   gap: 12px;
   padding-bottom: 14px;
-  transition: transform 120ms ease, box-shadow 120ms ease,
-    border-color 120ms ease;
+  transition: box-shadow 120ms ease, border-color 120ms ease;
 }
 .product-card-main:hover {
-  transform: translateY(-1px);
   box-shadow: 0 10px 28px rgba(18, 56, 42, 0.16);
   border-color: rgba(18, 56, 42, 0.12);
 }
@@ -263,10 +261,10 @@ button:focus-visible {
   display: grid;
   gap: 10px;
   padding-bottom: 14px;
-  transition: transform 140ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  position: relative; /* anchor for exit button */
+  transition: box-shadow 160ms ease, border-color 160ms ease;
 }
 .product-card-main:hover {
-  transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(0,0,0,.06), 0 16px 36px rgba(0,0,0,.10);
   border-color: color-mix(in oklab, var(--mc-border) 70%, var(--mc-accent) 30%);
 }
@@ -280,6 +278,47 @@ button:focus-visible {
   border-bottom: 1px solid var(--mc-border);
   filter: saturate(1.03) contrast(1.01);
   background: #f3efe7;
+}
+
+/* Exit button overlay */
+.exit-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+#close-product-card {
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  background: color-mix(in oklab, var(--mc-accent) 92%, white 8%);
+  color: #fff;
+  border: 1px solid color-mix(in oklab, var(--mc-accent) 40%, white 60%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 80ms ease, filter 120ms ease, box-shadow 140ms ease;
+}
+
+#close-product-card:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+}
+
+#close-product-card:active {
+  transform: translateY(0);
+}
+
+#close-product-card:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--mc-accent) 55%, white);
+  outline-offset: 2px;
 }
 
 /* Heading + meta */

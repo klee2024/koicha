@@ -1,28 +1,35 @@
-<div class="product-card-main">
-  <img src="{{ imageUrl }}" id="product-image" />
-  <h2 class="product-name">{{ name }}</h2>
-  <p class="product-preparation" id="{{ preparation.id }}">
-    {{ preparation.name }}
-  </p>
-  <div class="recommendation-percent">{{ matchPercentage }}% match</div>
-  <div class="product-tagSlugs">
-    <ul class="product-tagSlugs-list">
-      <li *ngFor="let tag of tags; trackBy: trackById" id="{{ tag.id }}">
-        {{ tag.label }}
-      </li>
-    </ul>
+<div class="product-card-main" *ngIf="productCardVisible">
+  <div class="product-card-content">
+    <div class="exit-button" *ngIf="exit">
+      <button id="close-product-card" (click)="closeProductCard()">X</button>
+    </div>
+    <img src="{{ imageUrl }}" id="product-image" />
+    <h2 class="product-name">{{ name }}</h2>
+    <p class="product-preparation" id="{{ preparation.id }}">
+      {{ preparation.name }}
+    </p>
+    <div class="recommendation-percent">{{ matchPercentage }}% match</div>
+    <div class="product-tagSlugs">
+      <ul class="product-tagSlugs-list">
+        <li *ngFor="let tag of tags; trackBy: trackById" id="{{ tag.id }}">
+          {{ tag.label }}
+        </li>
+      </ul>
+    </div>
+    <a href="{{ productUrl }}" class="product-link" target="_blank"
+      >Find it here</a
+    >
+    <button class="bookmark" (click)="addToBookmarks(id)">
+      Save For Later
+    </button>
+    <button
+      class="productCompletedCount"
+      (click)="addToUserTastedCount('placeholder user', id)"
+    >
+      Tried it
+    </button>
+    <button class="userReview" (click)="reviewProduct('placeholder user', id)">
+      Review
+    </button>
   </div>
-  <a href="{{ productUrl }}" class="product-link" target="_blank"
-    >Find it here</a
-  >
-  <button class="bookmark" (click)="addToBookmarks(id)">Save For Later</button>
-  <button
-    class="productCompletedCount"
-    (click)="addToUserTastedCount('placeholder user', id)"
-  >
-    Tried it
-  </button>
-  <button class="userReview" (click)="reviewProduct('placeholder user', id)">
-    Review
-  </button>
 </div>
