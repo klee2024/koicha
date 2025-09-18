@@ -1,0 +1,20 @@
+<div class="first-time-quiz-main">
+  <h2>find your match(a)</h2>
+  <p>Start here to find your perfect match(a)</p>
+  <form #tasteProfileQuiz="ngForm" (ngSubmit)="onSubmit()">
+    <div *ngFor="let question of quizQuestions">
+      <div class="initial-prompt" *ngIf="question.initialPrompt">
+        {{ question.initialPrompt }}
+      </div>
+      <div *ngFor="let option of question.options">
+        <input
+          type="radio"
+          name="myRadioGroup"
+          [value]="option.value"
+          id="{{ option.value }}"
+        />
+        <label for="{{ option.value }}">{{ option.label }}</label>
+      </div>
+    </div>
+  </form>
+</div>
