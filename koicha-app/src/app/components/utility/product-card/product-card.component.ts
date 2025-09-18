@@ -12,6 +12,7 @@ import { UserProductsService } from '../../../services/user-products-mock.servic
   styleUrl: './product-card.component.css',
 })
 export class ProductCardComponent {
+  productCardVisible: boolean = true;
   @Input() id!: string;
   @Input() name!: string;
   @Input() preparation!: Preparation;
@@ -20,7 +21,6 @@ export class ProductCardComponent {
   @Input() tags!: Tag[];
   @Input() productUrl!: string;
   @Input() exit: boolean = false;
-  @Input() productCardVisible: boolean = false;
   @Output() closed = new EventEmitter<void>();
 
   constructor(private userProductService: UserProductsService) {}
