@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { QUIZ_QUESTIONS } from './quiz-questions';
+import { TasteProfileService } from '../../services/taste-profile.service';
 
 @Component({
   selector: 'app-first-time-quiz',
@@ -20,6 +21,8 @@ export class FirstTimeQuizComponent implements OnInit {
   quizForm!: FormGroup;
   quizQuestions = QUIZ_QUESTIONS;
 
+  constructor(private tasteProfileService: TasteProfileService) {}
+
   ngOnInit() {
     const formControls: { [key: string]: FormControl } = {};
     this.quizQuestions.forEach((q) => {
@@ -30,5 +33,11 @@ export class FirstTimeQuizComponent implements OnInit {
 
   onSubmit() {
     console.log(this.quizForm.value);
+
+    this.tasteProfileService
+      .postFirstTimeQuizResults('placeholder_user', this.quizForm.value)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 }

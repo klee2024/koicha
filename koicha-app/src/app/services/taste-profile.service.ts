@@ -12,4 +12,8 @@ export class TasteProfileService {
   getTasteProfileByUserId(userId: string): Observable<TasteProfile> {
     return of(MOCK_TASTE_PROFILE).pipe(delay(200));
   }
+
+  postFirstTimeQuizResults(userId: string, quizResults: string[]) {
+    return of({ success: true }).pipe(delay(100));
+  }
 }
