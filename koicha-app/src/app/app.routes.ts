@@ -4,6 +4,7 @@ import { BookmarkShelfComponent } from './components/bookmark-shelf/bookmark-she
 import { TasteProfileComponent } from './components/taste-profile/taste-profile.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
+import { FirstTimeQuizComponent } from './components/first-time-quiz/first-time-quiz.component';
 
 export const routes: Routes = [
   { path: 'recommended-for-you', component: RecommendationFeedComponent },
@@ -12,4 +13,5 @@ export const routes: Routes = [
   { path: 'tea-shelf', component: BookmarkShelfComponent },
   { path: 'taste-profile', component: TasteProfileComponent },
   { path: 'user-reviews', component: UserReviewsComponent },
+  { path: 'taste-profile-quiz', component: FirstTimeQuizComponent },
 ];
