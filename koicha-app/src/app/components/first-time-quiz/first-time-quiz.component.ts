@@ -7,8 +7,8 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { QUIZ_QUESTIONS } from './quiz-questions';
 import { TasteProfileService } from '../../services/taste-profile.service';
+import { QuizQuestion } from '../../models/quizQuestion';
 
 @Component({
   selector: 'app-first-time-quiz',
@@ -19,16 +19,28 @@ import { TasteProfileService } from '../../services/taste-profile.service';
 })
 export class FirstTimeQuizComponent implements OnInit {
   quizForm!: FormGroup;
-  quizQuestions = QUIZ_QUESTIONS;
+  quizQuestions: QuizQuestion[] = [];
 
   constructor(private tasteProfileService: TasteProfileService) {}
 
   ngOnInit() {
-    const formControls: { [key: string]: FormControl } = {};
-    this.quizQuestions.forEach((q) => {
-      formControls[q.id] = new FormControl('', Validators.required);
+    // get the quiz questions
+    this.tasteProfileService.getQuizQuestions().subscribe({
+      next: (data) => {
+        this.quizQuestions = data;
+        console.log(this.quizQuestions);
+      },
+      error: (err) => {
+        console.error('Error fetching quiz questions:', err);
+      },
+      complete: () => {
+        const formControls: { [key: string]: FormControl } = {};
+        this.quizQuestions.forEach((q) => {
+          formControls[q.id] = new FormControl('', Validators.required);
+        });
+        this.quizForm = new FormGroup(formControls);
+      },
     });
-    this.quizForm = new FormGroup(formControls);
   }
 
   onSubmit() {
