@@ -21,6 +21,7 @@ export class ProductCardComponent {
   @Input() tags!: Tag[];
   @Input() productUrl!: string;
   @Input() exit: boolean = false;
+  @Input() variant: 'default' | 'tile' = 'default';
   @Output() closed = new EventEmitter<void>();
 
   constructor(private userProductService: UserProductsService) {}

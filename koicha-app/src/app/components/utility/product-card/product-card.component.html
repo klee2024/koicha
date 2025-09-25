@@ -1,35 +1,76 @@
-<div class="product-card-main" *ngIf="productCardVisible">
-  <div class="product-card-content">
-    <div class="exit-button" *ngIf="exit">
-      <button id="close-product-card" (click)="closeProductCard()">X</button>
+<ng-container *ngIf="productCardVisible">
+  <ng-container [ngSwitch]="variant">
+    <article *ngSwitchCase="'tile'" class="product-card-tile">
+      <ng-container *ngIf="productUrl; else staticTile">
+        <a
+          class="tile-surface"
+          [href]="productUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="tile-match" *ngIf="matchPercentage !== undefined"
+            >{{ matchPercentage }}% match</span
+          >
+          <span class="tile-name">{{ name }}</span>
+          <span class="tile-subtitle" *ngIf="preparation?.name"
+            >{{ preparation?.name }}</span
+          >
+        </a>
+      </ng-container>
+      <ng-template #staticTile>
+        <div class="tile-surface" role="group" [attr.aria-label]="name">
+          <span class="tile-match" *ngIf="matchPercentage !== undefined"
+            >{{ matchPercentage }}% match</span
+          >
+          <span class="tile-name">{{ name }}</span>
+          <span class="tile-subtitle" *ngIf="preparation?.name"
+            >{{ preparation?.name }}</span
+          >
+        </div>
+      </ng-template>
+    </article>
+
+    <div *ngSwitchDefault class="product-card-main">
+      <div class="product-card-content">
+        <div class="exit-button" *ngIf="exit">
+          <button id="close-product-card" (click)="closeProductCard()">X</button>
+        </div>
+        <img [src]="imageUrl" id="product-image" />
+        <h2 class="product-name">{{ name }}</h2>
+        <p class="product-preparation" [id]="preparation.id">
+          {{ preparation.name }}
+        </p>
+        <div class="recommendation-percent">{{ matchPercentage }}% match</div>
+        <div class="product-tagSlugs">
+          <ul class="product-tagSlugs-list">
+            <li *ngFor="let tag of tags; trackBy: trackById" [id]="tag.id">
+              {{ tag.label }}
+            </li>
+          </ul>
+        </div>
+        <a
+          [href]="productUrl"
+          class="product-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Find it here</a
+        >
+        <button class="bookmark" (click)="addToBookmarks(id)">
+          Save For Later
+        </button>
+        <button
+          class="productCompletedCount"
+          (click)="addToUserTastedCount('placeholder user', id)"
+        >
+          Tried it
+        </button>
+        <button
+          class="userReview"
+          (click)="reviewProduct('placeholder user', id)"
+        >
+          Review
+        </button>
+      </div>
     </div>
-    <img src="{{ imageUrl }}" id="product-image" />
-    <h2 class="product-name">{{ name }}</h2>
-    <p class="product-preparation" id="{{ preparation.id }}">
-      {{ preparation.name }}
-    </p>
-    <div class="recommendation-percent">{{ matchPercentage }}% match</div>
-    <div class="product-tagSlugs">
-      <ul class="product-tagSlugs-list">
-        <li *ngFor="let tag of tags; trackBy: trackById" id="{{ tag.id }}">
-          {{ tag.label }}
-        </li>
-      </ul>
-    </div>
-    <a href="{{ productUrl }}" class="product-link" target="_blank"
-      >Find it here</a
-    >
-    <button class="bookmark" (click)="addToBookmarks(id)">
-      Save For Later
-    </button>
-    <button
-      class="productCompletedCount"
-      (click)="addToUserTastedCount('placeholder user', id)"
-    >
-      Tried it
-    </button>
-    <button class="userReview" (click)="reviewProduct('placeholder user', id)">
-      Review
-    </button>
-  </div>
-</div>
+  </ng-container>
+</ng-container>

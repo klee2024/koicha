@@ -1,35 +1,62 @@
-<section>
-  <div class="header">
-    <h2>recommended for you</h2>
-  </div>
+<section class="recommendation-feed">
+  <header class="page-header">
+    <div class="brand-lockup">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <h1>Koicha</h1>
+    </div>
+
+    <div class="nav-cluster">
+      <nav class="primary-nav" aria-label="Primary">
+        <span class="nav-link">explore</span>
+        <span class="nav-link">tea shelf</span>
+        <span class="nav-link">taste profile</span>
+      </nav>
+      <span class="nav-note">recommended for you</span>
+    </div>
+  </header>
 
   <div class="filters">
-    <div id="tags">
-      <h3>tags</h3>
-      <ul id="tags-list" *ngFor="let tag of allTags; trackBy: trackById">
-        <li [id]="tag.id" (click)="toggleTag(tag.slug)">{{ tag.label }}</li>
+    <div class="filter-row">
+      <span class="filter-label">flavor profiles</span>
+      <ul class="filter-list" aria-label="Flavor profile tags">
+        <li
+          *ngFor="let tag of allTags; trackBy: trackById"
+          [id]="tag.id"
+          (click)="toggleTag(tag.slug)"
+          [class.is-active]="activeTagSlugs.includes(tag.slug)"
+        >
+          {{ tag.label }}
+        </li>
       </ul>
     </div>
-    <div id="preps">
-      <h3>preparations</h3>
-      <ul id="preps-list" *ngFor="let prep of allPreps; trackBy: trackById">
-        <li [id]="prep.id" (click)="setPreparation(prep.slug)">
+    <div class="filter-row">
+      <span class="filter-label">preparations</span>
+      <ul class="filter-list" aria-label="Preparations">
+        <li
+          *ngFor="let prep of allPreps; trackBy: trackById"
+          [id]="prep.id"
+          (click)="setPreparation(prep.slug)"
+          [class.is-active]="activePrepSlug === prep.slug"
+        >
           {{ prep.name }}
         </li>
       </ul>
     </div>
-    <button id="clear-filters" (click)="clearFilters()">Clear Tags</button>
+    <button type="button" class="clear-filters" (click)="clearFilters()">
+      clear filters
+    </button>
   </div>
 
   <div class="feed">
-    <div *ngIf="loading">Loading...</div>
+    <div class="status" *ngIf="loading">Loading matches...</div>
 
-    <div *ngIf="filteredProducts.length == 0">
+    <div class="status" *ngIf="!loading && filteredProducts.length === 0">
       No products found. You have unique taste!
     </div>
 
-    <div *ngFor="let item of filteredProducts; trackBy: trackById">
+    <div class="product-grid" *ngIf="!loading && filteredProducts.length">
       <app-product-card
+        *ngFor="let item of filteredProducts; trackBy: trackById"
         [id]="item.id"
         [name]="item.name"
         [preparation]="item.preparation"
@@ -37,8 +64,8 @@
         [tags]="item.tags"
         [imageUrl]="item.imageUrl"
         [productUrl]="item.productUrl"
-      >
-      </app-product-card>
+        variant="tile"
+      ></app-product-card>
     </div>
   </div>
 </section>
