@@ -14,3 +14,12 @@
     Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
+
+@layer components {
+  .semibold-underline-rust-700 {
+    @apply font-semibold underline decoration-rust-700 decoration-2 underline-offset-4;
+  }
+  .semibold-underline-green-700 {
+    @apply font-semibold underline decoration-green-700 decoration-2 underline-offset-4;
+  }
+}
