@@ -13,13 +13,20 @@
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Inter", "SF Pro Text",
     Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius-banner-bottom: 10px;
+}
+
+.banner-radius-bottom {
+  /* reuse for callouts that need only the lower edge rounded */
+  border-bottom-left-radius: var(--radius-banner-bottom);
+  border-bottom-right-radius: var(--radius-banner-bottom);
 }
 
 @layer components {
-  .semibold-underline-rust-700 {
+  .selected-item-rust-700 {
     @apply font-semibold underline decoration-rust-700 decoration-2 underline-offset-4;
   }
-  .semibold-underline-green-700 {
+  .semibold-item-green-700 {
     @apply font-semibold underline decoration-green-700 decoration-2 underline-offset-4;
   }
 }

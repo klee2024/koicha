@@ -1,0 +1,10 @@
+<div
+  *ngIf="dropdownPopupVisible"
+  [ngClass]="{
+    'bg-green-500 text-white shadow-md': messageType === 'info',
+    'bg-rust-500 text-white shadow-md': messageType === 'error'
+  }"
+  class="banner-radius-bottom mx-auto flex w-fit items-center justify-center px-6 py-3 font-mono font-normal tracking-wide text-center"
+>
+  <p class="text-white whitespace-nowrap">{{ message }}</p>
+</div>

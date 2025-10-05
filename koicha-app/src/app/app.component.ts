@@ -3,10 +3,10 @@ import { RouterOutlet } from '@angular/router';
 import { ProductCardComponent } from './components/utility/product-card/product-card.component';
 import { RecommendationFeedComponent } from './components/recommendation-feed/recommendation-feed.component';
 import { NavbarComponent } from './components/utility/navbar/navbar.component';
-
+import { DropdownPopupComponent } from './components/utility/dropdown-popup/dropdown-popup.component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, DropdownPopupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
