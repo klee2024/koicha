@@ -1,50 +1,31 @@
-<nav class="nav">
-  <a
-    routerLink="/explore"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    aria-current="page"
-  >
-    explore
-  </a>
-  <a
-    routerLink="/recommended-for-you"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    aria-current="page"
-  >
-    recommended for you
-  </a>
-  <a
-    routerLink="/tea-shelf"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    aria-current="page"
-  >
-    tea shelf
-  </a>
-  <a
-    routerLink="/taste-profile"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    aria-current="page"
-  >
-    taste profile
-  </a>
-  <a
-    routerLink="/user-reviews"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    aria-current="page"
-  >
-    your reviews
-  </a>
-  <a
-    routerLink="/taste-profile-quiz"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    aria-current="page"
-  >
-    find your match(a)
-  </a>
-</nav>
+<div
+  class="navbar pt-16 pb-16 px-4 font-mono flex items-center justify-between gap-6"
+>
+  <div class="koicha-logo" aria-label="Koicha logo">Koicha</div>
+
+  <nav class="flex items-center gap-6 text-[24px]">
+    <a
+      routerLink="/explore"
+      routerLinkActive="selected-item-rust-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      aria-current="page"
+      >explore</a
+    >
+
+    <a
+      routerLink="/tea-shelf"
+      routerLinkActive="selected-item-rust-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      aria-current="page"
+      >tea shelf</a
+    >
+
+    <a
+      routerLink="/taste-profile"
+      routerLinkActive="selected-item-rust-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      aria-current="page"
+      >taste profile</a
+    >
+  </nav>
+</div>

@@ -12,20 +12,13 @@ module.exports = {
           700: "var(--koicha-rust-700)",
         },
       },
-      fontFamily: {},
+      fontFamily: {
+        fontFamily: {
+          sans: ["var(--font-sans)"],
+          mono: ["var(--font-mono)"],
+        },
+      },
     },
   },
-  plugins: [
-    function ({ addComponents, theme }) {
-      addComponents({
-        ".bold-underline": {
-          fontWeight: theme("fontWeight.semibold"),
-          textDecorationLine: "underline",
-          textDecorationColor: theme("colors.rust.500"),
-          textDecorationThickness: "2px",
-          textUnderlineOffset: "4px",
-        },
-      });
-    },
-  ],
+  plugins: [],
 };

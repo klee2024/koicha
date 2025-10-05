@@ -13,20 +13,54 @@
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Inter", "SF Pro Text",
     Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  --radius-banner-bottom: 10px;
-}
-
-.banner-radius-bottom {
-  /* reuse for callouts that need only the lower edge rounded */
-  border-bottom-left-radius: var(--radius-banner-bottom);
-  border-bottom-right-radius: var(--radius-banner-bottom);
 }
 
 @layer components {
   .selected-item-rust-700 {
     @apply font-semibold underline decoration-rust-700 decoration-2 underline-offset-4;
   }
-  .semibold-item-green-700 {
+  .selected-item-green-700 {
     @apply font-semibold underline decoration-green-700 decoration-2 underline-offset-4;
+  }
+
+  .koicha-logo {
+    /* Design tokens */
+    --circle-size: 160px;
+    --circle-color: #63a179;
+    --font-size: 48px;
+
+    @apply relative inline-block font-mono leading-none select-none;
+    font-size: var(--font-size);
+    color: #000;
+
+    /* horizontal positioning so the K center aligns with circle center */
+    padding-left: calc(var(--circle-size) / 2 - 0.5ch);
+
+    /* 👇 NEW: vertical padding makes div height include circle */
+    padding-top: calc((var(--circle-size) - var(--font-size)) / 2);
+    padding-bottom: calc((var(--circle-size) - var(--font-size)) / 2);
+  }
+
+  .koicha-logo::before {
+    content: "";
+    @apply absolute rounded-full;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    background: var(--circle-color);
+
+    /* Circle fully inside the element; center is at half the circle size */
+    top: 50%;
+    left: calc(var(--circle-size) / 2);
+    transform: translate(-50%, -50%);
+    z-index: -1; /* behind the text */
+  }
+
+  /* Optional: scale down on very small screens to avoid tall headers */
+  @media (max-width: 480px) {
+    .koicha-logo {
+      --circle-size: 120px;
+      --font-size: 36px;
+      /* re-computed automatically by the calc() above */
+    }
   }
 }
