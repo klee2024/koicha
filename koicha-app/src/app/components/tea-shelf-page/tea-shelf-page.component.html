@@ -1,1 +1,20 @@
-<p>tea-shelf-page works!</p>
+<div class="tea-shelf-wrapper flex flex-col gap-6">
+  <div class="tea-shelf-routes font-mono lowercase flex gap-6">
+    <a
+      routerLink="bookmarks"
+      routerLinkActive="selected-item-rust-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      aria-current="page"
+      >want to try</a
+    >
+    <a
+      routerLink="reviews"
+      routerLinkActive="selected-item-rust-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      aria-current="page"
+      >reviewed</a
+    >
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
