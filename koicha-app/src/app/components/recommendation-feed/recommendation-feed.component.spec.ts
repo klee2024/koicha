@@ -8,9 +8,8 @@ describe('RecommendationFeedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RecommendationFeedComponent]
-    })
-    .compileComponents();
+      imports: [RecommendationFeedComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RecommendationFeedComponent);
     component = fixture.componentInstance;

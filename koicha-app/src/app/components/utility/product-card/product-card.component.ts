@@ -15,13 +15,13 @@ export class ProductCardComponent {
   productCardVisible: boolean = true;
   @Input() id!: string;
   @Input() name!: string;
+  @Input() brand!: string;
   @Input() preparation!: Preparation;
   @Input() matchPercentage!: number;
   @Input() imageUrl!: string;
   @Input() tags!: Tag[];
   @Input() productUrl!: string;
   @Input() exit: boolean = false;
-  @Input() variant: 'default' | 'tile' = 'default';
   @Output() closed = new EventEmitter<void>();
 
   constructor(private userProductService: UserProductsService) {}

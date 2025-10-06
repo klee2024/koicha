@@ -4,6 +4,7 @@ export const MOCK_PRODUCTS: Product[] = [
   {
     id: '1',
     name: 'Kiyona Matcha',
+    brand: 'Kettl',
     preparation: { id: 'prep1', name: 'Usucha', slug: 'usucha' },
     matchPercentage: 87,
     tags: [
@@ -19,6 +20,7 @@ export const MOCK_PRODUCTS: Product[] = [
   {
     id: '2',
     name: 'Kohata Matcha',
+    brand: 'Kettl',
     preparation: { id: 'prep2', slug: 'koicha', name: 'Koicha' },
     matchPercentage: 82,
     tags: [
@@ -34,6 +36,7 @@ export const MOCK_PRODUCTS: Product[] = [
   {
     id: '3',
     name: 'Yamagumo Matcha',
+    brand: 'Kettl',
     preparation: { id: 'prep1', slug: 'koicha', name: 'Usucha' },
     matchPercentage: 82,
     tags: [
