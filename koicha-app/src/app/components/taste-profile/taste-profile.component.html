@@ -1,6 +1,16 @@
-<div class="taste-profile">
-  <h2>taste profile</h2>
-  <section class="taste-chart">
+<div
+  class="taste-profile grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(28rem,36rem)] xl:items-start"
+>
+  <div class="taste-preference-text flex flex-col gap-y-6 xl:gap-y-8">
+    <div class="taste-preference-header flex flex-row gap-6 font-mono text-4xl">
+      <h2 class="taste-preference-heading">Purist</h2>
+      <span class="taste-preference-match text-gray-400">64%</span>
+    </div>
+    <div class="taste-preference-description font-sans text-xl">
+      <p>You are a purist.... you like umami teas....</p>
+    </div>
+  </div>
+  <div class="taste-chart-wrapper w-full xl:justify-self-end">
     <app-taste-chart></app-taste-chart>
-  </section>
+  </div>
 </div>
