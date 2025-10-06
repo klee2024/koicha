@@ -10,11 +10,12 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 import { Preparation } from '../../models/preparation';
 import { Tag } from '../../models/tag';
+import { FeedComponent } from '../utility/feed/feed.component';
 
 @Component({
   selector: 'app-recommendation-feed',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent],
+  imports: [CommonModule, ProductCardComponent, FeedComponent],
   templateUrl: './recommendation-feed.component.html',
   styleUrl: './recommendation-feed.component.css',
 })
