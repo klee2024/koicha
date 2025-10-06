@@ -1,42 +1,34 @@
 <section class="recommendation-feed">
-  <header class="page-header">
-    <div class="brand-lockup">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <h1>Koicha</h1>
-    </div>
-
-    <div class="nav-cluster">
-      <nav class="primary-nav" aria-label="Primary">
-        <span class="nav-link">explore</span>
-        <span class="nav-link">tea shelf</span>
-        <span class="nav-link">taste profile</span>
-      </nav>
-      <span class="nav-note">recommended for you</span>
-    </div>
-  </header>
-
   <div class="filters">
-    <div class="filter-row">
-      <span class="filter-label">flavor profiles</span>
-      <ul class="filter-list" aria-label="Flavor profile tags">
+    <div class="filter-row flex flex-wrap items-center gap-7">
+      <span class="font-mono text-xl shrink-0">flavor profiles</span>
+      <ul
+        class="filter-list flex flex-wrap items-center gap-4"
+        aria-label="Flavor profile tags"
+      >
         <li
           *ngFor="let tag of allTags; trackBy: trackById"
           [id]="tag.id"
           (click)="toggleTag(tag.slug)"
-          [class.is-active]="activeTagSlugs.includes(tag.slug)"
+          [class.is-active-green-700]="activeTagSlugs.includes(tag.slug)"
+          class="text-xl font-sans"
         >
           {{ tag.label }}
         </li>
       </ul>
     </div>
-    <div class="filter-row">
-      <span class="filter-label">preparations</span>
-      <ul class="filter-list" aria-label="Preparations">
+    <div class="filter-row flex flex-wrap items-center gap-16 pt-2">
+      <span class="font-mono text-xl">preparations</span>
+      <ul
+        class="filter-list flex flex-wrap items-center gap-4"
+        aria-label="Preparations"
+      >
         <li
           *ngFor="let prep of allPreps; trackBy: trackById"
           [id]="prep.id"
           (click)="setPreparation(prep.slug)"
-          [class.is-active]="activePrepSlug === prep.slug"
+          [class.is-active-green-700]="activePrepSlug === prep.slug"
+          class="text-xl font-sans"
         >
           {{ prep.name }}
         </li>

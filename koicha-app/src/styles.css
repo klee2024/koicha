@@ -19,7 +19,7 @@
   .selected-item-rust-700 {
     @apply font-semibold underline decoration-rust-700 decoration-2 underline-offset-4;
   }
-  .selected-item-green-700 {
+  .is-active-green-700 {
     @apply font-semibold underline decoration-green-700 decoration-2 underline-offset-4;
   }
 
