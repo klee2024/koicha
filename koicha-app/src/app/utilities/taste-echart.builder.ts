@@ -5,6 +5,7 @@ export type TasteRadarArgs = {
   values: number[];
   color?: string;
   rings?: number;
+  radius?: string | number;
 };
 
 export function buildTasteRadarOptions({
@@ -12,10 +13,13 @@ export function buildTasteRadarOptions({
   values,
   color = '#40826D',
   rings = 5,
+  radius = '78%',
 }: TasteRadarArgs): EChartsOption {
   return {
     tooltip: { trigger: 'item' },
     radar: {
+      radius,
+      center: ['50%', '50%'],
       shape: 'polygon',
       splitNumber: rings,
       axisName: { color: '#333' },
