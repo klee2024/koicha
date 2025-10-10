@@ -1,6 +1,6 @@
 <section class="recommendation-feed">
   <div class="filters">
-    <div class="filter-row flex flex-wrap items-center gap-7">
+    <div class="filter-row flex flex-wrap items-center gap-10">
       <span class="font-mono text-xl shrink-0">flavor profiles</span>
       <ul
         class="filter-list flex flex-wrap items-center gap-4"
@@ -17,7 +17,7 @@
         </li>
       </ul>
     </div>
-    <div class="filter-row flex flex-wrap items-center gap-16 pt-2">
+    <div class="filter-row flex flex-wrap items-center gap-16">
       <span class="font-mono text-xl">preparations</span>
       <ul
         class="filter-list flex flex-wrap items-center gap-4"
@@ -28,7 +28,7 @@
           [id]="prep.id"
           (click)="setPreparation(prep.slug)"
           [class.is-active-green-700]="activePrepSlug === prep.slug"
-          class="text-xl font-sans lowercase"
+          class="text-xl font-sans"
         >
           {{ prep.name }}
         </li>
@@ -47,7 +47,17 @@
     </div>
 
     <div class="product-grid" *ngIf="!loading && filteredProducts.length">
-      <app-feed [products]="filteredProducts"></app-feed>
+      <app-product-card
+        *ngFor="let item of filteredProducts; trackBy: trackById"
+        [id]="item.id"
+        [name]="item.name"
+        [preparation]="item.preparation"
+        [matchPercentage]="item.matchPercentage"
+        [tags]="item.tags"
+        [imageUrl]="item.imageUrl"
+        [productUrl]="item.productUrl"
+        variant="recommendation"
+      ></app-product-card>
     </div>
   </div>
 </section>
