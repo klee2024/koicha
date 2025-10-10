@@ -17,11 +17,18 @@ export class ProductCardComponent {
   @Input() name!: string;
   @Input() brand!: string;
   @Input() preparation!: Preparation;
-  @Input() matchPercentage!: number;
+  @Input() matchPercentage?: number;
   @Input() imageUrl!: string;
   @Input() tags!: Tag[];
   @Input() productUrl!: string;
   @Input() exit: boolean = false;
+  @Input() ranking?: number;
+
+  @Input() variant: 'recommendation' | 'rating' | 'review' = 'recommendation';
+  @Input() userScore?: number | null;
+  @Input() reviewText?: string | null;
+  @Input() containersFinished?: number | null;
+
   @Output() closed = new EventEmitter<void>();
 
   constructor(private userProductService: UserProductsService) {}
@@ -62,5 +69,9 @@ export class ProductCardComponent {
   closeProductCard() {
     this.productCardVisible = false;
     this.closed.emit();
+  }
+
+  get hasUserScore(): boolean {
+    return this.userScore !== null && this.userScore !== undefined;
   }
 }
