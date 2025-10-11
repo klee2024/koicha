@@ -30,3 +30,5 @@ export class BookmarkShelfComponent implements OnInit {
     return item.id;
   }
 }
+
+// TODO: rename component so it's clear that this is bookmarks

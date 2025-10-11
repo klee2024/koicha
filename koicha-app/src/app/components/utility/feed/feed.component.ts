@@ -4,6 +4,7 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Product } from '../../../models/product';
 import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { UserReview } from '../../../models/review';
 @Component({
   selector: 'app-feed',
   imports: [ProductCardComponent, CommonModule],

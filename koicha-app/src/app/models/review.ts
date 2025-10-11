@@ -10,7 +10,9 @@ export interface UserReview {
   productName: string;
   productBrand: string;
   userRanking: number;
+  userRating: number;
   userReviewText: string;
   productUrl: string;
   countOfProductFinished: number;
+  productImageUrl: string;
 }
