@@ -1,0 +1,18 @@
+<section class="feed p-4">
+  <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-3 xl:gap-14">
+    <app-review-card
+      *ngFor="let item of reviews; trackBy: trackById"
+      class="h-full"
+      [id]="item.id"
+      [preparation]="item.preparation"
+      [tags]="item.tags"
+      [productId]="item.productId"
+      [productName]="item.productName"
+      [productBrand]="item.brand"
+      [ranking]="item.userRanking"
+      [productUrl]="item.productUrl"
+      [countOfProductFinished]="item.countOfProductFinished"
+      [review]="item.UserReviewText"
+    ></app-review-card>
+  </div>
+</section>
