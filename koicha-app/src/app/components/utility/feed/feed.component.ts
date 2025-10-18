@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Product } from '../../../models/product';
 import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';

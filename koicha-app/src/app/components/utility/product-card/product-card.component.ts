@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Tag } from '../../../models/tag';
 import { Preparation } from '../../../models/preparation';
 import { UserProductsService } from '../../../services/user-products-mock.service';
+import { ProductCardContentComponent } from '../product-card-content/product-card-content.component';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductCardContentComponent],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css',
 })
@@ -71,7 +72,7 @@ export class ProductCardComponent {
     this.closed.emit();
   }
 
-  get hasUserScore(): boolean {
-    return this.userScore !== null && this.userScore !== undefined;
+  showProductReview() {
+    console.log('open product review');
   }
 }
