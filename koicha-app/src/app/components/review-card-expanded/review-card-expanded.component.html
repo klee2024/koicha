@@ -1,0 +1,17 @@
+<p>review-card-expanded works!</p>
+<div class="card-formatting">
+  <app-product-card-content
+    [name]="name"
+    [productUrl]="productUrl"
+    [brand]="brand"
+    [preparation]="preparation"
+    [tags]="tags"
+    [userRating]="userRating"
+    [matchPercentage]="matchPercentage"
+    [variant]="'review'"
+  ></app-product-card-content>
+  <div class="review">
+    <div class="review-heading font-medium">Review:</div>
+    <div class="review-content">{{ review }}</div>
+  </div>
+</div>
