@@ -13,7 +13,6 @@ import { ProductCardContentComponent } from '../product-card-content/product-car
   styleUrl: './product-card.component.css',
 })
 export class ProductCardComponent {
-  productCardVisible: boolean = true;
   @Input() id!: string;
   @Input() name!: string;
   @Input() brand!: string;
@@ -68,8 +67,7 @@ export class ProductCardComponent {
   }
 
   closeProductCard() {
-    this.productCardVisible = false;
-    this.closed.emit();
+\    this.closed.emit();
   }
 
   showProductReview() {
