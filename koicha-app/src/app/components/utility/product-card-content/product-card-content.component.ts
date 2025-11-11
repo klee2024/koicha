@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Preparation } from '../../../models/preparation';
 import { Tag } from '../../../models/tag';
 import { CommonModule } from '@angular/common';
+import { ProductCardData } from '../product-card/productCardData';
 
 @Component({
   selector: 'app-product-card-content',
@@ -10,16 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-card-content.component.css',
 })
 export class ProductCardContentComponent {
-  @Input() id!: string;
-  @Input() name!: string;
-  @Input() brand!: string;
-  @Input() preparation!: Preparation;
-  @Input() matchPercentage!: number;
-  @Input() tags!: Tag[];
-  @Input() productUrl!: string;
-  @Input() variant: 'recommendation' | 'review' = 'recommendation';
-  @Input() userRating!: number;
-  @Input() userRanking!: number;
+  @Input() productCardData!: ProductCardData;
   @Output() closed = new EventEmitter<void>();
 
   trackById(index: number, item: { id: string }) {

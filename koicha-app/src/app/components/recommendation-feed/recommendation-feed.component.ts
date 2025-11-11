@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { Preparation } from '../../models/preparation';
 import { Tag } from '../../models/tag';
 import { FeedComponent } from '../utility/feed/feed.component';
+import { ProductCardData } from '../utility/product-card/productCardData';
 
 @Component({
   selector: 'app-recommendation-feed',
@@ -21,7 +22,7 @@ import { FeedComponent } from '../utility/feed/feed.component';
 })
 export class RecommendationFeedComponent implements OnInit {
   allProducts: Product[] = [];
-  filteredProducts: Product[] = [];
+  filteredProducts: ProductCardData[] = [];
   activeTagSlugs: string[] = [];
   activePrepSlug?: string = undefined;
   allTags: Tag[] = [];
@@ -76,7 +77,17 @@ export class RecommendationFeedComponent implements OnInit {
       );
     }
     console.log(products);
-    this.filteredProducts = products;
+    this.filteredProducts = products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      brand: product.brand,
+      imageUrl: product.imageUrl,
+      productUrl: product.productUrl,
+      preparation: product.preparation,
+      tags: product.tags,
+      matchPercentage: product.matchPercentage ?? 0,
+      variant: 'recommendation',
+    }));
   }
 
   private applyFiltersFromParams(queryParamMap: ParamMap) {

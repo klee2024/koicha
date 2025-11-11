@@ -2,11 +2,10 @@ import { Component, Input } from '@angular/core';
 import { UserReview } from '../../../models/review';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { CommonModule } from '@angular/common';
-import { ReviewCardExpandedComponent } from '../../review-card-expanded/review-card-expanded.component';
 
 @Component({
   selector: 'app-review-feed',
-  imports: [ProductCardComponent, CommonModule, ReviewCardExpandedComponent],
+  imports: [ProductCardComponent, CommonModule],
   standalone: true,
   templateUrl: './review-feed.component.html',
   styleUrl: './review-feed.component.css',

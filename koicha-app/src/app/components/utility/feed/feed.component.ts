@@ -5,6 +5,7 @@ import { Product } from '../../../models/product';
 import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { UserReview } from '../../../models/review';
+import { ProductCardData } from '../product-card/productCardData';
 @Component({
   selector: 'app-feed',
   imports: [ProductCardComponent, CommonModule],
@@ -13,7 +14,7 @@ import { UserReview } from '../../../models/review';
   styleUrl: './feed.component.css',
 })
 export class FeedComponent {
-  @Input() products!: Product[];
+  @Input() products!: ProductCardData[];
 
   trackById(index: number, item: { id: number | string }) {
     return item.id;

@@ -1,38 +1,43 @@
 <div class="product-card-content bg-white/80 px-5 pb-5 pt-4 backdrop-blur">
   <div class="flex items-center justify-between">
     <a
-      [href]="productUrl"
+      [href]="productCardData.productUrl"
       class="product-name-link font-mono text-lg font-medium"
       target="_blank"
       rel="noopener noreferrer"
-      >{{ name }}</a
+      >{{ productCardData.name }}</a
     >
-    <span class="product-brand font-mono text-lg">{{ brand }}</span>
+    <span class="product-brand font-mono text-lg">{{
+      productCardData.brand
+    }}</span>
   </div>
   <span
     class="product-preparation block pt-2 font-sans text-xs uppercase tracking-[0.3em]"
-    [id]="preparation.id"
+    [id]="productCardData.preparation.id"
   >
-    {{ preparation.name }}
+    {{ productCardData.preparation.name }}
   </span>
   <div class="flex items-end justify-between pt-4">
     <div class="product-tagSlugs">
       <ul
         class="product-tagSlugs-list flex flex-wrap gap-3 font-mono text-xs lowercase"
       >
-        <li *ngFor="let tag of tags; trackBy: trackById" [id]="tag.id">
+        <li
+          *ngFor="let tag of productCardData.tags; trackBy: trackById"
+          [id]="tag.id"
+        >
           {{ tag.label }}
         </li>
       </ul>
     </div>
     <ng-container class="match-or-rating">
-      @switch (variant){ @case ('review'){
+      @switch (productCardData.variant){ @case ('review'){
       <div class="recommendation-percent font-mono text-xs">
-        Rating: {{ userRating }}
+        Rating: {{ productCardData.userScore }}
       </div>
       } @default(){
       <div class="recommendation-percent font-mono text-xs">
-        {{ matchPercentage }}% match
+        {{ productCardData.matchPercentage }}% match
       </div>
       } }
     </ng-container>

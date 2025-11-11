@@ -1,57 +1,55 @@
-<div
-  class="product-card-main relative overflow-hidden rounded-[10px]"
-  (click)="variant == 'review' && showProductReview()"
->
-  <!-- TODO: make a default image in case the image does not load for the product -->
-  <img
-    [src]="imageUrl"
-    id="product-image"
-    alt="{{ name }}"
-    class="block h-full w-full object-cover"
-  />
-  <div class="absolute inset-0 flex flex-col justify-between">
-    <div class="flex items-start justify-between gap-2 p-4">
-      <div class="exit-button" *ngIf="exit">
-        <button
-          id="close-product-card"
-          class="rounded-full bg-white/80 px-2 py-1 text-xs uppercase tracking-wide text-black backdrop-blur"
-          (click)="closeProductCard()"
+<ng-container *ngIf="productCardData as card">
+  <div
+    class="product-card-main relative overflow-hidden rounded-[10px]"
+    (click)="card.variant === 'review' && showProductReview()"
+  >
+    <!-- TODO: make a default image in case the image does not load for the product -->
+    <img
+      [src]="card.imageUrl"
+      id="product-image"
+      [alt]="card.name"
+      class="block h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 flex flex-col justify-between">
+      <div class="flex items-start justify-between gap-2 p-4">
+        <div class="exit-button" *ngIf="exit">
+          <button
+            id="close-product-card"
+            class="rounded-full bg-white/80 px-2 py-1 text-xs uppercase tracking-wide text-black backdrop-blur"
+            (click)="closeProductCard()"
+          >
+            close
+          </button>
+        </div>
+        <div
+          *ngIf="card.variant === 'review'"
+          class="flex font-sans font-medium"
         >
-          close
-        </button>
+          {{ card.userRanking }}
+        </div>
+        <div></div>
+        <!--empty div for styling purposes-->
+        <div class="product-card-buttons flex gap-2">
+          <button
+            class="bookmark rounded-full bg-white/80 px-3 py-1 text-xs uppercase tracking-wide text-black backdrop-blur"
+            (click)="addToBookmarks(card.id)"
+          >
+            bookmark
+          </button>
+          <!-- TODO: update with appropriate symbols -->
+          <button
+            class="userReview rounded-full bg-white/80 px-3 py-1 text-xs text-black backdrop-blur"
+            (click)="reviewProduct('placeholder user', card.id)"
+          >
+            <3
+          </button>
+          <!-- TODO: update with appropriate symbols -->
+        </div>
       </div>
-      <div *ngIf="variant == 'review'" class="flex font-sans font-medium">
-        {{ userRanking }}
-      </div>
-      <div></div>
-      <!--empty div for styling purposes-->
-      <div class="product-card-buttons flex gap-2">
-        <button
-          class="bookmark rounded-full bg-white/80 px-3 py-1 text-xs uppercase tracking-wide text-black backdrop-blur"
-          (click)="addToBookmarks(id)"
-        >
-          bookmark
-        </button>
-        <!-- TODO: update with appropriate symbols -->
-        <button
-          class="userReview rounded-full bg-white/80 px-3 py-1 text-xs text-black backdrop-blur"
-          (click)="reviewProduct('placeholder user', id)"
-        >
-          <3
-        </button>
-        <!-- TODO: update with appropriate symbols -->
-      </div>
-    </div>
 
-    <app-product-card-content
-      [name]="name"
-      [productUrl]="productUrl"
-      [brand]="brand"
-      [preparation]="preparation"
-      [tags]="tags"
-      [userRating]="userRating"
-      [matchPercentage]="matchPercentage"
-      [variant]="'recommendation'"
-    ></app-product-card-content>
+      <app-product-card-content
+        [productCardData]="card"
+      ></app-product-card-content>
+    </div>
   </div>
-</div>
+</ng-container>
