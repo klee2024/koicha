@@ -12,15 +12,13 @@ import { ProductCardData } from './productCardData';
   styleUrl: './product-card.component.css',
 })
 export class ProductCardComponent {
+  // TODO: consider if this can be removed
   @Input() exit: boolean = false;
-
-  // TODO: remove the variant
-  @Input() variant: 'recommendation' | 'rating' | 'review' = 'recommendation';
   @Input() productCardData?: ProductCardData = undefined;
 
   @Output() closed = new EventEmitter<void>();
 
-  constructor(private userProductService: UserProductsService) {}
+  constructor() {}
 
   // TODO: revisit this after component refactor
   addToBookmarks(id: string) {
