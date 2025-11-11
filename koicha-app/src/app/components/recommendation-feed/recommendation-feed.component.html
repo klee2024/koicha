@@ -43,11 +43,11 @@
   <div class="feed">
     <div class="status" *ngIf="loading">Loading matches...</div>
 
-    <div class="status" *ngIf="!loading && filteredProducts.length === 0">
+    <div class="status" *ngIf="!loading && filteredProductCards.length === 0">
       No products found. You have unique taste!
     </div>
 
-    <app-feed [products]="filteredProducts"></app-feed>
+    <app-feed [products]="filteredProductCards"></app-feed>
     <!-- <div class="product-grid" *ngIf="!loading && filteredProducts.length">
       <app-product-card
         *ngFor="let item of filteredProducts; trackBy: trackById"

@@ -21,7 +21,7 @@ import { ProductCardData } from '../utility/product-card/productCardData';
 })
 export class RecommendationFeedComponent implements OnInit {
   allProducts: Product[] = [];
-  filteredProducts: ProductCardData[] = [];
+  filteredProductCards: ProductCardData[] = [];
   activeTagSlugs: string[] = [];
   activePrepSlug?: string = undefined;
   allTags: Tag[] = [];
@@ -76,17 +76,9 @@ export class RecommendationFeedComponent implements OnInit {
       );
     }
     console.log(products);
-    this.filteredProducts = products.map((product) => ({
-      id: product.id,
-      name: product.name,
-      brand: product.brand,
-      imageUrl: product.imageUrl,
-      productUrl: product.productUrl,
-      preparation: product.preparation,
-      tags: product.tags,
-      matchPercentage: product.matchPercentage ?? 0,
-      variant: 'recommendation',
-    }));
+    this.filteredProductCards = products.map((product) =>
+      this.mapToCard(product)
+    );
   }
 
   private applyFiltersFromParams(queryParamMap: ParamMap) {
@@ -143,6 +135,20 @@ export class RecommendationFeedComponent implements OnInit {
       queryParamsHandling: 'merge',
       replaceUrl: true,
     });
+  }
+
+  mapToCard(product: Product): ProductCardData {
+    return {
+      id: product.id,
+      name: product.name,
+      brand: product.brand,
+      imageUrl: product.imageUrl,
+      productUrl: product.productUrl,
+      preparation: product.preparation,
+      tags: product.tags ?? [],
+      matchPercentage: product.matchPercentage ?? 0,
+      variant: 'recommendation',
+    };
   }
 
   trackById(index: number, item: { id: number | string }) {
