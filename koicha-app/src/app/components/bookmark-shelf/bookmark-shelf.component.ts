@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductCardComponent } from '../utility/product-card/product-card.component';
 import { Product } from '../../models/product';
 import { UserProductsService } from '../../services/user-products-mock.service';
 import { CommonModule } from '@angular/common';
@@ -22,23 +21,27 @@ export class BookmarkShelfComponent implements OnInit {
     this.userProductService
       .getUserBookmarks('placeholderUserId')
       .subscribe((data) => {
-        this.userBookmarks = data.map((product) => ({
-          id: product.id,
-          name: product.name,
-          brand: product.brand,
-          imageUrl: product.imageUrl,
-          productUrl: product.productUrl,
-          preparation: product.preparation,
-          tags: product.tags,
-          matchPercentage: product.matchPercentage ?? 0,
-          variant: 'recommendation',
-        }));
+        this.userBookmarks = data.map((product) => this.mapToCard(product));
         console.log('all bookmarks on init', this.userBookmarks);
       });
   }
 
   trackById(index: number, item: { id: string }) {
     return item.id;
+  }
+
+  private mapToCard(product: Product): ProductCardData {
+    return {
+      id: product.id,
+      name: product.name,
+      brand: product.brand,
+      imageUrl: product.imageUrl,
+      productUrl: product.productUrl,
+      preparation: product.preparation,
+      tags: product.tags,
+      matchPercentage: product.matchPercentage ?? 0,
+      variant: 'recommendation',
+    };
   }
 }
 

@@ -14,7 +14,7 @@ import { ProductCardData } from '../product-card/productCardData';
   styleUrl: './feed.component.css',
 })
 export class FeedComponent {
-  @Input() products!: ProductCardData[];
+  @Input() cards!: ProductCardData[];
 
   trackById(index: number, item: { id: number | string }) {
     return item.id;
