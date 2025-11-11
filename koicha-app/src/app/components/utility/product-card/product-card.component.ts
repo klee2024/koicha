@@ -67,7 +67,7 @@ export class ProductCardComponent {
   }
 
   closeProductCard() {
-\    this.closed.emit();
+    this.closed.emit();
   }
 
   showProductReview() {
