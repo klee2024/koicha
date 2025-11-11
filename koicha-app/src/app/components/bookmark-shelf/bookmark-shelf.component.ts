@@ -4,6 +4,7 @@ import { Product } from '../../models/product';
 import { UserProductsService } from '../../services/user-products-mock.service';
 import { CommonModule } from '@angular/common';
 import { FeedComponent } from '../utility/feed/feed.component';
+import { ProductCardData } from '../utility/product-card/productCardData';
 
 @Component({
   selector: 'app-bookmark-shelf',
@@ -13,7 +14,7 @@ import { FeedComponent } from '../utility/feed/feed.component';
   styleUrl: './bookmark-shelf.component.css',
 })
 export class BookmarkShelfComponent implements OnInit {
-  userBookmarks: Product[] = [];
+  userBookmarks: ProductCardData[] = [];
 
   constructor(private userProductService: UserProductsService) {}
   ngOnInit() {
@@ -21,7 +22,17 @@ export class BookmarkShelfComponent implements OnInit {
     this.userProductService
       .getUserBookmarks('placeholderUserId')
       .subscribe((data) => {
-        this.userBookmarks = data;
+        this.userBookmarks = data.map((product) => ({
+          id: product.id,
+          name: product.name,
+          brand: product.brand,
+          imageUrl: product.imageUrl,
+          productUrl: product.productUrl,
+          preparation: product.preparation,
+          tags: product.tags,
+          matchPercentage: product.matchPercentage ?? 0,
+          variant: 'recommendation',
+        }));
         console.log('all bookmarks on init', this.userBookmarks);
       });
   }

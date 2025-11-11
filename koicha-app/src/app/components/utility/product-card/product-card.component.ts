@@ -14,6 +14,7 @@ import { ProductCardData } from './productCardData';
 export class ProductCardComponent {
   @Input() exit: boolean = false;
 
+  // TODO: remove the variant
   @Input() variant: 'recommendation' | 'rating' | 'review' = 'recommendation';
   @Input() productCardData?: ProductCardData = undefined;
 

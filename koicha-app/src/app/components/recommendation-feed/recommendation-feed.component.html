@@ -47,12 +47,13 @@
       No products found. You have unique taste!
     </div>
 
-    <div class="product-grid" *ngIf="!loading && filteredProducts.length">
+    <app-feed [products]="filteredProducts"></app-feed>
+    <!-- <div class="product-grid" *ngIf="!loading && filteredProducts.length">
       <app-product-card
         *ngFor="let item of filteredProducts; trackBy: trackById"
         [id]="item.id"
         [productCardData]="item"
-      ></app-product-card>
-    </div>
+      ></app-product-card> -->
+    <!-- </div> -->
   </div>
 </section>
