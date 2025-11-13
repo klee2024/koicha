@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserProductsService } from '../../../services/user-products-mock.service';
 import { ProductCardContentComponent } from '../product-card-content/product-card-content.component';
-import { ProductCardData } from './productCardData';
+import { ProductCardData, ReviewCard } from './productCardData';
 
 @Component({
   selector: 'app-product-card',
@@ -16,7 +16,7 @@ export class ProductCardComponent {
   @Input() exit: boolean = false;
   @Input() productCardData?: ProductCardData = undefined;
 
-  @Output() selected = new EventEmitter<ProductCardData>();
+  @Output() reviewSelected = new EventEmitter<ReviewCard>();
 
   constructor() {}
 

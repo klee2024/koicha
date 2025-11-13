@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './review-details.component.css',
 })
 export class ReviewDetailsComponent {
-  @Input() selectedReviewCard: ReviewCard | undefined;
+  @Input() selectedReview: ReviewCard | undefined;
 
   @Output() closed = new EventEmitter<boolean>();
 }

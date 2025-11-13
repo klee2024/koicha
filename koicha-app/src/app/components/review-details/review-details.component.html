@@ -1,11 +1,39 @@
-<ng-container *ngIf="selectedReviewCard as card">
-  <div class="card-formatting">
-    <app-product-card-content
-      [productCardData]="card"
-    ></app-product-card-content>
-    <div class="review">
-      <div class="review-heading font-medium">Review:</div>
-      <div class="review-content">{{ card.reviewText }}</div>
+<ng-container *ngIf="selectedReview as review">
+  <div
+    class="relative w-[85vw] max-w-[30rem] rounded-[22px] bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] sm:w-[70vw] sm:max-w-[34rem] md:w-[36rem] md:max-w-[36rem] md:h-[34rem]"
+  >
+    <button
+      type="button"
+      class="absolute left-6 top-4 font-mono text-xs uppercase tracking-[0.4em] text-gray-500"
+      aria-label="Close expanded review"
+      (click)="closed.emit(true)"
+    >
+      × close
+    </button>
+
+    <div class="-mx-5 pt-3 pb-2 sm:-mx-6">
+      <app-product-card-content
+        class="block w-full"
+        [productCardData]="review"
+      ></app-product-card-content>
+    </div>
+
+    <div class="mt-1 flex h-full flex-col space-y-5 border-t border-black/10 pt-4">
+      <span class="font-mono text-lg font-semibold text-black">Review</span>
+
+      <p
+        class="font-sans text-lg leading-relaxed text-black overflow-y-auto pr-1"
+        style="max-height: 12rem"
+      >
+        {{ review.reviewText }}
+      </p>
+
+      <div
+        *ngIf="review.containersFinished as tins"
+        class="font-mono text-lg font-semibold text-black"
+      >
+        Tins Finished: {{ tins }}
+      </div>
     </div>
   </div>
 </ng-container>

@@ -1,2 +1,21 @@
 <!-- TODO: add consistent content box sizing -->
-<app-feed [cards]="userReviews"></app-feed>
+<div class="relative">
+  <app-feed
+    [cards]="userReviews"
+    (reviewSelected)="onReviewSelected($event)"
+  ></app-feed>
+
+  <!-- TODO: decide whether to keep the grey out effect upon selecting a specific product -->
+  <div
+    *ngIf="selectedReview"
+    class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+    (click)="clearSelection()"
+  >
+    <app-review-details
+      class="max-w-2xl"
+      [selectedReview]="selectedReview"
+      (click)="$event.stopPropagation()"
+      (closed)="clearSelection()"
+    ></app-review-details>
+  </div>
+</div>

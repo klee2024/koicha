@@ -1,7 +1,7 @@
 <ng-container *ngIf="productCardData as card">
   <div
     class="product-card-main relative overflow-hidden rounded-[10px]"
-    (click)="card.variant === 'review' && selected.emit(card)"
+    (click)="card.variant === 'review' && reviewSelected.emit(card)"
   >
     <!-- TODO: make a default image in case the image does not load for the product -->
     <img

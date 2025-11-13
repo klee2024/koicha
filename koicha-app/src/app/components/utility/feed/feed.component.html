@@ -4,6 +4,7 @@
       *ngFor="let item of cards; trackBy: trackById"
       class="h-full"
       [productCardData]="item"
+      (reviewSelected)="onCardSelected($event)"
     ></app-product-card>
   </div>
 </section>
