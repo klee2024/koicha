@@ -1,0 +1,11 @@
+<ng-container *ngIf="selectedReviewCard as card">
+  <div class="card-formatting">
+    <app-product-card-content
+      [productCardData]="card"
+    ></app-product-card-content>
+    <div class="review">
+      <div class="review-heading font-medium">Review:</div>
+      <div class="review-content">{{ card.reviewText }}</div>
+    </div>
+  </div>
+</ng-container>
