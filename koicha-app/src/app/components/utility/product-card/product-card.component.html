@@ -1,7 +1,7 @@
 <ng-container *ngIf="productCardData as card">
   <div
     class="product-card-main relative overflow-hidden rounded-[10px]"
-    (click)="card.variant === 'review' && showProductReview()"
+    (click)="card.variant === 'review' && selected.emit(card)"
   >
     <!-- TODO: make a default image in case the image does not load for the product -->
     <img
@@ -16,7 +16,6 @@
           <button
             id="close-product-card"
             class="rounded-full bg-white/80 px-2 py-1 text-xs uppercase tracking-wide text-black backdrop-blur"
-            (click)="closeProductCard()"
           >
             close
           </button>

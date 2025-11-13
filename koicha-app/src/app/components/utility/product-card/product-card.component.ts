@@ -12,11 +12,11 @@ import { ProductCardData } from './productCardData';
   styleUrl: './product-card.component.css',
 })
 export class ProductCardComponent {
-  // TODO: consider if this can be removed
+  // TODO: consider if exit can be removed
   @Input() exit: boolean = false;
   @Input() productCardData?: ProductCardData = undefined;
 
-  @Output() closed = new EventEmitter<void>();
+  @Output() selected = new EventEmitter<ProductCardData>();
 
   constructor() {}
 
@@ -52,10 +52,6 @@ export class ProductCardComponent {
 
   trackById(index: number, item: { id: string }) {
     return item.id;
-  }
-
-  closeProductCard() {
-    this.closed.emit();
   }
 
   showProductReview() {
