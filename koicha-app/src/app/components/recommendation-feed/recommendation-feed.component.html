@@ -47,13 +47,10 @@
       No products found. You have unique taste!
     </div>
 
-    <app-feed [cards]="filteredProductCards"></app-feed>
-    <!-- <div class="product-grid" *ngIf="!loading && filteredProducts.length">
-      <app-product-card
-        *ngFor="let item of filteredProducts; trackBy: trackById"
-        [id]="item.id"
-        [productCardData]="item"
-      ></app-product-card> -->
-    <!-- </div> -->
+    <app-feed
+      [cards]="filteredProductCards"
+      (reviewProductId)="onReviewProduct($event)"
+      (bookmarkProductId)="onBookmarkProduct($event)"
+    ></app-feed>
   </div>
 </section>

@@ -20,6 +20,7 @@ export class ReviewedComponent {
   userReviews: ProductCardData[] = [];
   selectedReview?: ReviewCard;
   productReviewId?: string;
+  bookmarkProductId?: string;
 
   constructor(private reviewService: UserProductsService) {}
 
@@ -35,10 +36,14 @@ export class ReviewedComponent {
     this.selectedReview = review;
   }
 
-  // TODO: replace with real values from inputs
   onReviewProduct(productId: string) {
     this.productReviewId = productId;
     console.log('review product button works!');
+  }
+
+  onBookmarkProduct(productId: string) {
+    this.bookmarkProductId = productId;
+    console.log(`bookmark product button works: ${productId}!`);
   }
 
   // TODO: output productId to new child element that will handle the review

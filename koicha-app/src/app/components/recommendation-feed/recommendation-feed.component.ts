@@ -28,6 +28,9 @@ export class RecommendationFeedComponent implements OnInit {
   allPreps: Preparation[] = [];
   loading = true;
 
+  productReviewId?: string;
+  bookmarkProductId?: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -149,6 +152,17 @@ export class RecommendationFeedComponent implements OnInit {
       matchPercentage: product.matchPercentage ?? 0,
       variant: 'recommendation',
     };
+  }
+
+  // CARD BUTTON CLICK HANDLERS
+  onReviewProduct(productId: string) {
+    this.productReviewId = productId;
+    console.log('review product button works!');
+  }
+
+  onBookmarkProduct(productId: string) {
+    this.bookmarkProductId = productId;
+    console.log(`bookmark product button works: ${productId}!`);
   }
 
   trackById(index: number, item: { id: number | string }) {

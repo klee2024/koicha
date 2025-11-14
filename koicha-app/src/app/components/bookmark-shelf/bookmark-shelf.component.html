@@ -1,5 +1,9 @@
 <!-- TODO: add consistent content box sizing -->
 
 <div class="header">
-  <app-feed [cards]="userBookmarks"></app-feed>
+  <app-feed
+    [cards]="userBookmarks"
+    (reviewProductId)="onReviewProduct($event)"
+    (bookmarkProductId)="onBookmarkProduct($event)"
+  ></app-feed>
 </div>

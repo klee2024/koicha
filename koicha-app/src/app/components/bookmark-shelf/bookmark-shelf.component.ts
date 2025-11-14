@@ -14,6 +14,8 @@ import { ProductCardData } from '../utility/product-card/productCardData';
 })
 export class BookmarkShelfComponent implements OnInit {
   userBookmarks: ProductCardData[] = [];
+  productReviewId?: string;
+  bookmarkProductId?: string;
 
   constructor(private userProductService: UserProductsService) {}
   ngOnInit() {
@@ -28,6 +30,16 @@ export class BookmarkShelfComponent implements OnInit {
 
   trackById(index: number, item: { id: string }) {
     return item.id;
+  }
+
+  onReviewProduct(productId: string) {
+    this.productReviewId = productId;
+    console.log('review product button works!');
+  }
+
+  onBookmarkProduct(productId: string) {
+    this.bookmarkProductId = productId;
+    console.log(`bookmark product button works: ${productId}!`);
   }
 
   private mapToCard(product: Product): ProductCardData {
