@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class ReviewedComponent {
   userReviews: ProductCardData[] = [];
   selectedReview?: ReviewCard;
+  productReviewId?: string;
 
   constructor(private reviewService: UserProductsService) {}
 
@@ -32,6 +33,24 @@ export class ReviewedComponent {
 
   onReviewSelected(review: ReviewCard) {
     this.selectedReview = review;
+  }
+
+  // TODO: replace with real values from inputs
+  onReviewProduct(productId: string) {
+    this.productReviewId = productId;
+    console.log('review product button works!');
+  }
+
+  // TODO: output productId to new child element that will handle the review
+  onReviewProductService(userId: string, productId: string) {
+    this.reviewService
+      .createUserProductReview('placeholder user id', productId, {
+        userId: 'placeholder',
+        productId: productId,
+        userRanking: 0,
+        userReviewText: 'testing',
+      })
+      .subscribe((data) => console.log(data));
   }
 
   clearSelection() {

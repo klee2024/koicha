@@ -3,6 +3,7 @@
   <app-feed
     [cards]="userReviews"
     (reviewSelected)="onReviewSelected($event)"
+    (reviewProductId)="onReviewProduct($event)"
   ></app-feed>
 
   <!-- TODO: decide whether to keep the grey out effect upon selecting a specific product -->

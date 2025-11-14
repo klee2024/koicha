@@ -16,13 +16,16 @@ export class ProductCardComponent {
   @Input() exit: boolean = false;
   @Input() productCardData?: ProductCardData = undefined;
 
+  // TODO: rename reviewSelected so it is clear this is for presentational purposes
   @Output() reviewSelected = new EventEmitter<ReviewCard>();
+  @Output() bookmarkProductId = new EventEmitter<string>();
+  @Output() reviewProductId = new EventEmitter<string>();
 
   constructor() {}
 
   // TODO: revisit this after component refactor
-  addToBookmarks(id: string) {
-    // call a service to add this to the customer's bookmarks
+  addToBookmarks(productId: string) {
+    // get the logged in user TODO: make this dynamic
     // this.userProductService
     //   .createUserBookmark('placeholder user id', this.id)
     //   .subscribe((data) => {
@@ -30,6 +33,7 @@ export class ProductCardComponent {
     //   });
   }
 
+  // TODO: consider deleting this
   addToUserTastedCount(userId: string, productId: string) {
     // this.userProductService
     //   .addToUserTasteCount('placeholder user id', this.id)

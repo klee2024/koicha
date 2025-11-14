@@ -31,14 +31,14 @@
         <div class="product-card-buttons flex gap-2">
           <button
             class="bookmark rounded-full bg-white/80 px-3 py-1 text-xs uppercase tracking-wide text-black backdrop-blur"
-            (click)="addToBookmarks(card.id)"
+            (click)="$event.stopPropagation(); bookmarkProductId.emit(card.id)"
           >
             bookmark
           </button>
           <!-- TODO: update with appropriate symbols -->
           <button
             class="userReview rounded-full bg-white/80 px-3 py-1 text-xs text-black backdrop-blur"
-            (click)="reviewProduct('placeholder user', card.id)"
+            (click)="$event.stopPropagation(); reviewProductId.emit(card.id)"
           >
             <3
           </button>
