@@ -18,8 +18,8 @@ import { CommonModule } from '@angular/common';
 })
 export class ReviewedComponent {
   userReviews: ProductCardData[] = [];
+  productToReview?: ProductCardData;
   selectedReview?: ReviewCard;
-  productReviewId?: string;
   bookmarkProductId?: string;
 
   constructor(private reviewService: UserProductsService) {}
@@ -36,8 +36,8 @@ export class ReviewedComponent {
     this.selectedReview = review;
   }
 
-  onReviewProduct(productId: string) {
-    this.productReviewId = productId;
+  onReviewProduct(product: ProductCardData) {
+    this.productToReview = product;
     console.log('review product button works!');
   }
 

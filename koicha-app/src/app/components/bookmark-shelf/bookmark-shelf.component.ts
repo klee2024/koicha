@@ -35,6 +35,7 @@ export class BookmarkShelfComponent implements OnInit {
   onReviewProduct(productId: string) {
     this.productReviewId = productId;
     console.log('review product button works!');
+    // TODO: bring up the create review card component
   }
 
   onBookmarkProduct(productId: string) {

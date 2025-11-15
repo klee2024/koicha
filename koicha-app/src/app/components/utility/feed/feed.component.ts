@@ -17,15 +17,15 @@ export class FeedComponent {
   @Input() cards!: ProductCardData[];
 
   @Output() reviewSelected = new EventEmitter<ReviewCard>();
-  @Output() reviewProductId = new EventEmitter<string>();
+  @Output() productToReview = new EventEmitter<ProductCardData>();
   @Output() bookmarkProductId = new EventEmitter<string>();
 
   onCardSelected(card: ReviewCard) {
     this.reviewSelected.emit(card);
   }
 
-  onReviewProduct(productId: string) {
-    this.reviewProductId.emit(productId);
+  onReviewProduct(product: ProductCardData) {
+    this.productToReview.emit(product);
   }
 
   onBookmarkProduct(productId: string) {

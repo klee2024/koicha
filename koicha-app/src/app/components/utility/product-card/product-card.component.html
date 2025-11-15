@@ -38,7 +38,7 @@
           <!-- TODO: update with appropriate symbols -->
           <button
             class="userReview rounded-full bg-white/80 px-3 py-1 text-xs text-black backdrop-blur"
-            (click)="$event.stopPropagation(); reviewProductId.emit(card.id)"
+            (click)="$event.stopPropagation(); productToReview.emit(card)"
           >
             <3
           </button>
