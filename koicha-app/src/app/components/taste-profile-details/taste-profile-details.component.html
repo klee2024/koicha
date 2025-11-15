@@ -38,9 +38,13 @@
         <div
           class="taste-preference-header flex flex-row gap-6 font-mono text-4xl"
         >
-          <h2 class="taste-preference-heading">
+          <a
+            class="taste-preference-heading"
+            routerLink="/taste-profile-quiz"
+            aria-current="page"
+          >
             Discover Your Perfect Match(a) ->
-          </h2>
+          </a>
         </div>
         <div class="taste-preference-description font-sans text-xl italic">
           <p>New to matcha?</p>
@@ -52,11 +56,17 @@
           </p>
         </div>
       </div>
-      <div class="taste-preference-text flex flex-col gap-y-6 xl:gap-y-8 pt-4">
+      <div class="taste-preference-text flex flex-col gap-y-6 xl:gap-y-8 mt-16">
         <div
           class="taste-preference-header flex flex-row gap-6 font-mono text-4xl"
         >
-          <h2 class="taste-preference-heading">Find Your Taste Profile -></h2>
+          <!-- TODO: underline links in green so they are more obviously links -->
+          <a
+            class="taste-preference-heading"
+            routerLink="/tea-shelf/reviews"
+            aria-current="page"
+            >Find Your Taste Profile -></a
+          >
         </div>
         <div class="taste-preference-description font-sans text-xl italic">
           <p>Matcha connoisseur?</p>

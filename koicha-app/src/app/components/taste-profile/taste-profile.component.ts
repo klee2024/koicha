@@ -24,8 +24,15 @@ export class TasteProfileComponent {
       return;
     }
 
+    // this.tasteProfileService
+    //   .getTasteProfileByUserId(userId)
+    //   .subscribe((data) => {
+    //     this.tasteProfile = data;
+    //     console.log('taste profile retrieved');
+    //   });
+
     this.tasteProfileService
-      .getTasteProfileByUserId(userId)
+      .getEmptyTasteProfileDetails(userId)
       .subscribe((data) => {
         this.tasteProfile = data;
         console.log('taste profile retrieved');
