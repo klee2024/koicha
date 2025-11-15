@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { TasteProfileService } from '../../services/taste-profile.service';
-import { TasteProfile } from '../../models/taste-profile';
+import { TasteProfileService } from '../../../services/taste-profile.service';
+import { TasteProfile } from '../../../models/taste-profile';
 import { TasteProfileDetailsComponent } from '../taste-profile-details/taste-profile-details.component';
 import { TasteChartComponent } from '../taste-chart/taste-chart.component';
 

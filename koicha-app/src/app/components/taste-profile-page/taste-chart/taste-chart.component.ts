@@ -5,16 +5,16 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { TasteProfile } from '../../models/taste-profile';
+import { TasteProfile } from '../../../models/taste-profile';
 import { EChartsOption, ECharts } from 'echarts';
-import { SubFlavorCharacteristic } from '../../models/taste-profile';
+import { SubFlavorCharacteristic } from '../../../models/taste-profile';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 
 import * as echarts from 'echarts/core';
 import { RadarChart } from 'echarts/charts';
 import { TooltipComponent, LegendComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
-import { buildTasteRadarOptions } from '../../utilities/taste-echart.builder';
+import { buildTasteRadarOptions } from '../../../utilities/taste-echart.builder';
 
 echarts.use([RadarChart, TooltipComponent, LegendComponent, CanvasRenderer]);
 
