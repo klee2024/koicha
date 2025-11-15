@@ -13,6 +13,7 @@ import { ProductCardData } from '../product-card/productCardData';
 export class ProductCardContentComponent {
   @Input() productCardData!: ProductCardData;
   @Output() closed = new EventEmitter<void>();
+  @Input() hideProductMetrics: boolean = false;
 
   trackById(index: number, item: { id: string }) {
     return item.id;

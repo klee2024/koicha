@@ -30,16 +30,16 @@
         </li>
       </ul>
     </div>
-    <ng-container class="match-or-rating">
+    <ng-container class="variant" *ngIf="!hideProductMetrics">
       @switch (productCardData.variant){ @case ('review'){
       <div class="recommendation-percent font-mono text-xs">
         Rating: {{ productCardData.userScore }}
       </div>
-      } @default(){
+      } @case ('recommendation'){
       <div class="recommendation-percent font-mono text-xs">
-        {{ productCardData.matchPercentage }}% match
+        Rating: {{ productCardData.matchPercentage }}
       </div>
-      } }
+      } @default(){}}
     </ng-container>
   </div>
 </div>
