@@ -49,7 +49,7 @@
 
     <app-feed
       [cards]="filteredProductCards"
-      (reviewProductId)="onReviewProduct($event)"
+      (productToReview)="onReviewProduct($event)"
       (bookmarkProductId)="onBookmarkProduct($event)"
     ></app-feed>
   </div>

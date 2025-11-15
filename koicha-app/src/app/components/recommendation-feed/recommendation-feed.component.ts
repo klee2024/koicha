@@ -28,7 +28,7 @@ export class RecommendationFeedComponent implements OnInit {
   allPreps: Preparation[] = [];
   loading = true;
 
-  productReviewId?: string;
+  productToReview?: ProductCardData;
   bookmarkProductId?: string;
 
   constructor(
@@ -155,8 +155,8 @@ export class RecommendationFeedComponent implements OnInit {
   }
 
   // CARD BUTTON CLICK HANDLERS
-  onReviewProduct(productId: string) {
-    this.productReviewId = productId;
+  onReviewProduct(product: ProductCardData) {
+    this.productToReview = product;
     console.log('review product button works!');
   }
 

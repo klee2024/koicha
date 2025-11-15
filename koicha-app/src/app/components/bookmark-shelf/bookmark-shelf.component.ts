@@ -14,7 +14,7 @@ import { ProductCardData } from '../utility/product-card/productCardData';
 })
 export class BookmarkShelfComponent implements OnInit {
   userBookmarks: ProductCardData[] = [];
-  productReviewId?: string;
+  productToReview?: ProductCardData;
   bookmarkProductId?: string;
 
   constructor(private userProductService: UserProductsService) {}
@@ -32,8 +32,8 @@ export class BookmarkShelfComponent implements OnInit {
     return item.id;
   }
 
-  onReviewProduct(productId: string) {
-    this.productReviewId = productId;
+  onReviewProduct(product: ProductCardData) {
+    this.productToReview = product;
     console.log('review product button works!');
     // TODO: bring up the create review card component
   }

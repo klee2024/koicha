@@ -3,7 +3,7 @@
 <div class="header">
   <app-feed
     [cards]="userBookmarks"
-    (reviewProductId)="onReviewProduct($event)"
+    (productToReview)="onReviewProduct($event)"
     (bookmarkProductId)="onBookmarkProduct($event)"
   ></app-feed>
 </div>
