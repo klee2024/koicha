@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { TasteProfileService } from '../../services/taste-profile.service';
 import { TasteProfile } from '../../models/taste-profile';
 import { EChartsOption, ECharts } from 'echarts';
@@ -20,8 +26,8 @@ echarts.use([RadarChart, TooltipComponent, LegendComponent, CanvasRenderer]);
   templateUrl: './taste-chart.component.html',
   styleUrl: './taste-chart.component.css',
 })
-export class TasteChartComponent implements OnInit {
-  tasteProfile: TasteProfile | undefined = undefined;
+export class TasteChartComponent implements OnChanges {
+  @Input() tasteProfile?: TasteProfile = undefined;
   loading: boolean = true;
   mainFlavorLabels: string[] | undefined = undefined;
   mainFlavorValues: number[] | undefined = undefined;
@@ -31,23 +37,22 @@ export class TasteChartComponent implements OnInit {
 
   radarOptions: EChartsOption = {};
 
-  constructor(private tasteProfileService: TasteProfileService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.tasteProfileService
-      .getTasteProfileByUserId('mock_user')
-      .subscribe((data) => {
-        const mainFlavors = data?.mainCharacterstics ?? {};
-        const mainFlavorLabels = Object.keys(mainFlavors);
-        const mainFlavorValues = Object.values(mainFlavors);
-        this.subCharacteristics = data?.subCharacteristics ?? {};
+  ngOnChanges(changes: SimpleChanges) {
+    if ('tasteProfile' in changes && this.tasteProfile) {
+      this.updateChart(this.tasteProfile);
+    }
+  }
 
-        this.radarOptions = buildTasteRadarOptions({
-          labels: mainFlavorLabels,
-          values: mainFlavorValues,
-        });
-        console.log('taste profile data retrieved', this.tasteProfile);
-      });
-    this.loading = false;
+  private updateChart(profile: TasteProfile) {
+    const mainFlavors = profile.mainCharacterstics ?? {};
+    const labels = Object.keys(mainFlavors);
+    const values = Object.values(mainFlavors);
+    this.subCharacteristics = profile.subCharacteristics ?? {};
+    this.radarOptions = buildTasteRadarOptions({
+      labels,
+      values,
+    });
   }
 }

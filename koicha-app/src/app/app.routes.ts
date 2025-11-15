@@ -5,6 +5,7 @@ import { TasteProfileDetailsComponent } from './components/taste-profile-details
 import { FirstTimeQuizComponent } from './components/first-time-quiz/first-time-quiz.component';
 import { TeaShelfPageComponent } from './components/tea-shelf-page/tea-shelf-page.component';
 import { ReviewedComponent } from './components/reviewed/reviewed.component';
+import { TasteProfileComponent } from './components/taste-profile/taste-profile.component';
 
 export const routes: Routes = [
   { path: 'explore', component: RecommendationFeedComponent },
@@ -23,6 +24,6 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: 'taste-profile', component: TasteProfileDetailsComponent },
+  { path: 'taste-profile', component: TasteProfileComponent },
   { path: 'taste-profile-quiz', component: FirstTimeQuizComponent },
 ];

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TasteChartComponent } from '../taste-chart/taste-chart.component';
+import { TasteProfile } from '../../models/taste-profile';
 
 @Component({
   selector: 'app-taste-profile-details',
@@ -9,5 +10,6 @@ import { TasteChartComponent } from '../taste-chart/taste-chart.component';
   styleUrl: './taste-profile-details.component.css',
 })
 export class TasteProfileDetailsComponent {
+  @Input() tasteProfile?: TasteProfile = undefined;
   constructor() {}
 }
