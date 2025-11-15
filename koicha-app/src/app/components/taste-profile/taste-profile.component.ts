@@ -18,7 +18,7 @@ export class TasteProfileComponent {
 
   ngOnInit() {
     // TODO: implement auth service call
-    const userId = undefined;
+    const userId = 'user123';
     if (!userId) {
       console.warn('No authenticated user found.');
       return;
