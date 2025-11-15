@@ -1,6 +1,31 @@
 import { TasteProfile } from '../models/taste-profile';
+import { TasteProfileDetail } from '../models/taste-profile';
+
+export const MOCK_TASTE_PROFILE_DETAILS: TasteProfileDetail[] = [
+  {
+    id: 'detail1',
+    archetype: {
+      id: 'archetype-purist',
+      archetypeName: 'Purist',
+    },
+    archetypeMatch: 64,
+    detailDescription: 'you are a purist. you like umami teas....',
+  },
+  {
+    id: 'detail2',
+    archetype: {
+      id: 'archetype-explorer',
+      archetypeName: 'Explorer',
+    },
+    archetypeMatch: 52,
+    detailDescription:
+      'you chase new harvests and rare cultivars, balancing sweetness with floral depth.',
+  },
+];
 
 export const MOCK_TASTE_PROFILE: TasteProfile = {
+  id: 'tasteProfile1',
+  userId: 'user123',
   mainCharacterstics: {
     umami: 80,
     floral: 30,
@@ -43,4 +68,5 @@ export const MOCK_TASTE_PROFILE: TasteProfile = {
       { label: 'Velvety', value: 60 },
     ],
   },
+  tasteProfileDetails: MOCK_TASTE_PROFILE_DETAILS,
 };

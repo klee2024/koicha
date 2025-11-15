@@ -10,6 +10,7 @@ import { MOCK_QUIZ_QUESTIONS } from '../data/form-questions.mock';
 export class TasteProfileService {
   constructor() {}
 
+  // TODO: make this dynamic to grab by the userId
   getTasteProfileByUserId(userId: string): Observable<TasteProfile> {
     return of(MOCK_TASTE_PROFILE).pipe(delay(200));
   }

@@ -5,10 +5,9 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { TasteProfileService } from '../../services/taste-profile.service';
 import { TasteProfile } from '../../models/taste-profile';
 import { EChartsOption, ECharts } from 'echarts';
-import { SubFlavorCharacteristic } from '../../models/sub-flavor-characteristics';
+import { SubFlavorCharacteristic } from '../../models/taste-profile';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 
 import * as echarts from 'echarts/core';

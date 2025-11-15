@@ -1,18 +1,73 @@
 <!-- TODO: add consistent content box sizing -->
-
+<!-- TODO: fix the formatting of the taste profile details for responsive text boes (text box gets pushed vertically upon resizing to smaller screen) -->
 <div
   class="taste-profile grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(28rem,36rem)] xl:items-start p-8"
 >
-  <div class="taste-preference-text flex flex-col gap-y-6 xl:gap-y-8 pt-4">
-    <div class="taste-preference-header flex flex-row gap-6 font-mono text-4xl">
-      <h2 class="taste-preference-heading">Purist</h2>
-      <span class="taste-preference-match text-gray-400">64%</span>
+  <ng-container
+    *ngIf="tasteProfile?.tasteProfileDetails?.length; else elseBlock"
+  >
+    <div class="flex flex-col gap-y-16">
+      <div
+        class="taste-profile-archetype"
+        *ngFor="let archetypeDetail of tasteProfile?.tasteProfileDetails"
+      >
+        <div
+          class="taste-preference-text flex flex-col gap-y-6 xl:gap-y-8 pt-4 w-full max-w-3xl"
+        >
+          <div
+            class="taste-preference-header flex flex-row gap-6 font-mono text-4xl"
+          >
+            <h2 class="taste-preference-heading">
+              {{ archetypeDetail.archetype.archetypeName }}
+            </h2>
+            <span class="taste-preference-match text-gray-400">
+              {{ archetypeDetail.archetypeMatch }}%</span
+            >
+          </div>
+          <div class="taste-preference-description font-sans text-xl w-full">
+            <p>{{ archetypeDetail.detailDescription }}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="taste-preference-description font-sans text-xl">
-      <p>You are a purist.... you like umami teas....</p>
+  </ng-container>
+
+  <ng-template #elseBlock>
+    <div class="taste-profile-ftux">
+      <div class="taste-preference-text flex flex-col gap-y-6 xl:gap-y-8 pt-4">
+        <div
+          class="taste-preference-header flex flex-row gap-6 font-mono text-4xl"
+        >
+          <h2 class="taste-preference-heading">
+            Discover Your Perfect Match(a) ->
+          </h2>
+        </div>
+        <div class="taste-preference-description font-sans text-xl italic">
+          <p>New to matcha?</p>
+        </div>
+        <div class="taste-preference-description font-sans text-xl">
+          <p>
+            Begin this guided experience to discover your ideal taste profile so
+            we can recommend the best teas to begin your matcha journey.
+          </p>
+        </div>
+      </div>
+      <div class="taste-preference-text flex flex-col gap-y-6 xl:gap-y-8 pt-4">
+        <div
+          class="taste-preference-header flex flex-row gap-6 font-mono text-4xl"
+        >
+          <h2 class="taste-preference-heading">Find Your Taste Profile -></h2>
+        </div>
+        <div class="taste-preference-description font-sans text-xl italic">
+          <p>Matcha connoisseur?</p>
+        </div>
+        <div class="taste-preference-description font-sans text-xl">
+          <p>
+            Rate some of your favorite and not so favorite teas to curate your
+            taste profile and find new blends that are just right for you.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-  <!-- <div class="taste-chart-wrapper w-full xl:justify-self-end">
-    <app-taste-chart></app-taste-chart>
-  </div> -->
+  </ng-template>
 </div>

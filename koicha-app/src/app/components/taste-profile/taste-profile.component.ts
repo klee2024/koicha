@@ -12,7 +12,7 @@ import { TasteChartComponent } from '../taste-chart/taste-chart.component';
   styleUrl: './taste-profile.component.css',
 })
 export class TasteProfileComponent {
-  tasteProfileDetails?: TasteProfile = undefined;
+  tasteProfile?: TasteProfile = undefined;
 
   constructor(private tasteProfileService: TasteProfileService) {}
 
@@ -27,7 +27,7 @@ export class TasteProfileComponent {
     this.tasteProfileService
       .getTasteProfileByUserId(userId)
       .subscribe((data) => {
-        this.tasteProfileDetails = data;
+        this.tasteProfile = data;
         console.log('taste profile retrieved');
       });
   }
