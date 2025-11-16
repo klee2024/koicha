@@ -22,18 +22,19 @@ import { ReviewPreferenceName } from '../../../models/review-preference';
   styleUrl: './create-review-card.component.css',
 })
 export class CreateReviewCardComponent {
-  public reviewPreferenceNameEnum = ReviewPreferenceName;
-  @Input() productCard?: ProductCardData;
-  @Output() preferenceEnumValue = new EventEmitter<number>();
+  // TODO: remove console logs when done testing
+
+  // constants for the UI steps of creating a review
+  readonly WRITE_REVIEW_STEP = 'WRITE_REVIEW';
+  readonly COMPARE_PRODUCTS_STEP = 'COMPARE_PRODUCTS';
 
   reviewInputText?: string;
   preferenceInputEnumValue?: number;
-  reviewStep: string = 'WRITE_REVIEW';
+  reviewStep: string = this.WRITE_REVIEW_STEP;
 
-  // gets the list of products to compare based on the preference value the user selected
-  // ex: if the user selected that they liked the product, get only the other products that
-  // the user liked
-  getProductsToCompare(preferenceInputEnumValue: number) {}
+  @Input() productCard?: ProductCardData;
+  @Output() preferenceEnumValue = new EventEmitter<number>();
+  @Input() productsToCompare?: ProductCardData[];
 
   // saves the review based on the user's inputs
   createReview() {}
@@ -48,8 +49,8 @@ export class CreateReviewCardComponent {
   // liked the product or didn't (savePreferenceInput) and saves the review text
   saveReviewInput(text: string, preferenceInputValue: number): void {
     this.reviewInputText = text;
-    this.reviewStep = 'COMPARE_PRODUCTS';
-    console.log(preferenceInputValue);
+    this.reviewStep = this.COMPARE_PRODUCTS_STEP;
+    console.log('preference input value', preferenceInputValue);
     this.savePreferenceInput(preferenceInputValue);
     this.preferenceEnumValue.emit(this.preferenceInputEnumValue);
     console.log(this.reviewInputText);

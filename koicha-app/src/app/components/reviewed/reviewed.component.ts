@@ -29,6 +29,7 @@ export class ReviewedComponent {
   productToReview?: ProductCardData;
   selectedReview?: ReviewCard;
   productToBookmark?: ProductCardData;
+  productsToCompare?: ProductCardData[];
 
   @Output() popupMessage = new EventEmitter<string>();
 
@@ -64,7 +65,10 @@ export class ReviewedComponent {
   onGetProductsToCompare(reviewPreferenceValue: number) {
     this.reviewService
       .getUserProductReviewsByPreference(reviewPreferenceValue)
-      .subscribe((data) => console.log(data));
+      .subscribe((data) => {
+        this.productsToCompare = data.map((review) => this.mapToCard(review));
+        console.log('got products to compare: ', this.productsToCompare);
+      });
   }
 
   // TODO: output productId to new child element that will handle the review

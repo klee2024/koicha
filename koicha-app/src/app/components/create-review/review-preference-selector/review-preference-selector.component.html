@@ -1,1 +1,43 @@
-<p>review-preference-selector works!</p>
+<div class="select-review-preference">
+  <label>
+    <input
+      type="radio"
+      name="reviewPreference"
+      value="{{ reviewPreferenceNameEnum.Liked }}"
+      [(ngModel)]="preferenceInputEnumValue"
+      (ngModelChange)="onChange($event)"
+      #preferenceModel="ngModel"
+      required
+    />
+    <span>I liked it!</span>
+  </label>
+  <label>
+    <input
+      type="radio"
+      name="reviewPreference"
+      value="{{ reviewPreferenceNameEnum.Fine }}"
+      [(ngModel)]="preferenceInputEnumValue"
+      (ngModelChange)="onChange($event)"
+      required
+    />
+    <span>It was fine</span>
+  </label>
+  <label>
+    <input
+      type="radio"
+      name="reviewPreference"
+      value="{{ reviewPreferenceNameEnum.Disliked }}"
+      [(ngModel)]="preferenceInputEnumValue"
+      (ngModelChange)="onChange($event)"
+      required
+    />
+    <span>I didn't like it</span>
+  </label>
+</div>
+<!-- TODO: understand this implementation -->
+<!-- <p
+  *ngIf="preferenceModel.invalid && preferenceModel.touched"
+  class="preference-error"
+>
+  Please select an option to continue.
+</p> -->

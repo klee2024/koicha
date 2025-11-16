@@ -8,48 +8,12 @@
       [productCardData]="productCard"
     ></app-product-card-content>
 
-    <div class="select-review-preference">
-      <label>
-        <input
-          type="radio"
-          name="reviewPreference"
-          value="{{ reviewPreferenceNameEnum.Liked }}"
-          [(ngModel)]="preferenceInputEnumValue"
-          #preferenceModel="ngModel"
-          required
-        />
-        <span>I liked it!</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          name="reviewPreference"
-          value="{{ reviewPreferenceNameEnum.Fine }}"
-          [(ngModel)]="preferenceInputEnumValue"
-          required
-        />
-        <span>It was fine</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          name="reviewPreference"
-          value="{{ reviewPreferenceNameEnum.Disliked }}"
-          [(ngModel)]="preferenceInputEnumValue"
-          required
-        />
-        <span>I didn't like it</span>
-      </label>
-    </div>
-    <!-- TODO: understand this implementation -->
-    <!-- <p
-    *ngIf="preferenceModel.invalid && preferenceModel.touched"
-    class="preference-error"
-  >
-    Please select an option to continue.
-  </p> -->
+    <app-review-preference-selector
+      [(preferenceInputEnumValue)]="preferenceInputEnumValue"
+    ></app-review-preference-selector>
 
-    <ng-container *ngIf="reviewStep == 'WRITE_REVIEW'">
+    <ng-container class="create-review-actions">
+      @switch (reviewStep){@case (WRITE_REVIEW_STEP){
       <div>
         <label class="review-input">
           <span class="review-input__label">Your thoughts</span>
@@ -71,6 +35,9 @@
       >
         Done
       </button>
+      }@case (COMPARE_PRODUCTS_STEP){
+      <!-- render the component for comparing products -->
+      }}
     </ng-container>
   </div>
 </ng-container>
