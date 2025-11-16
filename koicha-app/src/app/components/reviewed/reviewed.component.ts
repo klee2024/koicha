@@ -49,6 +49,7 @@ export class ReviewedComponent {
   onReviewProduct(product: ProductCardData) {
     this.productToReview = product;
     console.log('review product button works!');
+    console.log(product);
   }
 
   onBookmarkProduct(product: ProductCardData) {

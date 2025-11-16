@@ -1,1 +1,27 @@
-<p>create-review-card works!</p>
+<!-- TODO: format this as a card properly -->
+<ng-container *ngIf="productCard">
+  <!-- product card details -->
+  <!-- TODO: format the product card content properly  -->
+  <app-product-card-content
+    [hideProductMetrics]="true"
+    [productCardData]="productCard"
+  ></app-product-card-content>
+
+  <ng-container *ngIf="reviewStep == 'WRITE_REVIEW'">
+    <div>
+      <label class="review-input">
+        <span class="review-input__label">Your thoughts</span>
+        <textarea
+          #reviewInput
+          class="review-input__textbox"
+          placeholder="Share your thoughts"
+          rows="4"
+        ></textarea>
+      </label>
+    </div>
+
+    <button type="button" (click)="saveReviewInput(reviewInput.value)">
+      Done
+    </button>
+  </ng-container>
+</ng-container>
