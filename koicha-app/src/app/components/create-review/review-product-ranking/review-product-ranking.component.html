@@ -1,1 +1,28 @@
 <p>review-product-ranking works!</p>
+
+<div
+  class="product-ranking-component"
+  *ngIf="productToCompare && productCurrentlyReviewing"
+>
+  <h2>Which do you prefer?</h2>
+  <div class="product-comparison">
+    <button class="current-product">
+      <span class="current-product_name">{{
+        productCurrentlyReviewing.name
+      }}</span>
+      <span class="current-product_brand">{{
+        productCurrentlyReviewing.brand
+      }}</span>
+    </button>
+    <span>-OR-</span>
+    <button class="comparing-product">
+      <span class="comparing-product_name">{{ productToCompare.name }}</span>
+      <span class="comparing-product_brand">{{ productToCompare.brand }}</span>
+    </button>
+  </div>
+  <div class="action-buttons">
+    <button class="undo">undo</button>
+    <button class="too-tough">too tough</button>
+    <button class="skip">skip</button>
+  </div>
+</div>
