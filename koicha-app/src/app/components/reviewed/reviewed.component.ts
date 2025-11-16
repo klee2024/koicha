@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { UserProductsService } from '../../services/user-products-mock.service';
 import { UserReview } from '../../models/review';
 import { FeedComponent } from '../utility/feed/feed.component';
@@ -8,11 +8,19 @@ import {
 } from '../utility/product-card/productCardData';
 import { ReviewDetailsComponent } from '../review-details/review-details.component';
 import { CommonModule } from '@angular/common';
+import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
+import { DropdownPopupComponent } from '../utility/dropdown-popup/dropdown-popup.component';
 
 @Component({
   selector: 'app-reviewed',
   standalone: true,
-  imports: [FeedComponent, ReviewDetailsComponent, CommonModule],
+  imports: [
+    FeedComponent,
+    ReviewDetailsComponent,
+    CommonModule,
+    CreateReviewCardComponent,
+    DropdownPopupComponent,
+  ],
   templateUrl: './reviewed.component.html',
   styleUrl: './reviewed.component.css',
 })
@@ -20,7 +28,9 @@ export class ReviewedComponent {
   userReviews: ProductCardData[] = [];
   productToReview?: ProductCardData;
   selectedReview?: ReviewCard;
-  bookmarkProductId?: string;
+  bookmarkProductId?: ProductCardData;
+
+  @Output() popupMessage = new EventEmitter<string>();
 
   constructor(private reviewService: UserProductsService) {}
 
@@ -41,9 +51,10 @@ export class ReviewedComponent {
     console.log('review product button works!');
   }
 
-  onBookmarkProduct(productId: string) {
-    this.bookmarkProductId = productId;
-    console.log(`bookmark product button works: ${productId}!`);
+  onBookmarkProduct(product: ProductCardData) {
+    this.bookmarkProductId = product;
+
+    console.log(`bookmark product button works: ${product.id}!`);
   }
 
   // TODO: output productId to new child element that will handle the review

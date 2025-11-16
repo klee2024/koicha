@@ -29,7 +29,7 @@ export class RecommendationFeedComponent implements OnInit {
   loading = true;
 
   productToReview?: ProductCardData;
-  bookmarkProductId?: string;
+  bookmarkProductId?: ProductCardData;
 
   constructor(
     private route: ActivatedRoute,
@@ -160,9 +160,9 @@ export class RecommendationFeedComponent implements OnInit {
     console.log('review product button works!');
   }
 
-  onBookmarkProduct(productId: string) {
-    this.bookmarkProductId = productId;
-    console.log(`bookmark product button works: ${productId}!`);
+  onBookmarkProduct(product: ProductCardData) {
+    this.bookmarkProductId = product;
+    console.log(`bookmark product button works: ${product.id}!`);
   }
 
   trackById(index: number, item: { id: number | string }) {

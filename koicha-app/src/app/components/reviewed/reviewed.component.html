@@ -7,18 +7,16 @@
     (bookmarkProductId)="onBookmarkProduct($event)"
   ></app-feed>
 
-  <!-- <div
+  <div
     *ngIf="productToReview"
     class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
-    (click)="clearSelection()"
   >
-    <app-review-details
+    <app-create-review-card
       class="max-w-2xl"
-      [selectedReview]="selectedReview"
+      [productCard]="productToReview"
       (click)="$event.stopPropagation()"
-      (closed)="clearSelection()"
-    ></app-review-details>
-  </div> -->
+    ></app-create-review-card>
+  </div>
 
   <!-- TODO: decide whether to keep the grey out effect upon selecting a specific product -->
   <div
