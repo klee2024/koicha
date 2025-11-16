@@ -15,7 +15,7 @@ import { ProductCardData } from '../utility/product-card/productCardData';
 export class BookmarkShelfComponent implements OnInit {
   userBookmarks: ProductCardData[] = [];
   productToReview?: ProductCardData;
-  bookmarkProductId?: ProductCardData;
+  productToBookmark?: ProductCardData;
 
   constructor(private userProductService: UserProductsService) {}
   ngOnInit() {
@@ -39,7 +39,7 @@ export class BookmarkShelfComponent implements OnInit {
   }
 
   onBookmarkProduct(product: ProductCardData) {
-    this.bookmarkProductId = product;
+    this.productToBookmark = product;
     console.log(`bookmark product button works: ${product.id}!`);
   }
 

@@ -28,7 +28,7 @@ export class ReviewedComponent {
   userReviews: ProductCardData[] = [];
   productToReview?: ProductCardData;
   selectedReview?: ReviewCard;
-  bookmarkProductId?: ProductCardData;
+  productToBookmark?: ProductCardData;
 
   @Output() popupMessage = new EventEmitter<string>();
 
@@ -52,7 +52,7 @@ export class ReviewedComponent {
   }
 
   onBookmarkProduct(product: ProductCardData) {
-    this.bookmarkProductId = product;
+    this.productToBookmark = product;
 
     console.log(`bookmark product button works: ${product.id}!`);
   }

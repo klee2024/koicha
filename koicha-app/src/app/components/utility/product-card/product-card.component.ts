@@ -18,7 +18,7 @@ export class ProductCardComponent {
 
   // TODO: rename reviewSelected so it is clear this is for presentational purposes
   @Output() reviewSelected = new EventEmitter<ReviewCard>();
-  @Output() bookmarkProductId = new EventEmitter<ProductCardData>();
+  @Output() productToBookmark = new EventEmitter<ProductCardData>();
   @Output() productToReview = new EventEmitter<ProductCardData>();
 
   constructor() {}

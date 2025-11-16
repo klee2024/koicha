@@ -18,7 +18,7 @@ export class FeedComponent {
 
   @Output() reviewSelected = new EventEmitter<ReviewCard>();
   @Output() productToReview = new EventEmitter<ProductCardData>();
-  @Output() bookmarkProductId = new EventEmitter<ProductCardData>();
+  @Output() productToBookmark = new EventEmitter<ProductCardData>();
 
   onCardSelected(card: ReviewCard) {
     this.reviewSelected.emit(card);
@@ -29,7 +29,7 @@ export class FeedComponent {
   }
 
   onBookmarkProduct(product: ProductCardData) {
-    this.bookmarkProductId.emit(product);
+    this.productToBookmark.emit(product);
   }
 
   trackById(index: number, item: { id: number | string }) {

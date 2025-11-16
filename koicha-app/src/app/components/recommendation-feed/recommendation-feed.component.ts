@@ -29,7 +29,7 @@ export class RecommendationFeedComponent implements OnInit {
   loading = true;
 
   productToReview?: ProductCardData;
-  bookmarkProductId?: ProductCardData;
+  productToBookmark?: ProductCardData;
 
   constructor(
     private route: ActivatedRoute,
@@ -161,7 +161,7 @@ export class RecommendationFeedComponent implements OnInit {
   }
 
   onBookmarkProduct(product: ProductCardData) {
-    this.bookmarkProductId = product;
+    this.productToBookmark = product;
     console.log(`bookmark product button works: ${product.id}!`);
   }
 
