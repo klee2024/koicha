@@ -29,12 +29,22 @@ export class CreateReviewCardComponent {
   preferenceInputEnumValue?: number;
   reviewStep: string = 'WRITE_REVIEW';
 
+  // gets the list of products to compare based on the preference value the user selected
+  // ex: if the user selected that they liked the product, get only the other products that
+  // the user liked
+  getProductsToCompare(preferenceInputEnumValue: number) {}
+
+  // saves the review based on the user's inputs
+  createReview() {}
+
+  // saves the preferenceInput as the enum value to the component field
   savePreferenceInput(preferenceInputValue: number): void {
-    // convert the value to a string
     this.preferenceInputEnumValue = preferenceInputValue;
     console.log(this.preferenceInputEnumValue);
   }
 
+  // saves the first step of the review process, which is selecting if they
+  // liked the product or didn't (savePreferenceInput) and saves the review text
   saveReviewInput(text: string, preferenceInputValue: number): void {
     this.reviewInputText = text;
     this.reviewStep = 'COMPARE_PRODUCTS';
