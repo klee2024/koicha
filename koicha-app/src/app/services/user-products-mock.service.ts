@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import { Product } from '../models/product';
 import { MOCK_BOOKMARKS } from '../data/bookmarks.mock';
-import { UserReview } from '../models/review';
 import { MOCK_REVIEWS } from '../data/reviews.mock';
 import { UserReviewRequest } from '../models/review-request';
 
@@ -31,6 +30,7 @@ export class UserProductsService {
     return of({ success: true }).pipe(delay(100));
   }
 
+  // TODO: delete if not used
   removeFromUserTasteCount(userId: string, productId: string) {
     return of({ success: true }).pipe(delay(300));
   }

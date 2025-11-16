@@ -8,12 +8,12 @@ interface BaseProductCard {
   imageUrl: string;
   productUrl: string;
   preparation: Preparation;
+  matchPercentage: number;
   tags: Tag[];
 }
 
 export interface RecommendationCard extends BaseProductCard {
   variant: 'recommendation';
-  matchPercentage: number;
 }
 
 export interface ReviewCard extends BaseProductCard {
@@ -21,6 +21,7 @@ export interface ReviewCard extends BaseProductCard {
   userScore: number;
   userRanking: number;
   reviewText: string;
+  reviewPreferenceValue: number; // converted based on the enum
   containersFinished?: number;
 }
 

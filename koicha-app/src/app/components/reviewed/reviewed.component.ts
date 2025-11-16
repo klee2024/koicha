@@ -86,6 +86,8 @@ export class ReviewedComponent {
       userScore: review.userRating,
       userRanking: review.userRanking,
       reviewText: review.userReviewText,
+      matchPercentage: review.matchPercentage,
+      reviewPreferenceValue: review.reviewPreferenceValue,
     };
   }
 

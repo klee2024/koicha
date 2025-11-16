@@ -15,4 +15,6 @@ export interface UserReview {
   productUrl: string;
   countOfProductFinished: number;
   productImageUrl: string;
+  matchPercentage: number;
+  reviewPreferenceValue: number; // enum from the backend
 }
