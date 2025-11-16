@@ -1,27 +1,76 @@
 <!-- TODO: format this as a card properly -->
 <ng-container *ngIf="productCard">
-  <!-- product card details -->
-  <!-- TODO: format the product card content properly  -->
-  <app-product-card-content
-    [hideProductMetrics]="true"
-    [productCardData]="productCard"
-  ></app-product-card-content>
+  <div class="create-review-card bg-white">
+    <!-- product card details -->
+    <!-- TODO: format the product card content properly  -->
+    <app-product-card-content
+      [hideProductMetrics]="true"
+      [productCardData]="productCard"
+    ></app-product-card-content>
 
-  <ng-container *ngIf="reviewStep == 'WRITE_REVIEW'">
-    <div>
-      <label class="review-input">
-        <span class="review-input__label">Your thoughts</span>
-        <textarea
-          #reviewInput
-          class="review-input__textbox"
-          placeholder="Share your thoughts"
-          rows="4"
-        ></textarea>
+    <div class="select-review-preference">
+      <label>
+        <input
+          type="radio"
+          name="reviewPreference"
+          value="{{ reviewPreferenceNameEnum.Liked }}"
+          [(ngModel)]="preferenceInputEnumValue"
+          #preferenceModel="ngModel"
+          required
+        />
+        <span>I liked it!</span>
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="reviewPreference"
+          value="{{ reviewPreferenceNameEnum.Fine }}"
+          [(ngModel)]="preferenceInputEnumValue"
+          required
+        />
+        <span>It was fine</span>
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="reviewPreference"
+          value="{{ reviewPreferenceNameEnum.Disliked }}"
+          [(ngModel)]="preferenceInputEnumValue"
+          required
+        />
+        <span>I didn't like it</span>
       </label>
     </div>
+    <!-- TODO: understand this implementation -->
+    <!-- <p
+    *ngIf="preferenceModel.invalid && preferenceModel.touched"
+    class="preference-error"
+  >
+    Please select an option to continue.
+  </p> -->
 
-    <button type="button" (click)="saveReviewInput(reviewInput.value)">
-      Done
-    </button>
-  </ng-container>
+    <ng-container *ngIf="reviewStep == 'WRITE_REVIEW'">
+      <div>
+        <label class="review-input">
+          <span class="review-input__label">Your thoughts</span>
+          <textarea
+            #reviewInput
+            class="review-input__textbox"
+            placeholder="Share your thoughts"
+            rows="4"
+          ></textarea>
+        </label>
+      </div>
+
+      <button
+        type="button"
+        [disabled]="!preferenceInputEnumValue"
+        (click)="
+          saveReviewInput(reviewInput.value, preferenceInputEnumValue || -1)
+        "
+      >
+        Done
+      </button>
+    </ng-container>
+  </div>
 </ng-container>

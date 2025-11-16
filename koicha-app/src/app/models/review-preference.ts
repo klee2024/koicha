@@ -7,8 +7,8 @@ export interface ReviewPreference {
 }
 
 // ascending order of preference
-enum ReviewPreferenceName {
+export enum ReviewPreferenceName {
   Disliked,
-  Medium,
+  Fine,
   Liked,
 }
