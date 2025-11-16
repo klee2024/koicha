@@ -3,6 +3,7 @@
 
 export interface ReviewPreference {
   id: string;
+  reviewPreferenceName: string;
   reviewPreferenceEnum: number;
 }
 

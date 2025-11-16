@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReviewPreferenceSelectorComponent } from '../review-preference-selector/review-preference-selector.component';
 import { ReviewProductRankingComponent } from '../review-product-ranking/review-product-ranking.component';
 import { ProductCardContentComponent } from '../../utility/product-card-content/product-card-content.component';
@@ -24,6 +24,7 @@ import { ReviewPreferenceName } from '../../../models/review-preference';
 export class CreateReviewCardComponent {
   public reviewPreferenceNameEnum = ReviewPreferenceName;
   @Input() productCard?: ProductCardData;
+  @Output() preferenceEnumValue = new EventEmitter<number>();
 
   reviewInputText?: string;
   preferenceInputEnumValue?: number;
@@ -50,6 +51,7 @@ export class CreateReviewCardComponent {
     this.reviewStep = 'COMPARE_PRODUCTS';
     console.log(preferenceInputValue);
     this.savePreferenceInput(preferenceInputValue);
+    this.preferenceEnumValue.emit(this.preferenceInputEnumValue);
     console.log(this.reviewInputText);
   }
 }

@@ -15,6 +15,7 @@
       class="max-w-2xl"
       [productCard]="productToReview"
       (click)="$event.stopPropagation()"
+      (preferenceEnumValue)="onGetProductsToCompare($event)"
     ></app-create-review-card>
   </div>
 

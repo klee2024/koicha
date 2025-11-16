@@ -58,6 +58,15 @@ export class ReviewedComponent {
     console.log(`bookmark product button works: ${product.id}!`);
   }
 
+  // gets the list of products to compare based on the preference value the user selected
+  // ex: if the user selected that they liked the product, get only the other products that
+  // the user liked
+  onGetProductsToCompare(reviewPreferenceValue: number) {
+    this.reviewService
+      .getUserProductReviewsByPreference(reviewPreferenceValue)
+      .subscribe((data) => console.log(data));
+  }
+
   // TODO: output productId to new child element that will handle the review
   onReviewProductService(userId: string, productId: string) {
     this.reviewService
