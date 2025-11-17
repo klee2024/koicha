@@ -36,6 +36,10 @@ export class CreateReviewCardComponent {
   @Output() preferenceEnumValue = new EventEmitter<number>();
   @Input() productsToCompare?: ProductCardData[];
 
+  @Output() undoSelected = new EventEmitter<void>();
+  @Output() tooToughSelected = new EventEmitter<void>();
+  @Output() skipSelected = new EventEmitter<void>();
+
   // saves the review based on the user's inputs
   createReview() {}
 

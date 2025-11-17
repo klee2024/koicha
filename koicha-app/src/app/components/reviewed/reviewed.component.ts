@@ -83,6 +83,18 @@ export class ReviewedComponent {
       .subscribe((data) => console.log(data));
   }
 
+  onSkipProductComparison() {
+    console.log('skip product comparison');
+  }
+
+  onUndoProductComparison() {
+    console.log('undo product comparison');
+  }
+
+  onProductComparisonTooTough() {
+    console.log('product comparison too tough');
+  }
+
   clearSelection() {
     this.selectedReview = undefined;
   }

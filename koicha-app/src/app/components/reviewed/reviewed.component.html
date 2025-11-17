@@ -16,6 +16,9 @@
       [productCard]="productToReview"
       (click)="$event.stopPropagation()"
       (preferenceEnumValue)="onGetProductsToCompare($event)"
+      (skipSelected)="onSkipProductComparison()"
+      (tooToughSelected)="onProductComparisonTooTough()"
+      (undoSelected)="onUndoProductComparison()"
     ></app-create-review-card>
   </div>
 

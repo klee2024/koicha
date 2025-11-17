@@ -37,7 +37,11 @@
       </button>
       }@case (COMPARE_PRODUCTS_STEP){
       <!-- render the component for comparing products -->
-      <app-review-product-ranking></app-review-product-ranking>
+      <app-review-product-ranking
+        (undoSelected)="undoSelected.emit()"
+        (tooToughSelected)="tooToughSelected.emit()"
+        (skipSelected)="skipSelected.emit()"
+      ></app-review-product-ranking>
       }}
     </ng-container>
   </div>

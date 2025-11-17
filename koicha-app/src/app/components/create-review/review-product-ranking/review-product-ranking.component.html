@@ -21,8 +21,10 @@
     </button>
   </div>
   <div class="action-buttons">
-    <button class="undo">undo</button>
-    <button class="too-tough">too tough</button>
-    <button class="skip">skip</button>
+    <button class="undo" (click)="undoSelected.emit()">undo</button>
+    <button class="too-tough" (click)="tooToughSelected.emit()">
+      too tough
+    </button>
+    <button class="skip" (click)="skipSelected.emit()">skip</button>
   </div>
 </div>
