@@ -1,7 +1,7 @@
 <!-- TODO: add consistent content box sizing -->
 <section class="recommendation-feed">
   <div class="filters">
-    <div class="filter-row flex flex-wrap items-center gap-10">
+    <div class="filter-row flex flex-wrap items-center gap-10 pl-4">
       <span class="font-mono text-xl shrink-0">flavor profiles</span>
       <ul
         class="filter-list flex flex-wrap items-center gap-4"
@@ -18,8 +18,8 @@
         </li>
       </ul>
     </div>
-    <div class="filter-row flex flex-wrap items-center gap-16">
-      <span class="font-mono text-xl">preparations</span>
+    <div class="filter-row flex flex-wrap items-center gap-16 pl-4">
+      <span class="font-mono text-xl pr-3">preparations</span>
       <ul
         class="filter-list flex flex-wrap items-center gap-4"
         aria-label="Preparations"
@@ -29,13 +29,13 @@
           [id]="prep.id"
           (click)="setPreparation(prep.slug)"
           [class.is-active-green-700]="activePrepSlug === prep.slug"
-          class="text-xl font-sans"
+          class="text-xl font-sans lowercase"
         >
           {{ prep.name }}
         </li>
       </ul>
     </div>
-    <button type="button" class="clear-filters" (click)="clearFilters()">
+    <button type="button" class="clear-filters pl-4" (click)="clearFilters()">
       clear filters
     </button>
   </div>
