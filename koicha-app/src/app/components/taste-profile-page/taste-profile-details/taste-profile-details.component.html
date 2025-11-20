@@ -1,8 +1,6 @@
 <!-- TODO: add consistent content box sizing -->
 <!-- TODO: fix the formatting of the taste profile details for responsive text boes (text box gets pushed vertically upon resizing to smaller screen) -->
-<div
-  class="taste-profile grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(28rem,36rem)] xl:items-start p-8"
->
+<div class="taste-profile">
   <ng-container
     *ngIf="tasteProfile?.tasteProfileDetails?.length; else elseBlock"
   >
@@ -43,7 +41,7 @@
             routerLink="/taste-profile-quiz"
             aria-current="page"
           >
-            Discover Your Perfect Match(a) ->
+            Discover Your Perfect Match(a) &rarr;
           </a>
         </div>
         <div class="taste-preference-description font-sans text-xl italic">
@@ -65,7 +63,7 @@
             class="taste-preference-heading"
             routerLink="/tea-shelf/reviews"
             aria-current="page"
-            >Find Your Taste Profile -></a
+            >Find Your Taste Profile &rarr;</a
           >
         </div>
         <div class="taste-preference-description font-sans text-xl italic">

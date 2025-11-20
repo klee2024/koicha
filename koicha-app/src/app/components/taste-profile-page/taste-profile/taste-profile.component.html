@@ -2,10 +2,11 @@
 <div
   class="taste-profile grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(28rem,36rem)] xl:items-start p-8"
 >
-  <app-taste-profile-details
-    [tasteProfile]="tasteProfile"
-  ></app-taste-profile-details>
-
+  <div class="taste-details-wrapper mr-20">
+    <app-taste-profile-details
+      [tasteProfile]="tasteProfile"
+    ></app-taste-profile-details>
+  </div>
   <div class="taste-chart-wrapper w-full xl:justify-self-end">
     <app-taste-chart [tasteProfile]="tasteProfile"></app-taste-chart>
   </div>
