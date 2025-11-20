@@ -41,9 +41,12 @@
   </div>
 
   <div class="feed">
-    <div class="status" *ngIf="loading">Loading matches...</div>
+    <div class="status pl-4" *ngIf="loading">Loading matches...</div>
 
-    <div class="status" *ngIf="!loading && filteredProductCards.length === 0">
+    <div
+      class="status pl-4"
+      *ngIf="!loading && filteredProductCards.length === 0"
+    >
       No products found. You have unique taste!
     </div>
 
