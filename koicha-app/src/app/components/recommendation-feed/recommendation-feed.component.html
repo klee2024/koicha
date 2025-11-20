@@ -27,7 +27,7 @@
         <li
           *ngFor="let prep of allPreps; trackBy: trackById"
           [id]="prep.id"
-          (click)="setPreparation(prep.slug)"
+          (click)="togglePreparation(prep.slug)"
           [class.is-active-green-700]="activePrepSlug === prep.slug"
           class="text-xl font-sans lowercase"
         >

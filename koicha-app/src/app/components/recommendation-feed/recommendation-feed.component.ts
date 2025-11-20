@@ -116,8 +116,10 @@ export class RecommendationFeedComponent implements OnInit {
     this.navigateWithFilters();
   }
 
-  setPreparation(slug?: string) {
-    this.activePrepSlug = slug;
+  togglePreparation(slug?: string) {
+    this.activePrepSlug == slug
+      ? (this.activePrepSlug = undefined)
+      : (this.activePrepSlug = slug);
     this.navigateWithFilters();
   }
 
