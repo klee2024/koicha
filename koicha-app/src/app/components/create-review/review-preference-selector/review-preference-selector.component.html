@@ -1,5 +1,23 @@
-<div class="select-review-preference">
-  <label>
+<div class="select-review-preference" *ngIf="preferences">
+  <div class="preference-selector-input" *ngFor="let preference of preferences">
+    <label>
+      <input
+        type="radio"
+        name="reviewPreference"
+        value="{{ preference.bucket }}"
+        [(ngModel)]="preferenceSelected"
+        (ngModelChange)="onChange($event)"
+        #preferenceModel="ngModel"
+        required
+      />
+      <span>{{ preference.label }}</span>
+    </label>
+  </div>
+</div>
+
+<!-- OLD IMPLEMENTATION -->
+
+<!-- <label>
     <input
       type="radio"
       name="reviewPreference"
@@ -10,30 +28,8 @@
       required
     />
     <span>I liked it!</span>
-  </label>
-  <label>
-    <input
-      type="radio"
-      name="reviewPreference"
-      value="{{ reviewPreferenceNameEnum.Fine }}"
-      [(ngModel)]="preferenceInputEnumValue"
-      (ngModelChange)="onChange($event)"
-      required
-    />
-    <span>It was fine</span>
-  </label>
-  <label>
-    <input
-      type="radio"
-      name="reviewPreference"
-      value="{{ reviewPreferenceNameEnum.Disliked }}"
-      [(ngModel)]="preferenceInputEnumValue"
-      (ngModelChange)="onChange($event)"
-      required
-    />
-    <span>I didn't like it</span>
-  </label>
-</div>
+  </label> -->
+
 <!-- TODO: understand this implementation -->
 <!-- <p
   *ngIf="preferenceModel.invalid && preferenceModel.touched"

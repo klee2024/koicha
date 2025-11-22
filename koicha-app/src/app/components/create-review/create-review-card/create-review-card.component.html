@@ -8,12 +8,16 @@
       [productCardData]="productCard"
     ></app-product-card-content>
 
-    <app-review-preference-selector
-      [(preferenceInputEnumValue)]="preferenceInputEnumValue"
-    ></app-review-preference-selector>
+    <ng-container *ngIf="preferences$ | async as preferences">
+      <app-review-preference-selector
+        [preferences]="preferences"
+        (preferenceSelected)="onPreferenceSelected($event)"
+      >
+      </app-review-preference-selector>
+    </ng-container>
 
     <ng-container class="create-review-actions">
-      @switch (reviewStep){@case (WRITE_REVIEW_STEP){
+      @switch (reviewStep) { @case (WRITE_REVIEW_STEP) {
       <div>
         <label class="review-input">
           <span class="review-input__label">Your thoughts</span>
@@ -35,14 +39,18 @@
       >
         Done
       </button>
-      }@case (COMPARE_PRODUCTS_STEP){
-      <!-- render the component for comparing products -->
-      <app-review-product-ranking
-        (undoSelected)="undoSelected.emit()"
-        (tooToughSelected)="tooToughSelected.emit()"
-        (skipSelected)="skipSelected.emit()"
-      ></app-review-product-ranking>
-      }}
+      } @case (COMPARE_PRODUCTS_STEP) {
+      <app-review-product-slider> </app-review-product-slider>
+
+      <app-ranking-lineup></app-ranking-lineup>
+      } }
     </ng-container>
   </div>
 </ng-container>
+
+<!-- TODO: revisit product comparison post-MVP -->
+<!-- <app-review-product-ranking
+        (undoSelected)="undoSelected.emit()"
+        (tooToughSelected)="tooToughSelected.emit()"
+        (skipSelected)="skipSelected.emit()"
+      ></app-review-product-ranking> -->

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ReviewPreferenceName } from '../../../models/review-preference';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReviewPreference } from '../../../models/review-preference';
 
 @Component({
   selector: 'app-review-preference-selector',
@@ -10,12 +10,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './review-preference-selector.component.css',
 })
 export class ReviewPreferenceSelectorComponent {
-  public reviewPreferenceNameEnum = ReviewPreferenceName;
-  @Input() preferenceInputEnumValue?: number;
-  @Output() preferenceInputEnumValueChange = new EventEmitter<number>();
+  @Input() preferences?: ReviewPreference[] = [];
+  // public reviewPreferenceNameEnum = ReviewPreferenceName;
+  @Output() preferenceSelected = new EventEmitter<string>();
+  @Output() selectedPreferenceBucketChange = new EventEmitter<string>();
 
-  onChange(value: number) {
-    this.preferenceInputEnumValueChange.emit(value);
+  onChange(value: string) {
+    this.selectedPreferenceBucketChange.emit(value);
     console.log('emitting new value');
   }
 }
