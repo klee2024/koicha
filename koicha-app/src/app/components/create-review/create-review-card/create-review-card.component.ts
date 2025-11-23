@@ -15,6 +15,7 @@ import { RankingLineupComponent } from '../ranking-lineup/ranking-lineup.compone
 import { ProductLineup } from './product-lineup';
 import { ReviewService } from '../../../services/review.service';
 import { Observable } from 'rxjs';
+import { UserReviewRequest } from '../../../models/review-request';
 
 @Component({
   selector: 'app-create-review-card',
@@ -64,17 +65,38 @@ export class CreateReviewCardComponent implements OnInit {
   // @Output() tooToughSelected = new EventEmitter<void>();
   // @Output() skipSelected = new EventEmitter<void>();
 
-  constructor(private reviewPreferenceService: ReviewService) {}
+  constructor(private reviewService: ReviewService) {}
 
   ngOnInit(): void {
-    this.reviewPreferenceService.getPreferenceBuckets();
-    this.preferences$ = this.reviewPreferenceService.preferences$;
+    this.reviewService.getPreferenceBuckets();
+    this.preferences$ = this.reviewService.preferences$;
     console.log('preferences: ', this.preferences$);
   }
 
   // saves the review based on the user's inputs
   createReview() {
-    console.log('creating review!');
+    // TODO: auth for getting the user's id
+    if (this.productCard && this.selectedRating) {
+      console.log('creating review');
+      const createReviewPayload: UserReviewRequest = {
+        userId: 'user123',
+        productId: this.productCard.id,
+        userRating: this.selectedRating,
+        userReviewText: this.reviewInputText,
+      };
+
+      this.reviewService
+        .createUserProductReview(
+          'user123',
+          this.productCard.id,
+          createReviewPayload
+        )
+        .subscribe((data) => {
+          console.log('review was created ', data);
+        });
+      console.log('creating review!');
+      // TODO: navigate to the reviewed page and present the new review
+    }
   }
 
   // saves the preferenceInput as the enum value to the component field
@@ -98,17 +120,12 @@ export class CreateReviewCardComponent implements OnInit {
     // TODO: call the service to get the list of subpreferences
     // pass these down to the slider component
     if (this.selectedPreference) {
-      this.reviewPreferenceService.getSubPreferenceBucket(
-        this.selectedPreference
-      );
-      this.subPreferences$ = this.reviewPreferenceService.subPreferences$;
-      console.log(
-        'sub preference: ',
-        this.reviewPreferenceService.subPreferences
-      );
+      this.reviewService.getSubPreferenceBucket(this.selectedPreference);
+      this.subPreferences$ = this.reviewService.subPreferences$;
+      console.log('sub preference: ', this.reviewService.subPreferences);
       // TODO: fix getting min and max values
       const subPreferenceValueRange =
-        this.reviewPreferenceService.getSubPreferencesValueRange();
+        this.reviewService.getSubPreferencesValueRange();
       if (
         subPreferenceValueRange.hasOwnProperty('min') &&
         subPreferenceValueRange.hasOwnProperty('max')
@@ -125,7 +142,7 @@ export class CreateReviewCardComponent implements OnInit {
     // set ranking-lineup to not visible
     this.selectedRating = ratingValue;
     if (this.selectedRating && this.productCard) {
-      this.productLineup = this.reviewPreferenceService.getProductLineup(
+      this.productLineup = this.reviewService.getProductLineup(
         this.selectedRating,
         this.productCard
       );

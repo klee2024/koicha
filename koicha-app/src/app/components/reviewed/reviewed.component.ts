@@ -71,18 +71,6 @@ export class ReviewedComponent {
       });
   }
 
-  // TODO: output productId to new child element that will handle the review
-  onReviewProductService(userId: string, productId: string) {
-    this.reviewService
-      .createUserProductReview('placeholder user id', productId, {
-        userId: 'placeholder',
-        productId: productId,
-        userRanking: 0,
-        userReviewText: 'testing',
-      })
-      .subscribe((data) => console.log(data));
-  }
-
   onSkipProductComparison() {
     console.log('skip product comparison');
   }
