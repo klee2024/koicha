@@ -98,7 +98,7 @@ export class CreateReviewCardComponent implements OnInit {
         'sub preference: ',
         this.reviewPreferenceService.subPreferences
       );
-      // TODO: fix getting min and max
+      // TODO: fix getting min and max values
       const subPreferenceValueRange =
         this.reviewPreferenceService.getSubPreferencesValueRange();
       if (
@@ -106,10 +106,8 @@ export class CreateReviewCardComponent implements OnInit {
         subPreferenceValueRange.hasOwnProperty('max')
       ) {
         this.minSubPreferenceValue = subPreferenceValueRange['min'];
-        this.minSubPreferenceValue = subPreferenceValueRange['max'];
+        this.maxSubPreferenceValue = subPreferenceValueRange['max'];
       }
-      console.log('min value: ', this.minSubPreferenceValue);
-      console.log('max value: ', this.maxSubPreferenceValue);
     }
   }
 
