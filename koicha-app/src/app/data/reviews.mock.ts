@@ -41,7 +41,7 @@ export const MOCK_REVIEWS: UserReview[] = [
     productName: 'Kohata Matcha',
     productBrand: 'Kettl',
     userRanking: 2,
-    userRating: 8.9,
+    userRating: 89,
     matchPercentage: 82,
     userReviewText:
       'Deep oceanic and savory profile. Excellent for koicha sessions.',

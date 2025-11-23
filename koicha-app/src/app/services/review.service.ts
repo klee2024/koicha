@@ -94,20 +94,44 @@ export class ReviewService {
   // ==================
 
   // TODO: implement this so it's more of a helper method rather than a data fetcher
-  getProductLineup(ratingValue: number): ProductLineup[] {
-    // TODO: find the product before and after the current rating
-
-    // get the user's reviews BY PREFERENCE
-    const user_reviews = MOCK_REVIEWS;
-    return [];
+  getProductLineup(
+    ratingValue: number,
+    productCurrentlyReviewing: Product
+  ): ProductLineup[] {
+    // get the user's reviews
+    // TODO: consider doing this just by the preference
+    const userReviews = MOCK_REVIEWS;
+    // get the insertion point based on the userReviews
+    const insertionIndex = this.findInsertionIndexDescendingBinary(
+      userReviews,
+      ratingValue
+    );
+    const lineup = this.findProductLineupFromInsertionPoint(
+      userReviews,
+      insertionIndex,
+      ratingValue,
+      productCurrentlyReviewing
+    );
+    return lineup;
   }
 
   findInsertionIndexDescendingBinary(
     userReviews: UserReview[],
-    newRating: number
+    newScore: number
   ): number {
-    // returns the index
-    return 0;
+    let left = 0;
+    let right = userReviews.length;
+
+    while (left < right) {
+      const mid = Math.floor((left + right) / 2);
+
+      if (newScore >= userReviews[mid].userRating) {
+        right = mid;
+      } else {
+        left = mid + 1;
+      }
+    }
+    return left;
   }
 
   // TODO: refactor this method for clarity
@@ -150,7 +174,7 @@ export class ReviewService {
 
     const currentProduct: ProductLineup = {
       // override userRanking depending on the overall product lineup
-      userRanking: insertionIndex + 1,
+      productRanking: insertionIndex + 1,
       productName: productCurrentlyReviewing.name,
       productBrand: productCurrentlyReviewing.brand,
       productRating: newRating,
@@ -178,7 +202,7 @@ export class ReviewService {
     }
 
     // sort the array at the end by the ProductRating
-    productLineupList.sort((a, b) => a.productRating - b.productRating);
+    productLineupList.sort((a, b) => b.productRating - a.productRating);
     return productLineupList;
   }
 
@@ -188,7 +212,7 @@ export class ReviewService {
     productPosition: 'before' | 'after' | 'current'
   ): ProductLineup {
     return {
-      userRanking: index,
+      productRanking: index,
       productName: userReviews[index].productName,
       productBrand: userReviews[index].productBrand,
       productRating: userReviews[index].userRating,

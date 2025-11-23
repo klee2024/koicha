@@ -49,11 +49,11 @@
       >
       </app-review-product-slider>
 
-      <app-ranking-lineup></app-ranking-lineup>
+      <app-ranking-lineup [productLineup]="productLineup"></app-ranking-lineup>
       <!-- BIND THIS  -->
       <button
         type="button"
-        [disabled]="!selectedSubPreference"
+        [disabled]="!selectedRating"
         (click)="createReview()"
       >
         Finish

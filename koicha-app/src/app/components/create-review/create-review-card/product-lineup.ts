@@ -1,5 +1,5 @@
 export interface ProductLineup {
-  userRanking: number;
+  productRanking: number;
   productName: string;
   productBrand: string;
   productRating: number;

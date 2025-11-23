@@ -1,1 +1,11 @@
 <p>ranking-lineup works!</p>
+
+<div class="product-lineup" *ngIf="productLineup">
+  <div class="product-lineup-container" *ngFor="let product of productLineup">
+    <span class="product-ranking">#{{ product.productRating }} </span>
+    <span class="product-ranking">
+      {{ product.productName }} - {{ product.productBrand }}
+    </span>
+    <span class="product-position"> ({{ product.productPosition }}) </span>
+  </div>
+</div>

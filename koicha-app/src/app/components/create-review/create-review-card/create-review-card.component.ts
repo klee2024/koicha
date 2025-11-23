@@ -73,7 +73,9 @@ export class CreateReviewCardComponent implements OnInit {
   }
 
   // saves the review based on the user's inputs
-  createReview() {}
+  createReview() {
+    console.log('creating review!');
+  }
 
   // saves the preferenceInput as the enum value to the component field
   savePreferenceInput(preferenceInputValue: string): void {
@@ -122,9 +124,10 @@ export class CreateReviewCardComponent implements OnInit {
     // call the service to get the products before and after this value
     // set ranking-lineup to not visible
     this.selectedRating = ratingValue;
-    if (this.selectedRating) {
+    if (this.selectedRating && this.productCard) {
       this.productLineup = this.reviewPreferenceService.getProductLineup(
-        this.selectedRating
+        this.selectedRating,
+        this.productCard
       );
     }
   }
