@@ -1,3 +1,5 @@
+// implemented in case the review preference text changes or new categories are added
+// ex: {id: "reviewPreference1", reviewPreferenceName: "I liked it"}
 
 // ===============================
 // Main Buckets for Review Preference
@@ -20,9 +22,9 @@ export enum ReviewPreferenceValue {
 // The bucket config (for listing, labels, etc.)
 export interface ReviewPreference {
   id: string; // e.g. 'reviewPreference.liked'
-  bucket: ReviewPreferenceBucket; // DISLIKED / FINE / LIKED
+  bucket: string; // DISLIKED / FINE / LIKED
   label: string; // display text: "I liked it"
-  value: ReviewPreferenceValue; // 20 / 50 / 80
+  value: number; // 20 / 50 / 80
 }
 
 // ===============================
@@ -69,8 +71,8 @@ export enum FineSubPreference {
 // Config model for a sub-preference
 export interface ReviewSubPreference {
   id: string; // e.g. 'subPref.loved'
-  bucket: ReviewPreferenceBucket; // always LIKED for now
-  key: LikedSubPreference | DislikedSubPreference | FineSubPreference; // Liked / ReallyLiked / Loved
+  bucket: string;
+  key: string; // Liked / ReallyLiked / Loved
   label: string; // display text
-  value: LikedSubPreferenceValue; // 70 / 80 / 90
+  value: number; // 70 / 80 / 90
 }

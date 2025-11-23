@@ -28,6 +28,25 @@ export class ReviewPreferenceService {
     return this._subPreferences$.asObservable();
   }
 
+  get subPreferences() {
+    return this._subPreferences$.value;
+  }
+
+  // TODO: fix getting min and max values
+  getSubPreferencesValueRange(): Record<string, number> {
+    // assumes that the array of subPreferences is sorted from lowest to highest subpreference value
+    if (this._subPreferences$) {
+      const subPreferenceArr = this._subPreferences$.value;
+      const minValue = subPreferenceArr[0].value;
+      let maxValue = subPreferenceArr[subPreferenceArr.length - 1].value + 10;
+      if (subPreferenceArr[-1].value == 100) {
+        maxValue = 100;
+      }
+      return { min: minValue, max: maxValue };
+    }
+    return {};
+  }
+
   getPreferenceBuckets(): void {
     this._preferences$.next(REVIEW_PREFERENCES);
     console.log('retrieving preferences: ', REVIEW_PREFERENCES);

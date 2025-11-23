@@ -1,104 +1,98 @@
 import {
-  LikedSubPreference,
-  ReviewPreferenceBucket,
-  ReviewSubPreference,
-  ReviewPreferenceValue,
-  LikedSubPreferenceValue,
   ReviewPreference,
-  DislikedSubPreference,
-  FineSubPreference,
+  ReviewSubPreference,
 } from '../models/review-preference';
 
 // Example: static config you can use in the UI
 export const REVIEW_PREFERENCES: ReviewPreference[] = [
   {
     id: 'reviewPreference.disliked',
-    bucket: ReviewPreferenceBucket.Disliked,
+    bucket: 'DISLIKED',
     label: 'Not for me',
-    value: ReviewPreferenceValue.Disliked,
+    value: 20,
   },
   {
     id: 'reviewPreference.fine',
-    bucket: ReviewPreferenceBucket.Fine,
+    bucket: 'FINE',
     label: 'It was fine',
-    value: ReviewPreferenceValue.Fine,
+    value: 50,
   },
   {
     id: 'reviewPreference.liked',
-    bucket: ReviewPreferenceBucket.Liked,
+    bucket: 'LIKED',
     label: 'I liked it',
-    value: ReviewPreferenceValue.Liked,
+    value: 80,
   },
 ];
 
 export const LIKED_SUBPREFERENCES: ReviewSubPreference[] = [
   {
     id: 'subPref.liked',
-    bucket: ReviewPreferenceBucket.Liked,
-    key: LikedSubPreference.Liked,
+    bucket: 'LIKED',
+    key: 'LIKED',
     label: 'I liked it',
-    value: LikedSubPreferenceValue.Liked,
+    value: 70,
   },
   {
     id: 'subPref.reallyLiked',
-    bucket: ReviewPreferenceBucket.Liked,
-    key: LikedSubPreference.ReallyLiked,
+    bucket: 'LIKED',
+    key: 'REALLY_LIKED',
     label: 'I really liked it',
-    value: LikedSubPreferenceValue.ReallyLiked,
+    value: 80,
   },
   {
     id: 'subPref.loved',
-    bucket: ReviewPreferenceBucket.Liked,
-    key: LikedSubPreference.Loved,
+    bucket: 'LIKED',
+    key: 'LOVED',
     label: 'I loved it',
-    value: LikedSubPreferenceValue.Loved,
+    value: 90,
   },
 ];
 
 export const DISLIKED_SUBPREFERENCES: ReviewSubPreference[] = [
   {
     id: 'subPref.reallyDisliked',
-    bucket: ReviewPreferenceBucket.Disliked,
-    key: DislikedSubPreference.ReallyDisliked,
+    bucket: 'DISLIKED',
+    key: 'REALLY_DISLIKED',
     label: 'Really Disliked',
-    value: LikedSubPreferenceValue.Liked,
+    value: 10,
   },
   {
     id: 'subPref.disliked',
-    bucket: ReviewPreferenceBucket.Disliked,
-    key: DislikedSubPreference.Disliked,
+    bucket: 'DISLIKED',
+    key: 'DISLIKED',
     label: 'Disliked',
-    value: LikedSubPreferenceValue.ReallyLiked,
+    value: 20,
   },
   {
     id: 'subPref.slightlyDisliked',
-    bucket: ReviewPreferenceBucket.Disliked,
-    key: DislikedSubPreference.SlightlyDisliked,
+    bucket: 'DISLIKED',
+    key: 'SLIGHTLY_DISLIKED',
     label: 'Slightly Disliked',
-    value: LikedSubPreferenceValue.Loved,
+    value: 30,
   },
 ];
 
 export const FINE_SUBPREFERENCES: ReviewSubPreference[] = [
   {
     id: 'subPref.meh',
-    bucket: ReviewPreferenceBucket.Fine,
-    key: FineSubPreference.Meh,
+    bucket: 'FINE',
+    key: 'MEH',
     label: 'Meh',
-    value: LikedSubPreferenceValue.Liked,
+    value: 40,
   },
   {
     id: 'subPref.fine',
-    bucket: ReviewPreferenceBucket.Fine,
-    key: FineSubPreference.Fine,
+    bucket: 'FINE',
+    key: 'FINE',
     label: 'Fine',
-    value: LikedSubPreferenceValue.ReallyLiked,
+    value: 50,
   },
   {
     id: 'subPref.Good',
-    bucket: ReviewPreferenceBucket.Fine,
-    key: FineSubPreference.PrettyGood,
+    bucket: 'FINE',
+    key: 'PRETTY_GOOD',
     label: 'Good',
-    value: LikedSubPreferenceValue.Loved,
+    value: 60,
   },
 ];

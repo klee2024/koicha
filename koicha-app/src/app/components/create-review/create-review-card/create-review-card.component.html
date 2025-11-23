@@ -46,6 +46,13 @@
       </app-review-product-slider>
 
       <app-ranking-lineup></app-ranking-lineup>
+      <button
+        type="button"
+        [disabled]="!selectedSubPreference"
+        (click)="createReview()"
+      >
+        Finish
+      </button>
       } }
     </ng-container>
   </div>

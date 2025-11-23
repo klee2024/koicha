@@ -41,6 +41,8 @@ export class CreateReviewCardComponent implements OnInit {
   reviewInputText?: string;
   selectedPreference?: string;
   selectedSubPreference?: string;
+  minSubPreferenceValue?: number;
+  maxSubPreferenceValue?: number;
   selectedRating?: number;
   reviewStep: string = this.WRITE_REVIEW_STEP;
 
@@ -92,6 +94,22 @@ export class CreateReviewCardComponent implements OnInit {
         this.selectedPreference
       );
       this.subPreferences$ = this.reviewPreferenceService.subPreferences$;
+      console.log(
+        'sub preference: ',
+        this.reviewPreferenceService.subPreferences
+      );
+      // TODO: fix getting min and max
+      const subPreferenceValueRange =
+        this.reviewPreferenceService.getSubPreferencesValueRange();
+      if (
+        subPreferenceValueRange.hasOwnProperty('min') &&
+        subPreferenceValueRange.hasOwnProperty('max')
+      ) {
+        this.minSubPreferenceValue = subPreferenceValueRange['min'];
+        this.minSubPreferenceValue = subPreferenceValueRange['max'];
+      }
+      console.log('min value: ', this.minSubPreferenceValue);
+      console.log('max value: ', this.maxSubPreferenceValue);
     }
   }
 
