@@ -12,8 +12,8 @@ import {
 } from '../../../models/review-preference';
 import { ReviewProductSliderComponent } from '../review-product-slider/review-product-slider.component';
 import { RankingLineupComponent } from '../ranking-lineup/ranking-lineup.component';
-import { ProductLineup } from './lineup-model';
-import { ReviewPreferenceService } from '../../../services/reviewPreference.service';
+import { ProductLineup } from './product-lineup';
+import { ReviewService } from '../../../services/review.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -38,27 +38,33 @@ export class CreateReviewCardComponent implements OnInit {
   readonly WRITE_REVIEW_STEP = 'WRITE_REVIEW';
   readonly COMPARE_PRODUCTS_STEP = 'COMPARE_PRODUCTS';
 
+  reviewStep: string = this.WRITE_REVIEW_STEP;
   reviewInputText?: string;
+
+  // preference selector
   selectedPreference?: string;
   selectedSubPreference?: string;
+
+  // rating slider
   minSubPreferenceValue?: number;
   maxSubPreferenceValue?: number;
   selectedRating?: number;
-  reviewStep: string = this.WRITE_REVIEW_STEP;
+
+  // product lineup
+  productLineup?: ProductLineup[];
 
   preferences$!: Observable<ReviewPreference[]>;
   subPreferences$!: Observable<ReviewSubPreference[]>;
 
   @Input() productCard?: ProductCardData;
   @Input() productsToCompare?: ProductCardData[];
-  @Output() productLineup = new EventEmitter<ProductLineup>();
 
   // TODO: Revisit these outputs post MVP
   // @Output() undoSelected = new EventEmitter<void>();
   // @Output() tooToughSelected = new EventEmitter<void>();
   // @Output() skipSelected = new EventEmitter<void>();
 
-  constructor(private reviewPreferenceService: ReviewPreferenceService) {}
+  constructor(private reviewPreferenceService: ReviewService) {}
 
   ngOnInit(): void {
     this.reviewPreferenceService.getPreferenceBuckets();
@@ -105,9 +111,21 @@ export class CreateReviewCardComponent implements OnInit {
         subPreferenceValueRange.hasOwnProperty('min') &&
         subPreferenceValueRange.hasOwnProperty('max')
       ) {
+        // set min and max
         this.minSubPreferenceValue = subPreferenceValueRange['min'];
         this.maxSubPreferenceValue = subPreferenceValueRange['max'];
       }
+    }
+  }
+
+  onSliderChange(ratingValue: number) {
+    // call the service to get the products before and after this value
+    // set ranking-lineup to not visible
+    this.selectedRating = ratingValue;
+    if (this.selectedRating) {
+      this.productLineup = this.reviewPreferenceService.getProductLineup(
+        this.selectedRating
+      );
     }
   }
 

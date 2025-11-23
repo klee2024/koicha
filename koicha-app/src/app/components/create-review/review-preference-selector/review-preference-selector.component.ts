@@ -14,6 +14,7 @@ export class ReviewPreferenceSelectorComponent {
   @Input() preferenceSelected?: string;
   @Output() preferenceSelectedChange = new EventEmitter<string>();
 
+  // TODO: update this so that any time a chagne is made even with the slider, the preference reflects the new choice
   onChange(value: string) {
     this.preferenceSelectedChange.emit(value);
     console.log('emitting new value ', value);

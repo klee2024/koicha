@@ -4,12 +4,15 @@
   <div class="slider-headings" *ngFor="let subPreference of subPreferences">
     <span>{{ subPreference.label }}</span>
   </div>
-  <!-- <input
+  <!-- TODO: ensure that the initial value visually appears on the slider accurrately -->
+  <input
     type="range"
-    [min]="subPreference."
-    [max]=""
+    [min]="min"
+    [max]="max"
     [step]="STEP"
-    [ngModel]="selectedValue"
-    (ngModelOnChage($event))
-  /> -->
+    [value]="value"
+    [ngModel]="ratingValueSelected"
+    (ngModelChange)="onValueChange($event)"
+  />
+  <span class="rating-value" *ngIf="value">{{ value / 10 }}</span>
 </div>

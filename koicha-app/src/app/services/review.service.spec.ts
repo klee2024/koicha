@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ReviewPreferenceService } from './reviewPreference.service';
+import { ReviewPreferenceService } from './review.service';
 
 describe('ReviewsService', () => {
   let service: ReviewPreferenceService;

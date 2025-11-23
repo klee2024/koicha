@@ -42,10 +42,15 @@
         *ngIf="subPreferences$ | async as subPreferences"
         [subPreferences]="subPreferences"
         (subPreferenceSelected)="onSubPreferenceSelected($event)"
+        [min]="minSubPreferenceValue"
+        [max]="maxSubPreferenceValue"
+        [initialRecommendationValue]="productCard.matchPercentage"
+        (ratingValueChange)="onSliderChange($event)"
       >
       </app-review-product-slider>
 
       <app-ranking-lineup></app-ranking-lineup>
+      <!-- BIND THIS  -->
       <button
         type="button"
         [disabled]="!selectedSubPreference"

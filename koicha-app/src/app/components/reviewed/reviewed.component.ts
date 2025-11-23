@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { UserProductsService } from '../../services/user-products-mock.service';
+import { ReviewService } from '../../services/review.service';
 import { UserReview } from '../../models/review';
 import { FeedComponent } from '../utility/feed/feed.component';
 import {
@@ -33,7 +33,7 @@ export class ReviewedComponent {
 
   @Output() popupMessage = new EventEmitter<string>();
 
-  constructor(private reviewService: UserProductsService) {}
+  constructor(private reviewService: ReviewService) {}
 
   ngOnInit() {
     // TODO: make the fetch dynamic by grabbing the logged in user
