@@ -38,7 +38,12 @@
         Done
       </button>
       } @case (COMPARE_PRODUCTS_STEP) {
-      <app-review-product-slider> </app-review-product-slider>
+      <app-review-product-slider
+        *ngIf="subPreferences$ | async as subPreferences"
+        [subPreferences]="subPreferences"
+        (subPreferenceSelected)="onSubPreferenceSelected($event)"
+      >
+      </app-review-product-slider>
 
       <app-ranking-lineup></app-ranking-lineup>
       } }

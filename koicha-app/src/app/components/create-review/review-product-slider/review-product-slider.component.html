@@ -1,1 +1,7 @@
-<p>review-product-slider works!</p>
+<!-- use a slider and emit the number that the user chose -->
+
+<div class="slider" *ngIf="subPreferences">
+  <div class="slider-headings" *ngFor="let subPreference of subPreferences">
+    <span>{{ subPreference.label }}</span>
+  </div>
+</div>

@@ -40,6 +40,8 @@ export class CreateReviewCardComponent implements OnInit {
 
   reviewInputText?: string;
   selectedPreference?: string;
+  selectedSubPreference?: string;
+  selectedRating?: number;
   reviewStep: string = this.WRITE_REVIEW_STEP;
 
   preferences$!: Observable<ReviewPreference[]>;
@@ -78,12 +80,23 @@ export class CreateReviewCardComponent implements OnInit {
     this.reviewStep = this.COMPARE_PRODUCTS_STEP;
     console.log('preference input value', preferenceInputValue);
     this.savePreferenceInput(preferenceInputValue);
+    this.onPreferenceSelected();
     console.log(this.reviewInputText);
   }
 
-  onPreferenceSelected(preference: string) {
+  onPreferenceSelected() {
     // TODO: call the service to get the list of subpreferences
     // pass these down to the slider component
+    if (this.selectedPreference) {
+      this.reviewPreferenceService.getSubPreferenceBucket(
+        this.selectedPreference
+      );
+      this.subPreferences$ = this.reviewPreferenceService.subPreferences$;
+    }
+  }
+
+  onSubPreferenceSelected(subPreference: string) {
+    console.log(subPreference);
   }
 
   receiveRatingScore(score: number) {
