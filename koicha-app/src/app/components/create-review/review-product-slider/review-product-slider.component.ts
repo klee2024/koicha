@@ -30,30 +30,18 @@ export class ReviewProductSliderComponent {
 
   constructor() {}
 
-  ngOnInit() {
-    if (
-      this.initialRecommendationValue &&
-      this.max &&
-      this.initialRecommendationValue > this.max
-    ) {
-      this.value = this.max;
-    }
-    if (
-      this.initialRecommendationValue &&
-      this.min &&
-      this.initialRecommendationValue < this.min
-    ) {
-      this.value = this.min;
-    }
+  private clampToRange(value: number, min: number, max: number): number {
+    if (value > max) return max;
+    if (value < min) return min;
+    return value;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (
-      changes['initialRecommendationValue'] ||
-      changes['min'] ||
-      changes['max']
-    ) {
-      this.value = this.initialRecommendationValue ?? this.min;
+  ngOnChanges(): void {
+    // Ensure we have numbers to work with
+    const initial = this.initialRecommendationValue ?? this.min;
+
+    if (initial && this.min && this.max) {
+      this.value = this.clampToRange(initial, this.min, this.max);
     }
   }
 

@@ -10,8 +10,7 @@
     [min]="min"
     [max]="max"
     [step]="STEP"
-    [value]="value"
-    [ngModel]="ratingValueSelected"
+    [(ngModel)]="value"
     (ngModelChange)="onValueChange($event)"
   />
   <span class="rating-value" *ngIf="value">{{ value / 10 }}</span>
