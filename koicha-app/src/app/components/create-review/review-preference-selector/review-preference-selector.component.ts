@@ -11,12 +11,11 @@ import { ReviewPreference } from '../../../models/review-preference';
 })
 export class ReviewPreferenceSelectorComponent {
   @Input() preferences?: ReviewPreference[] = [];
-  // public reviewPreferenceNameEnum = ReviewPreferenceName;
-  @Output() preferenceSelected = new EventEmitter<string>();
-  @Output() selectedPreferenceBucketChange = new EventEmitter<string>();
+  @Input() preferenceSelected?: string;
+  @Output() preferenceSelectedChange = new EventEmitter<string>();
 
   onChange(value: string) {
-    this.selectedPreferenceBucketChange.emit(value);
-    console.log('emitting new value');
+    this.preferenceSelectedChange.emit(value);
+    console.log('emitting new value ', value);
   }
 }

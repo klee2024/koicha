@@ -39,16 +39,14 @@ export class CreateReviewCardComponent implements OnInit {
   readonly COMPARE_PRODUCTS_STEP = 'COMPARE_PRODUCTS';
 
   reviewInputText?: string;
-  preferenceInputEnumValue?: number;
+  selectedPreference?: string;
   reviewStep: string = this.WRITE_REVIEW_STEP;
 
   preferences$!: Observable<ReviewPreference[]>;
   subPreferences$!: Observable<ReviewSubPreference[]>;
 
   @Input() productCard?: ProductCardData;
-  @Output() preferenceEnumValue = new EventEmitter<number>();
   @Input() productsToCompare?: ProductCardData[];
-
   @Output() productLineup = new EventEmitter<ProductLineup>();
 
   // TODO: Revisit these outputs post MVP
@@ -68,19 +66,18 @@ export class CreateReviewCardComponent implements OnInit {
   createReview() {}
 
   // saves the preferenceInput as the enum value to the component field
-  savePreferenceInput(preferenceInputValue: number): void {
-    this.preferenceInputEnumValue = preferenceInputValue;
-    console.log(this.preferenceInputEnumValue);
+  savePreferenceInput(preferenceInputValue: string): void {
+    this.selectedPreference = preferenceInputValue;
+    console.log(this.selectedPreference);
   }
 
   // saves the first step of the review process, which is selecting if they
   // liked the product or didn't (savePreferenceInput) and saves the review text
-  saveReviewInput(text: string, preferenceInputValue: number): void {
+  saveReviewInput(text: string, preferenceInputValue: string): void {
     this.reviewInputText = text;
     this.reviewStep = this.COMPARE_PRODUCTS_STEP;
     console.log('preference input value', preferenceInputValue);
     this.savePreferenceInput(preferenceInputValue);
-    this.preferenceEnumValue.emit(this.preferenceInputEnumValue);
     console.log(this.reviewInputText);
   }
 

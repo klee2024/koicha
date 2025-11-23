@@ -11,7 +11,7 @@
     <ng-container *ngIf="preferences$ | async as preferences">
       <app-review-preference-selector
         [preferences]="preferences"
-        (preferenceSelected)="onPreferenceSelected($event)"
+        [(preferenceSelected)]="selectedPreference"
       >
       </app-review-preference-selector>
     </ng-container>
@@ -32,10 +32,8 @@
 
       <button
         type="button"
-        [disabled]="!preferenceInputEnumValue"
-        (click)="
-          saveReviewInput(reviewInput.value, preferenceInputEnumValue || -1)
-        "
+        [disabled]="!selectedPreference"
+        (click)="saveReviewInput(reviewInput.value, selectedPreference || '')"
       >
         Done
       </button>
