@@ -39,7 +39,6 @@ export class ReviewService {
 
   getPreferenceBuckets(): void {
     this._preferences$.next(REVIEW_PREFERENCES);
-    console.log('retrieving preferences: ', REVIEW_PREFERENCES);
   }
 
   getSubPreferenceBucket(mainPreferenceEnum: string): void {
@@ -106,7 +105,6 @@ export class ReviewService {
       userReviews,
       ratingValue
     );
-    console.log('inserting reviewing product at: ', insertionIndex);
     const lineup = this.findProductLineupFromInsertionPoint(
       userReviews,
       insertionIndex,
@@ -164,8 +162,6 @@ export class ReviewService {
       highRankingIncrement = 1;
       lowRankingIncrement = 1;
       reviewHighPosition = reviewLowPosition = 'after';
-      console.log('reviewIndexHigh, ', reviewIndexHigh);
-      console.log('reviewIndexLow, ', reviewIndexLow);
     }
     // if the bottom (last product), then get the two products above (two before)
     else if (insertionIndex == userReviews.length) {
@@ -203,7 +199,6 @@ export class ReviewService {
         userReviews,
         reviewHighPosition
       );
-      console.log('high product ', highProduct);
       productLineupList.push(highProduct);
     }
 
@@ -217,7 +212,6 @@ export class ReviewService {
         userReviews,
         reviewLowPosition
       );
-      console.log('low product ', lowProduct);
       productLineupList.push(lowProduct);
     }
 
@@ -252,14 +246,11 @@ export class ReviewService {
     let min = 100;
     let max = 0;
     for (const { value } of subPreferences) {
-      console.log('value', value);
       if (value < min) {
         min = value;
-        console.log('min: ', min);
       }
       if (value > max) {
         max = value;
-        console.log('max: ', max);
       }
     }
     // the value is a starting range - need to add 10 for the full range
@@ -271,7 +262,6 @@ export class ReviewService {
       min = 0;
     }
 
-    console.log({ min, max });
     return { min, max };
   }
 }

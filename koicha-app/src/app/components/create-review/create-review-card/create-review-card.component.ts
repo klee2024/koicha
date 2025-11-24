@@ -95,7 +95,9 @@ export class CreateReviewCardComponent implements OnInit {
           console.log('review was created ', data);
         });
       console.log('creating review!');
-      // TODO: navigate to the reviewed page and present the new review
+      // TODO: present the new review
+      // get the newly created review from the review card, use the review details component
+      // to present the card
     }
   }
 
@@ -123,7 +125,8 @@ export class CreateReviewCardComponent implements OnInit {
       this.reviewService.getSubPreferenceBucket(this.selectedPreference);
       this.subPreferences$ = this.reviewService.subPreferences$;
       console.log('sub preference: ', this.reviewService.subPreferences);
-      // TODO: fix getting min and max values
+
+      // get min and max values for the sliders
       const subPreferenceValueRange =
         this.reviewService.getSubPreferencesValueRange();
       if (
@@ -133,6 +136,16 @@ export class CreateReviewCardComponent implements OnInit {
         // set min and max
         this.minSubPreferenceValue = subPreferenceValueRange['min'];
         this.maxSubPreferenceValue = subPreferenceValueRange['max'];
+      }
+
+      // initialize slider with the recommendationv value and
+      // get the product lineup based on the recommendation
+      if (this.productCard) {
+        this.selectedRating = this.productCard.matchPercentage;
+        this.productLineup = this.reviewService.getProductLineup(
+          this.selectedRating,
+          this.productCard
+        );
       }
     }
   }
@@ -151,11 +164,5 @@ export class CreateReviewCardComponent implements OnInit {
 
   onSubPreferenceSelected(subPreference: string) {
     console.log(subPreference);
-  }
-
-  receiveRatingScore(score: number) {
-    // TODO:
-    // get the line up products based on the score
-    // emit the lineup back down to the lineup component
   }
 }
