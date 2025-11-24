@@ -106,6 +106,7 @@ export class ReviewService {
       userReviews,
       ratingValue
     );
+    console.log('inserting reviewing product at: ', insertionIndex);
     const lineup = this.findProductLineupFromInsertionPoint(
       userReviews,
       insertionIndex,
@@ -119,6 +120,8 @@ export class ReviewService {
     userReviews: UserReview[],
     newScore: number
   ): number {
+    userReviews.sort((a, b) => b.userRating - a.userRating);
+    console.log('user reviews: ', userReviews);
     let left = 0;
     let right = userReviews.length;
 
@@ -149,32 +152,39 @@ export class ReviewService {
 
     let reviewIndexHigh = undefined;
     let reviewHighPosition: 'before' | 'current' | 'after' = 'before'; // set one as default
+    let highRankingIncrement = 0; // the amount to push the ranking value down after the insertion
     let reviewIndexLow = undefined;
     let reviewLowPosition: 'before' | 'current' | 'after' = 'after'; // set one as default
+    let lowRankingIncrement = 0; // the amount to push the ranking value down after the insertion
 
     // if the top (first product), then get the two products below (two after)
     if (insertionIndex == 0) {
-      reviewIndexHigh = insertionIndex + 1;
-      reviewIndexLow = insertionIndex + 2; // higher rated because it's a lower index
+      reviewIndexHigh = insertionIndex;
+      reviewIndexLow = insertionIndex + 1; // higher rated because it's a lower index
+      highRankingIncrement = 1;
+      lowRankingIncrement = 1;
       reviewHighPosition = reviewLowPosition = 'after';
+      console.log('reviewIndexHigh, ', reviewIndexHigh);
+      console.log('reviewIndexLow, ', reviewIndexLow);
     }
     // if the bottom (last product), then get the two products above (two before)
     else if (insertionIndex == userReviews.length) {
       reviewIndexLow = userReviews.length - 1;
-      reviewIndexHigh = userReviews.length - 2; // higher rated because it's a lower index
+      reviewIndexHigh = userReviews.length - 2;
       reviewHighPosition = reviewLowPosition = 'before';
     }
-    // if the middle, then get 1 higher one lower
+    // if the middle, then get one higher one lower
     else {
       reviewIndexHigh = insertionIndex - 1;
-      reviewIndexLow = insertionIndex + 1;
+      reviewIndexLow = insertionIndex;
+      lowRankingIncrement = 1;
       reviewHighPosition = 'before';
       reviewLowPosition = 'after';
     }
 
     const currentProduct: ProductLineup = {
       // override userRanking depending on the overall product lineup
-      productRanking: insertionIndex + 1,
+      productRanking: insertionIndex,
       productName: productCurrentlyReviewing.name,
       productBrand: productCurrentlyReviewing.brand,
       productRating: newRating,
@@ -183,21 +193,31 @@ export class ReviewService {
 
     const productLineupList: ProductLineup[] = [currentProduct];
 
-    if (reviewIndexHigh && reviewIndexHigh < userReviews.length + 1) {
+    if (
+      reviewIndexHigh != undefined &&
+      reviewIndexHigh < userReviews.length + 1
+    ) {
       const highProduct: ProductLineup = this.buildProductLineup(
         reviewIndexHigh,
+        highRankingIncrement,
         userReviews,
         reviewHighPosition
       );
+      console.log('high product ', highProduct);
       productLineupList.push(highProduct);
     }
 
-    if (reviewIndexLow && reviewIndexLow < userReviews.length + 1) {
+    if (
+      reviewIndexLow != undefined &&
+      reviewIndexLow < userReviews.length + 1
+    ) {
       const lowProduct: ProductLineup = this.buildProductLineup(
         reviewIndexLow,
+        lowRankingIncrement,
         userReviews,
         reviewLowPosition
       );
+      console.log('low product ', lowProduct);
       productLineupList.push(lowProduct);
     }
 
@@ -208,11 +228,12 @@ export class ReviewService {
 
   buildProductLineup(
     index: number,
+    productRankingIncrement: number,
     userReviews: UserReview[],
     productPosition: 'before' | 'after' | 'current'
   ): ProductLineup {
     return {
-      productRanking: index,
+      productRanking: index + productRankingIncrement,
       productName: userReviews[index].productName,
       productBrand: userReviews[index].productBrand,
       productRating: userReviews[index].userRating,
@@ -244,6 +265,10 @@ export class ReviewService {
     // the value is a starting range - need to add 10 for the full range
     if (max != 100) {
       max += 10;
+    }
+
+    if (min == 10) {
+      min = 0;
     }
 
     console.log({ min, max });

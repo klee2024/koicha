@@ -41,6 +41,8 @@ export class ReviewProductSliderComponent {
     const initial = this.initialRecommendationValue ?? this.min;
 
     if (initial && this.min && this.max) {
+      console.log('min value ', this.min);
+      console.log('max value ', this.max);
       this.value = this.clampToRange(initial, this.min, this.max);
     }
   }

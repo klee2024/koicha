@@ -1,9 +1,10 @@
 <div class="product-lineup" *ngIf="productLineup">
   <div class="product-lineup-container" *ngFor="let product of productLineup">
-    <span class="product-ranking">#{{ product.productRating / 10 }} </span>
-    <span class="product-ranking">
+    <span class="product-ranking">#{{ product.productRanking + 1 }} </span>
+    <span class="product-info">
       {{ product.productName }} - {{ product.productBrand }}
     </span>
     <span class="product-position"> ({{ product.productPosition }}) </span>
+    <span class="product-ranking">{{ product.productRating / 10 }} </span>
   </div>
 </div>
