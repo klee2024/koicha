@@ -1,15 +1,39 @@
-<div class="select-review-preference" *ngIf="preferences">
-  <div class="preference-selector-input" *ngFor="let preference of preferences">
-    <label>
+<div
+  class="select-review-preference w-full flex flex-col items-center text-center gap-6 py-8"
+  *ngIf="preferences"
+>
+  <p class="text-lg font-semibold tracking-wide text-neutral-900">
+    How was it?
+  </p>
+
+  <div
+    class="preference-selector-input flex flex-wrap justify-center gap-8 w-full"
+  >
+    <label
+      class="flex flex-col items-center gap-3 cursor-pointer text-center"
+      *ngFor="let preference of preferences"
+    >
       <input
+        class="sr-only"
         type="radio"
         name="reviewPreference"
-        value="{{ preference.bucket }}"
+        [value]="preference.bucket"
         [(ngModel)]="preferenceSelected"
         (ngModelChange)="onPreferenceChange($event)"
         required
       />
-      <span>{{ preference.label }}</span>
+      <span
+        class="flex h-20 w-20 items-center justify-center rounded-full border border-black/10 shadow-md transition-all duration-200"
+        [ngClass]="[
+          circleColorClass(preference.bucket),
+          preferenceSelected === preference.bucket
+            ? 'ring-4 ring-neutral-900/70 scale-105'
+            : 'opacity-80'
+        ]"
+      ></span>
+      <span class="text-sm font-medium tracking-wide text-neutral-800">
+        {{ preference.label }}
+      </span>
     </label>
   </div>
 </div>

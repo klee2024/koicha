@@ -13,6 +13,15 @@ export class ReviewPreferenceSelectorComponent {
   @Input() preferences?: ReviewPreference[] = [];
   @Input() preferenceSelected?: string;
   @Output() preferenceSelectedChange = new EventEmitter<string>();
+  readonly preferenceColorMap: Record<string, string> = {
+    DISLIKED: 'bg-[#B3542E]',
+    FINE: 'bg-[#F2C14E]',
+    LIKED: 'bg-[#3C8C69]',
+  };
+
+  circleColorClass(bucket: string): string {
+    return this.preferenceColorMap[bucket] ?? 'bg-neutral-400';
+  }
 
   // TODO: update this so that any time a chagne is made even with the slider, the preference reflects the new choice
   onPreferenceChange(value: string) {
