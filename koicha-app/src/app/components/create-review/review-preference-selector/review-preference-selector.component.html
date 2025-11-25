@@ -27,11 +27,17 @@
         [ngClass]="[
           circleColorClass(preference.bucket),
           preferenceSelected === preference.bucket
-            ? 'ring-4 ring-neutral-900/70 scale-105'
+            ? 'scale-105'
             : 'opacity-80'
         ]"
       ></span>
-      <span class="text-sm font-medium tracking-wide text-neutral-800">
+      <span
+        class="text-sm tracking-wide text-neutral-800"
+        [ngClass]="{
+          'font-semibold': preferenceSelected === preference.bucket,
+          'font-medium': preferenceSelected !== preference.bucket
+        }"
+      >
         {{ preference.label }}
       </span>
     </label>
