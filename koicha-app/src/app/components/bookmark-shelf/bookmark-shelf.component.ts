@@ -4,11 +4,12 @@ import { UserProductsService } from '../../services/user-products-mock.service';
 import { CommonModule } from '@angular/common';
 import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
+import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
 
 @Component({
   selector: 'app-bookmark-shelf',
   standalone: true,
-  imports: [CommonModule, FeedComponent],
+  imports: [CommonModule, FeedComponent, CreateReviewCardComponent],
   templateUrl: './bookmark-shelf.component.html',
   styleUrl: './bookmark-shelf.component.css',
 })

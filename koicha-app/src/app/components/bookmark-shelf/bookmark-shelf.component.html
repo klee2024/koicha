@@ -6,4 +6,15 @@
     (productToReview)="onReviewProduct($event)"
     (productToBookmark)="onBookmarkProduct($event)"
   ></app-feed>
+
+  <div
+    *ngIf="productToReview"
+    class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+  >
+    <app-create-review-card
+      class="max-w-2xl"
+      [productCard]="productToReview"
+      (click)="$event.stopPropagation()"
+    ></app-create-review-card>
+  </div>
 </div>

@@ -11,11 +11,12 @@ import { Preparation } from '../../models/preparation';
 import { Tag } from '../../models/tag';
 import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
+import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
 
 @Component({
   selector: 'app-recommendation-feed',
   standalone: true,
-  imports: [CommonModule, FeedComponent],
+  imports: [CommonModule, FeedComponent, CreateReviewCardComponent],
   templateUrl: './recommendation-feed.component.html',
   styleUrl: './recommendation-feed.component.css',
 })

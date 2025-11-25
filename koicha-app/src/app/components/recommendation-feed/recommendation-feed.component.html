@@ -50,6 +50,17 @@
       No products found. You have unique taste!
     </div>
 
+    <div
+      *ngIf="productToReview"
+      class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+    >
+      <app-create-review-card
+        class="max-w-2xl"
+        [productCard]="productToReview"
+        (click)="$event.stopPropagation()"
+      ></app-create-review-card>
+    </div>
+
     <app-feed
       [cards]="filteredProductCards"
       (productToReview)="onReviewProduct($event)"
