@@ -6,8 +6,7 @@
         name="reviewPreference"
         value="{{ preference.bucket }}"
         [(ngModel)]="preferenceSelected"
-        (ngModelChange)="onChange($event)"
-        #preferenceModel="ngModel"
+        (ngModelChange)="onPreferenceChange($event)"
         required
       />
       <span>{{ preference.label }}</span>

@@ -21,10 +21,10 @@ export class ReviewProductSliderComponent {
   @Input() max?: number;
   @Input() subPreferences?: ReviewSubPreference[];
   @Input() initialRecommendationValue?: number;
-  @Output() subPreferenceSelected = new EventEmitter<string>();
   @Output() ratingValueSelected = new EventEmitter<number>();
 
   @Output() ratingValueChange = new EventEmitter<number>();
+  @Output() recommendationValueChange = new EventEmitter<number>();
 
   value?: number;
 

@@ -11,7 +11,7 @@
     <ng-container *ngIf="preferences$ | async as preferences">
       <app-review-preference-selector
         [preferences]="preferences"
-        [(preferenceSelected)]="selectedPreference"
+        (preferenceSelectedChange)="onPreferenceSelectorChange($event)"
       >
       </app-review-preference-selector>
     </ng-container>
@@ -41,7 +41,6 @@
       <app-review-product-slider
         *ngIf="subPreferences$ | async as subPreferences"
         [subPreferences]="subPreferences"
-        (subPreferenceSelected)="onSubPreferenceSelected($event)"
         [min]="minSubPreferenceValue"
         [max]="maxSubPreferenceValue"
         [initialRecommendationValue]="productCard.matchPercentage"

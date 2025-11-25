@@ -121,6 +121,7 @@ export class CreateReviewCardComponent implements OnInit {
   onPreferenceSelected() {
     // TODO: call the service to get the list of subpreferences
     // pass these down to the slider component
+    console.log('on preference selected ', this.selectedPreference);
     if (this.selectedPreference) {
       this.reviewService.getSubPreferenceBucket(this.selectedPreference);
       this.subPreferences$ = this.reviewService.subPreferences$;
@@ -140,14 +141,34 @@ export class CreateReviewCardComponent implements OnInit {
 
       // initialize slider with the recommendationv value and
       // get the product lineup based on the recommendation
-      if (this.productCard) {
-        this.selectedRating = this.productCard.matchPercentage;
+      if (
+        this.productCard &&
+        this.maxSubPreferenceValue &&
+        this.minSubPreferenceValue
+      ) {
+        if (this.productCard.matchPercentage > this.maxSubPreferenceValue) {
+          this.selectedRating = this.maxSubPreferenceValue;
+        }
+        if (this.productCard.matchPercentage < this.minSubPreferenceValue) {
+          this.selectedRating = this.minSubPreferenceValue;
+        } else {
+          this.selectedRating = this.productCard.matchPercentage;
+        }
+
         this.productLineup = this.reviewService.getProductLineup(
           this.selectedRating,
           this.productCard
         );
       }
     }
+  }
+
+  onPreferenceSelectorChange(preferenceValue: string) {
+    console.log('preference value: ', preferenceValue);
+    if (this.selectedPreference !== preferenceValue) {
+      this.selectedPreference = preferenceValue;
+    }
+    this.onPreferenceSelected();
   }
 
   onSliderChange(ratingValue: number) {
