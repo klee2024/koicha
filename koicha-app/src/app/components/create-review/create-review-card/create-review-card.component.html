@@ -1,7 +1,7 @@
 <!-- TODO: format this as a card properly -->
 <ng-container *ngIf="productCard">
   <div
-    class="create-review-card bg-white max-w-3xl mx-auto rounded-[30px] border border-neutral-200 shadow-[0_20px_45px_rgba(0,0,0,0.08)] p-8 md:p-10 space-y-10"
+    class="create-review-card bg-white max-w-3xl mx-auto rounded-[30px] border border-neutral-200 shadow-[0_20px_45px_rgba(0,0,0,0.08)] p-8 md:p-10 space-y-8"
   >
     <!-- product card details -->
     <!-- TODO: format the product card content properly  -->
@@ -18,11 +18,15 @@
       </app-review-preference-selector>
     </ng-container>
 
-    <ng-container class="create-review-actions flex flex-col gap-6">
+    <div class="create-review-actions flex flex-col gap-6 -mt-2">
       @switch (reviewStep) { @case (WRITE_REVIEW_STEP) {
-      <div class="w-full">
-        <label class="review-input flex flex-col gap-3 text-left">
-          <span class="review-input__label text-lg font-semibold tracking-wide text-neutral-900">
+      <div class="w-full mt-0">
+        <label
+          class="review-input flex flex-col gap-3 text-left text-center w-full block"
+        >
+          <span
+            class="review-input__label text-lg font-semibold tracking-wide text-neutral-900 font-mono"
+          >
             Your Thoughts
           </span>
           <textarea
@@ -63,7 +67,7 @@
         Rate
       </button>
       } }
-    </ng-container>
+    </div>
   </div>
 </ng-container>
 

@@ -2,7 +2,7 @@
   class="select-review-preference w-full flex flex-col items-center text-center gap-6 py-8"
   *ngIf="preferences"
 >
-  <p class="text-lg font-semibold tracking-wide text-neutral-900">
+  <p class="text-lg font-semibold tracking-wide text-neutral-900 font-mono">
     How was it?
   </p>
 
@@ -10,7 +10,7 @@
     class="preference-selector-input flex flex-wrap justify-center gap-8 w-full"
   >
     <label
-      class="flex flex-col items-center gap-3 cursor-pointer text-center"
+      class="flex flex-col items-center gap-3 cursor-pointer text-center font-mono"
       *ngFor="let preference of preferences"
     >
       <input
@@ -26,9 +26,7 @@
         class="flex h-20 w-20 items-center justify-center rounded-full border border-black/10 shadow-md transition-all duration-200"
         [ngClass]="[
           circleColorClass(preference.bucket),
-          preferenceSelected === preference.bucket
-            ? 'scale-105'
-            : 'opacity-80'
+          preferenceSelected === preference.bucket ? 'scale-105' : 'opacity-80'
         ]"
       ></span>
       <span
