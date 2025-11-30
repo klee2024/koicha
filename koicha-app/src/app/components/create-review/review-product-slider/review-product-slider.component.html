@@ -1,17 +1,23 @@
-<div class="preference-slider relative pt-8" *ngIf="subPreferences">
+<div
+  class="preference-slider relative flex flex-col items-center"
+  *ngIf="subPreferences"
+>
   <!-- Rating badge in top-right -->
-  <!-- TODO: rating circle color should change with the subpreference -->
+  <!-- TODO: rating circle color should change with the subpreference, move the color out to a property on the subpreference-->
 
-  <h2 class="font-mono font-semibold">Refine your rating</h2>
-  <span
-    class="rating-value absolute top-0 right-0 translate-y-[-50%] flex items-center justify-center rounded-full bg-[#4F7A4A] text-white text-sm w-9 h-9"
-    *ngIf="value"
-  >
-    {{ value / 10 }}
-  </span>
+  <div class="w-full relative flex items-center justify-center">
+    <h2 class="font-mono font-semibold text-center w-full pb-6">
+      Refine your rating
+    </h2>
+    <span
+      class="rating-value flex items-center justify-center rounded-full bg-[#e3e1e1] text-balck text-sm w-9 h-9 absolute right-0"
+      *ngIf="value"
+    >
+      {{ value / 10 }}
+    </span>
+  </div>
 
-  <div class="slider-and-headings flex flex-col w-full">
-    <!-- Slider -->
+  <div class="slider-and-headings flex flex-col w-full min-h-[70px]">
     <input
       type="range"
       [min]="min"
@@ -19,16 +25,26 @@
       [step]="STEP"
       [(ngModel)]="value"
       (ngModelChange)="onValueChange($event)"
-      class="w-[90%] mx-auto"
+      class="w-full"
     />
 
     <!-- Labels -->
     <!-- TODO: change subpreference labels so they fit on one line -->
 
-    <div
-      class="slider-headings flex justify-between w-[90%] mx-auto mt-2 font-mono text-sm"
-    >
-      <span *ngFor="let subPreference of subPreferences">
+    <div class="slider-headings flex w-full mt-2 font-mono text-sm">
+      <span
+        class="flex-1"
+        *ngFor="
+          let subPreference of subPreferences;
+          let isFirst = first;
+          let isLast = last
+        "
+        [ngClass]="{
+          'text-left': isFirst && !isLast,
+          'text-right': isLast && !isFirst,
+          'text-center': (!isFirst && !isLast) || (isFirst && isLast)
+        }"
+      >
         {{ subPreference.label }}
       </span>
     </div>

@@ -25,6 +25,7 @@ export interface ReviewPreference {
   bucket: string; // DISLIKED / FINE / LIKED
   label: string; // display text: "I liked it"
   value: number; // 20 / 50 / 80
+  color: string; // color for UI styling
 }
 
 // ===============================

@@ -1,13 +1,21 @@
 <div class="product-lineup" *ngIf="productLineup">
-  <h2 class="lineup-heading font-mono font-semibold">In your lineup</h2>
-  <div class="product-lineup-container" *ngFor="let product of productLineup">
-    <span class="product-ranking font-mono"
+  <h2 class="lineup-heading font-mono font-semibold text-center w-full pb-2">
+    In your lineup
+  </h2>
+  <div
+    class="product-lineup-container flex items-baseline gap-2 pt-2"
+    *ngFor="let product of productLineup"
+    [ngClass]="{
+      'underline underline-offset-4': product.productPosition === 'current'
+    }"
+  >
+    <span class="product-ranking font-mono w-8 text-left"
       >#{{ product.productRanking + 1 }}
     </span>
-    <span class="product-info font-sans">
+    <span class="product-info font-sans flex-1 text-left">
       {{ product.productName }} - {{ product.productBrand }}
     </span>
-    <span class="product-position font-mono">
+    <span class="product-position font-mono w-16 text-right">
       ({{ product.productPosition }})
     </span>
   </div>

@@ -10,18 +10,21 @@ export const REVIEW_PREFERENCES: ReviewPreference[] = [
     bucket: 'DISLIKED',
     label: 'Not for me',
     value: 20,
+    color: 'B3542E',
   },
   {
     id: 'reviewPreference.fine',
     bucket: 'FINE',
     label: 'It was fine',
     value: 50,
+    color: 'F2C14E',
   },
   {
     id: 'reviewPreference.liked',
     bucket: 'LIKED',
     label: 'I liked it',
     value: 80,
+    color: '3C8C69',
   },
 ];
 
@@ -30,21 +33,21 @@ export const LIKED_SUBPREFERENCES: ReviewSubPreference[] = [
     id: 'subPref.liked',
     bucket: 'LIKED',
     key: 'LIKED',
-    label: 'I liked it',
+    label: 'Liked',
     value: 70,
   },
   {
     id: 'subPref.reallyLiked',
     bucket: 'LIKED',
     key: 'REALLY_LIKED',
-    label: 'I really liked it',
+    label: 'Really liked',
     value: 80,
   },
   {
     id: 'subPref.loved',
     bucket: 'LIKED',
     key: 'LOVED',
-    label: 'I loved it',
+    label: 'Loved',
     value: 90,
   },
 ];

@@ -20,11 +20,11 @@ export class ReviewProductSliderComponent {
   @Input() min?: number;
   @Input() max?: number;
   @Input() subPreferences?: ReviewSubPreference[];
+  @Input() circleColor?: string; // color of rating circle, depends on the main review preference
   @Input() initialRecommendationValue?: number;
   @Output() ratingValueSelected = new EventEmitter<number>();
 
   @Output() ratingValueChange = new EventEmitter<number>();
-  @Output() recommendationValueChange = new EventEmitter<number>();
 
   value?: number;
 
