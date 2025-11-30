@@ -1,17 +1,36 @@
-<!-- use a slider and emit the number that the user chose -->
+<div class="preference-slider relative pt-8" *ngIf="subPreferences">
+  <!-- Rating badge in top-right -->
+  <!-- TODO: rating circle color should change with the subpreference -->
 
-<div class="preference-slider" *ngIf="subPreferences">
-  <div class="slider-headings" *ngFor="let subPreference of subPreferences">
-    <span>{{ subPreference.label }}</span>
+  <h2 class="font-mono font-semibold">Refine your rating</h2>
+  <span
+    class="rating-value absolute top-0 right-0 translate-y-[-50%] flex items-center justify-center rounded-full bg-[#4F7A4A] text-white text-sm w-9 h-9"
+    *ngIf="value"
+  >
+    {{ value / 10 }}
+  </span>
+
+  <div class="slider-and-headings flex flex-col w-full">
+    <!-- Slider -->
+    <input
+      type="range"
+      [min]="min"
+      [max]="max"
+      [step]="STEP"
+      [(ngModel)]="value"
+      (ngModelChange)="onValueChange($event)"
+      class="w-[90%] mx-auto"
+    />
+
+    <!-- Labels -->
+    <!-- TODO: change subpreference labels so they fit on one line -->
+
+    <div
+      class="slider-headings flex justify-between w-[90%] mx-auto mt-2 font-mono text-sm"
+    >
+      <span *ngFor="let subPreference of subPreferences">
+        {{ subPreference.label }}
+      </span>
+    </div>
   </div>
-  <!-- TODO: ensure that the initial value visually appears on the slider accurrately -->
-  <input
-    type="range"
-    [min]="min"
-    [max]="max"
-    [step]="STEP"
-    [(ngModel)]="value"
-    (ngModelChange)="onValueChange($event)"
-  />
-  <span class="rating-value" *ngIf="value">{{ value / 10 }}</span>
 </div>

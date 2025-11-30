@@ -1,10 +1,14 @@
 <div class="product-lineup" *ngIf="productLineup">
-  <h2 class="lineup-heading">In your lineup</h2>
+  <h2 class="lineup-heading font-mono font-semibold">In your lineup</h2>
   <div class="product-lineup-container" *ngFor="let product of productLineup">
-    <span class="product-ranking">#{{ product.productRanking + 1 }} </span>
-    <span class="product-info">
+    <span class="product-ranking font-mono"
+      >#{{ product.productRanking + 1 }}
+    </span>
+    <span class="product-info font-sans">
       {{ product.productName }} - {{ product.productBrand }}
     </span>
-    <span class="product-position"> ({{ product.productPosition }}) </span>
+    <span class="product-position font-mono">
+      ({{ product.productPosition }})
+    </span>
   </div>
 </div>
