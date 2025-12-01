@@ -12,7 +12,10 @@ export class FirstTimeQuizService {
     return of(MOCK_QUIZ_QUESTIONS).pipe(delay(300));
   }
 
-  createFirstTimeQuizResults(userId: string, quizResults: string[]) {
+  submitFirstTimeQuiz(
+    userId: string,
+    quizResults: { answers: (string | null)[] }
+  ) {
     return of({ success: true }).pipe(delay(100));
   }
 }

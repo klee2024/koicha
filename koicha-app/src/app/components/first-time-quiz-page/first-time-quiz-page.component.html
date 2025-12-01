@@ -1,8 +1,17 @@
 <div class="quiz-question-container text-4xl font-mono">
-  @switch (quizStep){@case (INSTRUCTIONS_STEP) {
-  <app-first-time-quiz-intro> </app-first-time-quiz-intro>
+  @switch (quizQuestionIndex) { @case (-1) {
+  <app-first-time-quiz-intro></app-first-time-quiz-intro>
   <div class="w-full flex justify-end mt-4 pr-20 text-green-700 underline">
-    <button class="underline-offset-4">let's begin</button>
+    <button class="underline-offset-4" (click)="startQuiz()">
+      let's begin
+    </button>
   </div>
-  }}
+  } @default () {
+  <app-first-time-quiz-question
+    [question]="quizQuestions[quizQuestionIndex]"
+    (answerSelected)="onAnswerSelected($event)"
+    (next)="next()"
+    (back)="back()"
+  ></app-first-time-quiz-question
+  >} }
 </div>

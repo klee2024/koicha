@@ -1,0 +1,28 @@
+<div class="quiz-question py-24 px-56" *ngIf="question">
+  <div
+    class="question-prompt pb-12"
+    id="initial-prompt"
+    *ngIf="question.initialPrompt"
+  >
+    {{ question.initialPrompt }}...
+  </div>
+  <!-- TODO: require a selection to continue -->
+  <ul class="option-list">
+    <li
+      class="lowercase pt-6"
+      *ngFor="let option of question.options"
+      (click)="select(option.value)"
+    >
+      {{ option.label }}
+    </li>
+  </ul>
+  <div
+    class="question-prompt pt-12"
+    id="follow-up-prompt"
+    *ngIf="question.followUpPrompt"
+  >
+    ...{{ question.followUpPrompt }}
+  </div>
+  <button class="text-rust-500 underline" (click)="back.emit()">back</button>
+  <button class="text-green-70 underline" (click)="next.emit()">next</button>
+</div>

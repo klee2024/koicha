@@ -27,4 +27,5 @@ export const routes: Routes = [
   },
   { path: 'taste-profile', component: TasteProfileComponent },
   { path: 'find-your-matcha', component: FirstTimeQuizPageComponent },
+  { path: 'taste-profile-quiz', component: FirstTimeQuizComponent },
 ];
