@@ -12,6 +12,9 @@
       class="lowercase pt-6"
       *ngFor="let option of question.options"
       (click)="select(option.value)"
+      [ngClass]="{
+        'font-semibold underline ...': control?.value === option.value
+      }"
     >
       {{ option.label }}
     </li>

@@ -52,15 +52,14 @@ export class FirstTimeQuizPageComponent {
     this.quizQuestionService.getQuizQuestions().subscribe((data) => {
       this.quizQuestions = data;
       console.log('quiz questions retrieved: ', this.quizQuestions);
+      const controls = this.quizQuestions.map(() =>
+        this.fb.control<string | null>(null)
+      );
+      this.form = this.fb.group({
+        answers: this.fb.array<FormControl<string | null>>(controls),
+      });
+      console.log('form ', this.form);
     });
-
-    const controls = this.quizQuestions.map(() =>
-      this.fb.control<string | null>(null)
-    );
-
-    if (this.form) {
-      this.form.setControl('answers', this.fb.array(controls));
-    }
   }
 
   startQuiz() {
@@ -99,6 +98,7 @@ export class FirstTimeQuizPageComponent {
       const payload = {
         answers: this.answersArray.value,
       };
+      console.log('payload: ', payload);
       this.quizQuestionService.submitFirstTimeQuiz('user123', payload);
       console.log('first time quiz submitted');
       // TODO: navigate to a specific route

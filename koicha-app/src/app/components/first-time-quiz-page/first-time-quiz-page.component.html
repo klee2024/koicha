@@ -9,6 +9,7 @@
   } @default () {
   <app-first-time-quiz-question
     [question]="quizQuestions[quizQuestionIndex]"
+    [control]="answersArray?.at(quizQuestionIndex)"
     (answerSelected)="onAnswerSelected($event)"
     (next)="next()"
     (back)="back()"
