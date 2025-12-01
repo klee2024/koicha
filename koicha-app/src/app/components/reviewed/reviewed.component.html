@@ -10,11 +10,13 @@
   <div
     *ngIf="productToReview"
     class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+    (click)="closeReviewCard()"
   >
     <app-create-review-card
       class="max-w-2xl"
       [productCard]="productToReview"
       (click)="$event.stopPropagation()"
+      (closeSelected)="closeReviewCard()"
     ></app-create-review-card>
   </div>
 

@@ -168,6 +168,10 @@ export class RecommendationFeedComponent implements OnInit {
     console.log(`bookmark product button works: ${product.id}!`);
   }
 
+  closeReviewCard() {
+    this.productToReview = undefined;
+  }
+
   trackById(index: number, item: { id: number | string }) {
     return item.id;
   }

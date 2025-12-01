@@ -59,6 +59,9 @@ export class CreateReviewCardComponent implements OnInit {
 
   @Input() productCard?: ProductCardData;
   @Input() productsToCompare?: ProductCardData[];
+  @Output() closeSelected = new EventEmitter<void>();
+
+  isCardVisible = true;
 
   // TODO: Revisit these outputs post MVP
   // @Output() undoSelected = new EventEmitter<void>();
@@ -185,5 +188,10 @@ export class CreateReviewCardComponent implements OnInit {
 
   onSubPreferenceSelected(subPreference: string) {
     console.log(subPreference);
+  }
+
+  closeCard(): void {
+    this.isCardVisible = false;
+    this.closeSelected.emit();
   }
 }

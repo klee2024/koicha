@@ -44,6 +44,10 @@ export class BookmarkShelfComponent implements OnInit {
     console.log(`bookmark product button works: ${product.id}!`);
   }
 
+  closeReviewCard() {
+    this.productToReview = undefined;
+  }
+
   private mapToCard(product: Product): ProductCardData {
     return {
       id: product.id,

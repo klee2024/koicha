@@ -1,8 +1,16 @@
 <!-- TODO: format this as a card properly -->
-<ng-container *ngIf="productCard">
+<ng-container *ngIf="productCard && isCardVisible">
   <div
-    class="create-review-card bg-white w-full max-w-4xl mx-auto rounded-[30px] border border-neutral-200 shadow-[0_20px_45px_rgba(0,0,0,0.08)] p-8 md:p-10 space-y-8"
+    class="create-review-card relative bg-white w-full max-w-4xl mx-auto rounded-[30px] border border-neutral-200 shadow-[0_20px_45px_rgba(0,0,0,0.08)] p-8 md:p-10 space-y-8"
   >
+    <button
+      type="button"
+      aria-label="Close review card"
+      class="absolute left-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-xl font-semibold text-neutral-600 shadow hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-300"
+      (click)="closeCard()"
+    >
+      &times;
+    </button>
     <!-- product card details -->
     <!-- TODO: format the product card content properly  -->
     <app-product-card-content
