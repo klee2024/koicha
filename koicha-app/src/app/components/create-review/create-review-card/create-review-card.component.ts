@@ -98,6 +98,7 @@ export class CreateReviewCardComponent implements OnInit {
           console.log('review was created ', data);
         });
       console.log('creating review!');
+      this.closeCard();
       // TODO: present the new review
       // get the newly created review from the review card, use the review details component
       // to present the card
