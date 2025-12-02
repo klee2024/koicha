@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { QuizQuestion } from '../../models/quizQuestion';
+import { QuizQuestion } from '../../../models/quizQuestion';
 import { CommonModule } from '@angular/common';
-import { FirstTimeQuizService } from '../../services/first-time-quiz.service';
+import { FirstTimeQuizService } from '../../../services/first-time-quiz.service';
 import { FirstTimeQuizIntroComponent } from '../first-time-quiz-intro/first-time-quiz-intro.component';
 import {
   FormControl,
