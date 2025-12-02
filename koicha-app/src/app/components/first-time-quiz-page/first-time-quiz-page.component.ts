@@ -11,6 +11,7 @@ import {
   FormArray,
 } from '@angular/forms';
 import { FirstTimeQuizQuestionComponent } from '../first-time-quiz-question/first-time-quiz-question.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-first-time-quiz-page',
@@ -40,7 +41,8 @@ export class FirstTimeQuizPageComponent {
 
   constructor(
     private fb: FormBuilder,
-    private quizQuestionService: FirstTimeQuizService
+    private quizQuestionService: FirstTimeQuizService,
+    private router: Router
   ) {
     this.fb.group({
       answers: this.fb.array<FormControl<string | null>>([]),
@@ -51,14 +53,12 @@ export class FirstTimeQuizPageComponent {
     // get the quiz questions from the questionnaire
     this.quizQuestionService.getQuizQuestions().subscribe((data) => {
       this.quizQuestions = data;
-      console.log('quiz questions retrieved: ', this.quizQuestions);
       const controls = this.quizQuestions.map(() =>
         this.fb.control<string | null>(null)
       );
       this.form = this.fb.group({
         answers: this.fb.array<FormControl<string | null>>(controls),
       });
-      console.log('form ', this.form);
     });
   }
 
@@ -67,10 +67,15 @@ export class FirstTimeQuizPageComponent {
   }
 
   next() {
-    console.log('next selected');
+    if (!this.answersArray || this.quizQuestionIndex < 0) {
+      return;
+    }
+    const currentControl = this.answersArray.at(this.quizQuestionIndex);
+    if (!currentControl?.value) {
+      return;
+    }
     this.quizQuestionIndex += 1;
     if (this.quizQuestionIndex == this.quizQuestions.length) {
-      // TODO: submit the form;
       this.submit();
     }
   }
@@ -78,6 +83,10 @@ export class FirstTimeQuizPageComponent {
   back() {
     if (this.quizQuestionIndex > -1) {
       this.quizQuestionIndex -= 1;
+    }
+    if (this.quizQuestionIndex == -1) {
+      // clear the first answer
+      this.answersArray?.at(0).setValue(null);
     }
   }
 
@@ -89,19 +98,13 @@ export class FirstTimeQuizPageComponent {
   }
 
   private submit() {
-    // TODO: Fix the form controls
-    console.log('attempting to submit first time quiz');
-    console.log(this.form);
-    console.log(this.answersArray);
     if (this.form && this.answersArray) {
       if (this.form.invalid) return;
       const payload = {
         answers: this.answersArray.value,
       };
-      console.log('payload: ', payload);
       this.quizQuestionService.submitFirstTimeQuiz('user123', payload);
-      console.log('first time quiz submitted');
-      // TODO: navigate to a specific route
+      this.router.navigate(['/taste-profile']);
     }
   }
 }

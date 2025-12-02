@@ -27,7 +27,7 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: 'q3',
-    initialPrompt: "There's a pleasnt",
+    initialPrompt: "There's a pleasant",
     followUpPrompt: 'aroma in the air',
     type: 'radio',
     options: [
@@ -90,7 +90,7 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'q8',
     initialPrompt: "You'll take a",
-    followUpPrompt: 'To go',
+    followUpPrompt: 'to go',
     type: 'radio',
     options: [
       { value: 'nutty', label: 'Cardamom bun' },

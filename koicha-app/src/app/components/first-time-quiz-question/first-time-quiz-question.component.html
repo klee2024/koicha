@@ -1,15 +1,20 @@
-<div class="quiz-question py-24 px-56" *ngIf="question">
+<div
+  class="quiz-question py-24 px-56 flex flex-col h-full min-h-[70vh]"
+  *ngIf="question"
+>
   <div
     class="question-prompt pb-12"
     id="initial-prompt"
     *ngIf="question.initialPrompt"
   >
-    {{ question.initialPrompt }}...
+    {{ question.initialPrompt }}
   </div>
   <!-- TODO: require a selection to continue -->
-  <ul class="option-list">
+  <ul
+    class="option-list flex flex-col items-center w-full max-w-[720px] mx-auto"
+  >
     <li
-      class="lowercase pt-6"
+      class="lowercase pt-10 cursor-pointer transition hover:text-neutral-500 w-full"
       *ngFor="let option of question.options"
       (click)="select(option.value)"
       [ngClass]="{
@@ -19,13 +24,23 @@
       {{ option.label }}
     </li>
   </ul>
-  <div
-    class="question-prompt pt-12"
-    id="follow-up-prompt"
-    *ngIf="question.followUpPrompt"
-  >
-    ...{{ question.followUpPrompt }}
+  <div class="flex-1 flex flex-col justify-end">
+    <div
+      class="question-prompt pt-16 text-right"
+      id="follow-up-prompt"
+      *ngIf="question.followUpPrompt"
+    >
+      ...{{ question.followUpPrompt }}
+    </div>
   </div>
-  <button class="text-rust-500 underline" (click)="back.emit()">back</button>
-  <button class="text-green-70 underline" (click)="next.emit()">next</button>
+  <div class="flex w-full justify-between pt-12 items-center">
+    <button class="text-rust-500 underline" (click)="back.emit()">back</button>
+    <button
+      class="text-green-700 underline disabled:opacity-40 disabled:cursor-not-allowed"
+      (click)="next.emit()"
+      [disabled]="!control?.value"
+    >
+      next
+    </button>
+  </div>
 </div>
