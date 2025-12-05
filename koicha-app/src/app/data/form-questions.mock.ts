@@ -5,7 +5,6 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
     id: 'q1',
     initialPrompt: "It's a beautiful",
     followUpPrompt: 'day',
-    type: 'radio',
     options: [
       { value: 'floral', label: 'Spring' },
       { value: 'grassy', label: 'Summer' },
@@ -17,7 +16,6 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
     id: 'q2',
     initialPrompt: 'You are welcomed into a',
     followUpPrompt: 'restaurant for the afternoon',
-    type: 'radio',
     options: [
       { value: 'creamy', label: 'Cozy' },
       { value: 'floral', label: 'Airy' },
@@ -29,7 +27,6 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
     id: 'q3',
     initialPrompt: "There's a pleasant",
     followUpPrompt: 'aroma in the air',
-    type: 'radio',
     options: [
       { value: 'creamy', label: 'Vanilla' },
       { value: 'nutty', label: 'Freshly baked bread' },
@@ -41,7 +38,6 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
     id: 'q4',
     initialPrompt: "Let's order a drink! The",
     followUpPrompt: 'sounds good',
-    type: 'radio',
     options: [
       { value: 'astringent', label: 'Black coffee' },
       { value: 'floral', label: 'Plum tea' },
@@ -53,7 +49,6 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
     id: 'q5',
     initialPrompt: "You'll have that",
     followUpPrompt: '',
-    type: 'radio',
     options: [
       { value: 'astringent', label: 'Straight' },
       { value: 'nutty', label: 'Almond milk' },
@@ -65,7 +60,6 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
     id: 'q6',
     initialPrompt: 'You like...',
     followUpPrompt: '',
-    type: 'radio',
     options: [
       { value: 'usucha', label: 'A refreshing beverage' },
       { value: 'koicha', label: 'A rich beverage to enjoy slowly' },
@@ -79,7 +73,6 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
     id: 'q7',
     initialPrompt: 'What looks good on the menu?',
     followUpPrompt: '',
-    type: 'radio',
     options: [
       { value: 'umami', label: 'Mushroom pappardelle' },
       { value: 'nutty', label: 'Pistachio' },
@@ -91,7 +84,6 @@ export const MOCK_QUIZ_QUESTIONS: QuizQuestion[] = [
     id: 'q8',
     initialPrompt: "You'll take a",
     followUpPrompt: 'to go',
-    type: 'radio',
     options: [
       { value: 'nutty', label: 'Cardamom bun' },
       { value: 'creamy', label: 'Canele' },

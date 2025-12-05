@@ -3,6 +3,8 @@ import {
   ReviewSubPreference,
 } from '../models/review-preference';
 
+// TODO: move color out of backend logic and into frontend UI logic
+
 // Example: static config you can use in the UI
 export const REVIEW_PREFERENCES: ReviewPreference[] = [
   {
