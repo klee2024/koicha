@@ -8,7 +8,7 @@ from apps.products.models import Product
 class ReviewPreference(models.Model):
     bucket = models.SlugField(unique=True) # "LIKED", "DISLIKED", etc. 
     label = models.CharField(max_length=100) # "I liked it", "It was okay", etc.
-    value = models.IntegerField() # order buckets in UI 
+    value = models.DecimalField(max_digits=5, decimal_places=2) # order buckets in UI 
 
     def __str__(self):
         return self.label
@@ -25,7 +25,7 @@ class ReviewSubPreference(models.Model):
         related_name="subpreferences"
     )
     label = models.CharField(max_length=100)
-    value = models.IntegerField()
+    value = models.DecimalField(max_digits=5, decimal_places=2)
     def __str__(self):
         return f"{self.preference.label} – {self.label}"
 

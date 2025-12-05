@@ -20,6 +20,7 @@ class TasteProfile(models.Model):
     
     
 class TasteProfileArchetype(models.Model): 
+    slug = models.SlugField(unique=True)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
 
@@ -57,6 +58,7 @@ class FlavorCharacteristic(models.Model):
         MAIN = "main", "Main"
         SUB = "sub", "Sub"
 
+    slug = models.SlugField(unique=True)
     name = models.CharField(max_length=100, unique=True)
     hierarchy = models.CharField(
         max_length=10,
