@@ -18,6 +18,7 @@ class TasteProfile(models.Model):
     def __str__(self): 
         return f"Taste profile for {self.user}"
     
+    
 class TasteProfileArchetype(models.Model): 
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -74,7 +75,7 @@ class TasteProfileFlavorCharacteristic(models.Model):
     )
     flavor_characteristic=models.ForeignKey(
         FlavorCharacteristic, 
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
         related_name="profile_links"
     ) 
     value=models.DecimalField(max_digits=5, decimal_places=2)
