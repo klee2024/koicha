@@ -41,7 +41,7 @@ class Review(models.Model):
     on_delete=models.CASCADE,
     related_name="reviews", # get all of the reviews for a product
     )
-    user_rating = models.IntegerField()
+    user_rating = models.DecimalField(max_digits = 5, decimal_places=2)
     user_review_text = models.TextField()
     preference_level = models.ForeignKey(
         ReviewSubPreference, 
