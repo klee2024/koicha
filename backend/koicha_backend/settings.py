@@ -37,12 +37,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.products', 
-    'apps.quiz', 
-    'apps.recommendations', 
-    'apps.taste_profiles',
-    'apps.users'
+
+    # 3rd party
+    "rest_framework",
+
+    #apps
+    'apps.products.apps.ProductsConfig',
+    'apps.quiz.apps.QuizConfig',
+    'apps.recommendations.apps.RecommendationsConfig',
+    'apps.reviews.apps.ReviewsConfig',
+    'apps.taste_profiles.apps.TasteProfilesConfig',
+    'apps.users.apps.UsersConfig',
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+        # TODO: add JWT here
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+
 
 AUTH_USER_MODEL = "users.User"
 

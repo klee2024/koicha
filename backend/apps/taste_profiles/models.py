@@ -35,7 +35,7 @@ class TasteProfileDetail(models.Model):
     taste_profile = models.ForeignKey(
         TasteProfile, 
         on_delete=models.CASCADE, 
-        related_name="taste_profile_detail"
+        related_name="details"
     )
     dimension = models.CharField(
         max_length=20, 
@@ -45,7 +45,7 @@ class TasteProfileDetail(models.Model):
     archetype = models.ForeignKey(
         TasteProfileArchetype, 
         on_delete=models.PROTECT,
-        related_name="details"
+        related_name="taste_profile_details"
     )
     archetype_match = models.DecimalField(max_digits = 5, decimal_places=2)
     detail_description = models.TextField(blank=True) # description generated for the specific user

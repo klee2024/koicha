@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class TasteProfilesConfig(AppConfig):
-    name = 'taste_profiles'
+    name = 'apps.taste_profiles'
