@@ -8,11 +8,13 @@ import { provideEchartsCore } from 'ngx-echarts';
 
 // Import the echarts core library
 import * as echarts from 'echarts/core';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideHttpClient(),
     provideEchartsCore({ echarts }),
   ],
 };

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { QuizQuestion } from '../../../models/quizQuestion';
+import { QuizQuestion } from '../../../models/Quiz';
 import { CommonModule } from '@angular/common';
 import { FirstTimeQuizService } from '../../../services/first-time-quiz.service';
 import { FirstTimeQuizIntroComponent } from '../first-time-quiz-intro/first-time-quiz-intro.component';
@@ -26,6 +26,8 @@ import { Router } from '@angular/router';
   styleUrl: './first-time-quiz-page.component.css',
 })
 export class FirstTimeQuizPageComponent {
+  private readonly quizSlug = 'first-time-quiz';
+
   quizQuestions: QuizQuestion[] = [];
   displayInstructions: boolean = true;
   quizQuestionIndex: number = -1;
@@ -51,8 +53,10 @@ export class FirstTimeQuizPageComponent {
 
   ngOnInit() {
     // get the quiz questions from the questionnaire
-    this.quizQuestionService.getQuizQuestions().subscribe((data) => {
-      this.quizQuestions = data;
+    this.quizQuestionService.getQuiz(this.quizSlug).subscribe((quiz) => {
+      // TODO: add error handling here in case the quiz does not have quiz questions
+      this.quizQuestions = quiz.questions;
+      console.log('quiz questions: ', this.quizQuestions);
       const controls = this.quizQuestions.map(() =>
         this.fb.control<string | null>(null)
       );

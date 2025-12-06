@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { QuizQuestion } from '../../../models/quizQuestion';
+import { QuizQuestion } from '../../../models/Quiz';
 import { CommonModule } from '@angular/common';
 import { FormControl } from '@angular/forms';
 

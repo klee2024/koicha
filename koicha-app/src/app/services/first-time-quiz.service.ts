@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { MOCK_QUIZ_QUESTIONS } from '../data/form-questions.mock';
 import { delay, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Quiz } from '../models/Quiz';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirstTimeQuizService {
-  constructor() {}
+  private readonly baseUrl = 'http://127.0.0.1:8000/api'; // e.g. 'http://localhost:8000/api/quiz'
 
-  getQuizQuestions() {
-    return of(MOCK_QUIZ_QUESTIONS).pipe(delay(300));
+  constructor(private http: HttpClient) {}
+
+  getQuiz(quiz_slug: string) {
+    return this.http.get<Quiz>(`${this.baseUrl}/quiz/${quiz_slug}/latest/`);
   }
 
   submitFirstTimeQuiz(
