@@ -8,9 +8,9 @@ export const MOCK_BOOKMARKS: Product[] = [
     preparation: { id: 'prep1', name: 'Usucha', slug: 'usucha' },
     matchPercentage: 87,
     tags: [
-      { id: 'tag1', slug: 'astringent', label: 'astringent' },
-      { id: 'tag2', slug: 'cocoa', label: 'cocoa' },
-      { id: 'tag3', slug: 'nutty', label: 'nutty' },
+      { id: 'tag1', slug: 'astringent', name: 'astringent' },
+      { id: 'tag2', slug: 'cocoa', name: 'cocoa' },
+      { id: 'tag3', slug: 'nutty', name: 'nutty' },
     ],
     imageUrl:
       'https://kettl.co/cdn/shop/files/3591029d-cbe4-4bee-b85e-3ac3eb4dbee0_1680x.jpg?v=1755114175',
@@ -24,8 +24,8 @@ export const MOCK_BOOKMARKS: Product[] = [
     preparation: { id: 'prep1', slug: 'koicha', name: 'Usucha' },
     matchPercentage: 82,
     tags: [
-      { id: 'tag1', slug: 'astringent', label: 'astringent' },
-      { id: 'tag7', slug: 'verdant', label: 'verdant' },
+      { id: 'tag1', slug: 'astringent', name: 'astringent' },
+      { id: 'tag7', slug: 'verdant', name: 'verdant' },
     ],
     imageUrl:
       'https://kettl.co/cdn/shop/files/2a9f4b9a-5227-4211-b208-83f94887f5c4_1680x.jpg?v=1752611694',

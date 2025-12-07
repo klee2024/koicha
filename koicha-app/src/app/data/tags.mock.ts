@@ -1,4 +1,4 @@
-import { Tag } from '../models/tag';
+import { Tag } from '../models/product';
 
 export const MOCK_TAGS: Tag[] = [
   { id: 'tag1', slug: 'astringent', label: 'astringent' },

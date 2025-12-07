@@ -1,5 +1,14 @@
-import { Tag } from './tag';
-import { Preparation } from './preparation';
+export interface Preparation {
+  id: string;
+  slug: string;
+  name: string;
+}
+
+export interface Tag {
+  id: string;
+  slug: string;
+  name: string;
+}
 
 export interface Product {
   id: string;

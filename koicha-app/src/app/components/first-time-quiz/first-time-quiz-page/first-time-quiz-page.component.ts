@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { QuizQuestion } from '../../../models/Quiz';
 import { CommonModule } from '@angular/common';
-import { FirstTimeQuizService } from '../../../services/first-time-quiz.service';
+import { QuizService } from '../../../services/quiz.service';
 import { FirstTimeQuizIntroComponent } from '../first-time-quiz-intro/first-time-quiz-intro.component';
 import {
   FormControl,
@@ -43,7 +43,7 @@ export class FirstTimeQuizPageComponent {
 
   constructor(
     private fb: FormBuilder,
-    private quizQuestionService: FirstTimeQuizService,
+    private quizQuestionService: QuizService,
     private router: Router
   ) {
     this.fb.group({
@@ -107,7 +107,7 @@ export class FirstTimeQuizPageComponent {
       const payload = {
         answers: this.answersArray.value,
       };
-      this.quizQuestionService.submitFirstTimeQuiz('user123', payload);
+      this.quizQuestionService.submitQuiz('user123', payload);
       this.router.navigate(['/taste-profile']);
     }
   }

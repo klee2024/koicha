@@ -1,5 +1,4 @@
-import { Preparation } from '../../../models/preparation';
-import { Tag } from '../../../models/tag';
+import { Preparation, Tag } from '../../../models/product';
 
 interface BaseProductCard {
   id: string;

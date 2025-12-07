@@ -1,5 +1,4 @@
-import { Preparation } from './preparation';
-import { Tag } from './tag';
+import { Tag, Preparation } from './product';
 
 export interface UserReview {
   id: string;

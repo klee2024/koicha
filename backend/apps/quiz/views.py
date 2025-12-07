@@ -6,8 +6,6 @@ from rest_framework.permissions import IsAuthenticated, AllowAny  # or AllowAny 
 from .models import Quiz, QuizAnswer, QuizOption, QuizQuestion, QuizSession
 from .serializers import QuizSerializer, QuizSubmitSerializer
 
-# Create your views here.
-# TODO: what is APIView? 
 class LatestQuizView(APIView): 
     """
     GET /api/quiz/<quiz_slug>/latest

@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { Product } from '../models/product';
+import { Preparation, Product, Tag } from '../models/product';
 import { MOCK_PRODUCTS } from '../data/product.mock';
+import { environment } from '../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductMockService {
-  constructor() {}
+  private readonly baseUrl = environment.apiBaseUrl; // e.g. 'http://localhost:8000/api/quiz'
+  private readonly appUrl = 'products';
+
+  constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
     // network delay
@@ -17,5 +22,15 @@ export class ProductMockService {
 
   getProductsById(id: string): Observable<Product | undefined> {
     return of(MOCK_PRODUCTS.find((p) => p.id === id)).pipe(delay(300));
+  }
+
+  getPreparations() {
+    return this.http.get<Preparation[]>(
+      `${this.baseUrl}/${this.appUrl}/preparations/`
+    );
+  }
+
+  getTags() {
+    return this.http.get<Tag[]>(`${this.baseUrl}/${this.appUrl}/tags/`);
   }
 }

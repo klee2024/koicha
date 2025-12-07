@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Preparation } from '../../../models/preparation';
-import { Tag } from '../../../models/tag';
+import { Preparation, Tag } from '../../../models/product';
 import { CommonModule } from '@angular/common';
 import { ProductCardData } from '../product-card/productCardData';
 

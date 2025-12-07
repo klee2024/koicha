@@ -1,4 +1,4 @@
-import { Preparation } from '../models/preparation';
+import { Preparation } from '../models/product';
 
 export const MOCK_PREPARATIONS: Preparation[] = [
   { id: 'prep2', slug: 'koicha', name: 'Koicha' },
