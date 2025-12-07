@@ -36,8 +36,11 @@
         Rating: {{ productCardData.userScore }}
       </div>
       } @case ('recommendation'){
-      <div class="recommendation-percent font-mono text-xs">
-        Recommendation: {{ productCardData.matchPercentage }}
+      <div
+        class="recommendation-percent font-mono text-xs"
+        *ngIf="productCardData.matchPercentage"
+      >
+        {{ productCardData.matchPercentage }}% match
       </div>
       } @default(){}}
     </ng-container>
