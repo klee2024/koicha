@@ -25,7 +25,7 @@ export interface ReviewPreference {
   bucket: string; // DISLIKED / FINE / LIKED
   label: string; // display text: "I liked it"
   value: number; // 20 / 50 / 80
-  color: string; // color for UI styling
+  subpreferences?: ReviewSubPreference[]; // nested options returned by API
 }
 
 // ===============================
@@ -72,8 +72,6 @@ export enum FineSubPreference {
 // Config model for a sub-preference
 export interface ReviewSubPreference {
   id: string; // e.g. 'subPref.loved'
-  bucket: string;
-  key: string; // Liked / ReallyLiked / Loved
   label: string; // display text
   value: number; // 70 / 80 / 90
 }

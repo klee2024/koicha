@@ -24,10 +24,10 @@
       />
       <span
         class="flex h-20 w-20 items-center justify-center rounded-full border border-black/10 shadow-md transition-all duration-200"
-        [ngClass]="[
-          circleColorClass(preference),
+        [style.backgroundColor]="circleColor(preference)"
+        [ngClass]="
           preferenceSelected === preference.bucket ? 'scale-105' : 'opacity-80'
-        ]"
+        "
       ></span>
       <span
         class="text-sm tracking-wide text-neutral-800"

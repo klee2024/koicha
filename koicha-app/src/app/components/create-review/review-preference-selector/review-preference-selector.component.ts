@@ -10,15 +10,24 @@ import { ReviewPreference } from '../../../models/review-preference';
   styleUrl: './review-preference-selector.component.css',
 })
 export class ReviewPreferenceSelectorComponent {
+  private readonly preferenceColors: Record<string, string> = {
+    DISLIKED: 'B3542E',
+    FINE: 'F2C14E',
+    LIKED: '3C8C69',
+  };
+
+  private readonly defaultPreferenceColor = '3C8C69';
+
   @Input() preferences?: ReviewPreference[] = [];
   @Input() preferenceSelected?: string;
   @Output() preferenceSelectedChange = new EventEmitter<string>();
 
-  circleColorClass(preference: ReviewPreference): string {
-    return `bg-[#${preference.color}]`;
+  circleColor(preference: ReviewPreference): string {
+    const color =
+      this.preferenceColors[preference.bucket] ?? this.defaultPreferenceColor;
+    return `#${color}`;
   }
 
-  // TODO: update this so that any time a chagne is made even with the slider, the preference reflects the new choice
   onPreferenceChange(value: string) {
     this.preferenceSelectedChange.emit(value);
     this.preferenceSelected = value;

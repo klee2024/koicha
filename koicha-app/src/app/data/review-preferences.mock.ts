@@ -12,21 +12,18 @@ export const REVIEW_PREFERENCES: ReviewPreference[] = [
     bucket: 'DISLIKED',
     label: 'Not for me',
     value: 20,
-    color: 'B3542E',
   },
   {
     id: 'reviewPreference.fine',
     bucket: 'FINE',
     label: 'It was fine',
     value: 50,
-    color: 'F2C14E',
   },
   {
     id: 'reviewPreference.liked',
     bucket: 'LIKED',
     label: 'I liked it',
     value: 80,
-    color: '3C8C69',
   },
 ];
 

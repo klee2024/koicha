@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, delay, Observable, of } from 'rxjs';
 import {
-  DISLIKED_SUBPREFERENCES,
-  FINE_SUBPREFERENCES,
-  LIKED_SUBPREFERENCES,
-  REVIEW_PREFERENCES,
-} from '../data/review-preferences.mock';
-import {
   ReviewPreference,
   ReviewSubPreference,
 } from '../models/review-preference';
@@ -15,12 +9,17 @@ import { UserReviewRequest } from '../models/review-request';
 import { MOCK_REVIEWS } from '../data/reviews.mock';
 import { UserReview } from '../models/review';
 import { Product } from '../models/product';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReviewService {
-  constructor() {}
+  private readonly baseUrl = environment.apiBaseUrl; // e.g. 'http://localhost:8000/api/quiz'
+  private readonly appUrl = 'reviews';
+
+  constructor(private http: HttpClient) {}
 
   private _preferences$ = new BehaviorSubject<ReviewPreference[]>([]);
   private _subPreferences$ = new BehaviorSubject<ReviewSubPreference[]>([]);
@@ -38,25 +37,32 @@ export class ReviewService {
   }
 
   getPreferenceBuckets(): void {
-    this._preferences$.next(REVIEW_PREFERENCES);
+    this.http
+      .get<ReviewPreference[]>(
+        `${this.baseUrl}/${this.appUrl}/review-preferences/`
+      )
+      .subscribe({
+        next: (preferences) => this._preferences$.next(preferences ?? []),
+        error: (error) => {
+          console.error('Failed to load review preferences', error);
+          this._preferences$.next([]);
+        },
+      });
   }
 
-  getSubPreferenceBucket(mainPreferenceEnum: string): void {
-    // get all of the sub preference buckets based on the enum value of the main preference bucket
-    // MOCK DATA FOR NOW
-    let MOCK_SUBPREFERENCE_DATA: ReviewSubPreference[] = [];
-    switch (mainPreferenceEnum) {
-      case 'DISLIKED':
-        MOCK_SUBPREFERENCE_DATA = DISLIKED_SUBPREFERENCES;
-        break;
-      case 'FINE':
-        MOCK_SUBPREFERENCE_DATA = FINE_SUBPREFERENCES;
-        break;
-      case 'LIKED':
-        MOCK_SUBPREFERENCE_DATA = LIKED_SUBPREFERENCES;
-        break;
+  getSubPreferenceBucket(bucket: string): void {
+    const preferences = this._preferences$.value;
+    if (!preferences.length) {
+      this._subPreferences$.next([]);
+      return;
     }
-    this._subPreferences$.next(MOCK_SUBPREFERENCE_DATA);
+
+    const matchedPreference = preferences.find(
+      (preference) => preference.bucket === bucket
+    );
+
+    const subpreferences = matchedPreference?.subpreferences ?? [];
+    this._subPreferences$.next(subpreferences);
   }
 
   // ==================
