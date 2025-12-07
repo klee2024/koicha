@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, Preparation, Tag } from '../../models/product';
 
-import { ProductMockService } from '../../services/product-mock.service';
+import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class RecommendationFeedComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductMockService
+    private productService: ProductService
   ) {}
 
   ngOnInit() {
@@ -142,8 +142,8 @@ export class RecommendationFeedComponent implements OnInit {
       id: product.id,
       name: product.name,
       brand: product.brand,
-      imageUrl: product.imageUrl,
-      productUrl: product.productUrl,
+      image_url: product.image_url,
+      product_url: product.product_url,
       preparation: product.preparation,
       tags: product.tags ?? [],
       matchPercentage: product.matchPercentage ?? 0,

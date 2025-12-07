@@ -16,7 +16,7 @@ export interface Product {
   brand: string;
   preparation: Preparation;
   matchPercentage: number;
-  imageUrl: string;
+  image_url: string;
   tags: Tag[];
-  productUrl: string;
+  product_url: string;
 }

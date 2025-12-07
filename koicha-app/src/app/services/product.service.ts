@@ -9,15 +9,14 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductMockService {
+export class ProductService {
   private readonly baseUrl = environment.apiBaseUrl; // e.g. 'http://localhost:8000/api/quiz'
   private readonly appUrl = 'products';
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    // network delay
-    return of(MOCK_PRODUCTS).pipe(delay(500));
+    return this.http.get<Product[]>(`${this.baseUrl}/${this.appUrl}/products/`);
   }
 
   getProductsById(id: string): Observable<Product | undefined> {

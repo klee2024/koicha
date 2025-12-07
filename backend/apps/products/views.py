@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-from .serializers import PreparationSerializer, TagSerializer 
+from .serializers import PreparationSerializer, ProductSerializer, TagSerializer 
 
 from .models import Tag, Preparation, Product
 
@@ -35,9 +35,24 @@ class GetAllPreparations(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        preparation = (
+        preparations = (
             Preparation.objects.all()
         )
     
-        serializer = PreparationSerializer(preparation, many=True)
+        serializer = PreparationSerializer(preparations, many=True)
+        return Response(serializer.data)
+
+class GetAllProducts(APIView):
+    """
+    GET /api/product/preparations/
+    Gets all of the preparations associated with products
+    """
+
+    permission_classes = [AllowAny]
+
+    def get(self, request): 
+        products = (
+            Product.objects.all()
+        )
+        serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

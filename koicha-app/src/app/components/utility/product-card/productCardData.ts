@@ -4,8 +4,8 @@ interface BaseProductCard {
   id: string;
   name: string;
   brand: string;
-  imageUrl: string;
-  productUrl: string;
+  image_url: string;
+  product_url: string;
   preparation: Preparation;
   matchPercentage: number;
   tags: Tag[];
