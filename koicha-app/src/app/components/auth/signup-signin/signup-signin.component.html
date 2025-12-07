@@ -1,0 +1,28 @@
+<p>signup-signin works!</p>
+
+<div class="signup-container">
+  <div class="heading">
+    <h2 class="koicha-title">Koicha</h2>
+    <h2 class="koicha-tagline">sip with intention</h2>
+  </div>
+  <div class="auth-form-fields">
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+      <label for="email">Email</label>
+      <input formControlName="email" type="email" name="email" required />
+
+      @if (mode === 'signUp') {
+      <label for="username">Username</label>
+      <input formControlName="username" type="text" name="username" required />
+      }
+
+      <label for="password">password</label>
+      <input formControlName="password" type="password" />
+
+      <p class="form-error" aria-live="polite">{{ errorMessage }}</p>
+
+      <button type="submit">
+        {{ mode === "signUp" ? "sign up" : "sign in" }}
+      </button>
+    </form>
+  </div>
+</div>
