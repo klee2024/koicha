@@ -19,10 +19,6 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.baseUrl}/${this.appUrl}/products/`);
   }
 
-  getProductsById(id: string): Observable<Product | undefined> {
-    return of(MOCK_PRODUCTS.find((p) => p.id === id)).pipe(delay(300));
-  }
-
   getPreparations() {
     return this.http.get<Preparation[]>(
       `${this.baseUrl}/${this.appUrl}/preparations/`

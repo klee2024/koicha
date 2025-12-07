@@ -27,26 +27,26 @@ class ReviewSubPreference(models.Model):
     label = models.CharField(max_length=100)
     value = models.DecimalField(max_digits=5, decimal_places=2)
     def __str__(self):
-        return f"{self.preference.label} – {self.label}"
+        return f"{self.bucket.label} – {self.label}"
 
 
 class Review(models.Model): 
     user = models.ForeignKey(
-    settings.AUTH_USER_MODEL,
-    on_delete=models.CASCADE,
-    related_name="reviews", # get all of the reviews related to the user
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="reviews", # get all of the reviews related to the user
     )
     product = models.ForeignKey(
-    Product,
-    on_delete=models.CASCADE,
-    related_name="reviews", # get all of the reviews for a product
+        Product,
+        on_delete=models.CASCADE,
+        related_name="reviews", # get all of the reviews for a product
     )
     user_rating = models.DecimalField(max_digits = 5, decimal_places=2)
     user_review_text = models.TextField()
     preference_level = models.ForeignKey(
         ReviewSubPreference, 
         on_delete=models.PROTECT, 
-        related_name="reviews_subpreferences"
+        related_name="reviews"
     ) # from review_subpreferences, gets all reviews associated with that subpreference
 
     class Meta:
