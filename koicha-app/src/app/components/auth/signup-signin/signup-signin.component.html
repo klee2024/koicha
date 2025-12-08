@@ -1,26 +1,71 @@
-<p>signup-signin works!</p>
+<div
+  class="flex min-h-screen flex-col items-center justify-center bg-neutral-50 px-4 py-12"
+>
+  <div
+    class="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-10 shadow-lg shadow-slate-200/60"
+  >
+    <div class="mb-10 text-center">
+      <h2 class="text-4xl font-semibold tracking-wide text-slate-900 font-mono">
+        Koicha
+      </h2>
+      <p class="text-lg font-light text-slate-600 font-inner">
+        sip with intention
+      </p>
+    </div>
 
-<div class="signup-container">
-  <div class="heading">
-    <h2 class="koicha-title">Koicha</h2>
-    <h2 class="koicha-tagline">sip with intention</h2>
-  </div>
-  <div class="auth-form-fields">
-    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
-      <label for="email">Email</label>
-      <input formControlName="email" type="email" name="email" required />
-
+    <form
+      class="flex flex-col gap-6 font-mono"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+    >
       @if (mode === 'signUp') {
-      <label for="username">Username</label>
-      <input formControlName="username" type="text" name="username" required />
+      <label
+        class="text-base font-semibold lowercase tracking-wide text-slate-700"
+      >
+        email
+        <input
+          class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100/70 px-4 py-3 text-lg text-slate-900 outline-none transition-all focus:border-slate-400 focus:bg-white focus:ring-1 focus:ring-slate-300"
+          formControlName="email"
+          type="email"
+          required
+        />
+      </label>
       }
+      <label
+        class="text-base font-semibold lowercase tracking-wide text-slate-700"
+      >
+        username
+        <input
+          class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100/70 px-4 py-3 text-lg text-slate-900 outline-none transition-all focus:border-slate-400 focus:bg-white focus:ring-1 focus:ring-slate-300"
+          formControlName="username"
+          type="text"
+          required
+        />
+      </label>
 
-      <label for="password">password</label>
-      <input formControlName="password" type="password" />
+      <label
+        class="text-base font-semibold lowercase tracking-wide text-slate-700"
+      >
+        password
+        <input
+          class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100/70 px-4 py-3 text-lg text-slate-900 outline-none transition-all focus:border-slate-400 focus:bg-white focus:ring-1 focus:ring-slate-300"
+          formControlName="password"
+          type="password"
+          required
+        />
+      </label>
 
-      <p class="form-error" aria-live="polite">{{ errorMessage }}</p>
+      <p
+        class="min-h-[1.5rem] text-center text-sm font-semibold lowercase tracking-wide text-rose-500"
+        aria-live="polite"
+      >
+        {{ errorMessage }}
+      </p>
 
-      <button type="submit">
+      <button
+        class="mx-auto mt-2 inline-flex w-32 items-center justify-center rounded-xl border border-emerald-600 px-4 py-2 text-lg font-medium lowercase tracking-wide text-emerald-700 transition-colors hover:bg-emerald-600 hover:text-white"
+        type="submit"
+      >
         {{ mode === "signUp" ? "sign up" : "sign in" }}
       </button>
     </form>

@@ -28,4 +28,14 @@ export class ProductService {
   getTags() {
     return this.http.get<Tag[]>(`${this.baseUrl}/${this.appUrl}/tags/`);
   }
+
+  // TODO: test and implement this
+  toggleBookmark(productId: number) {
+    return this.http.put<Tag[]>(
+      `${this.baseUrl}/${this.appUrl}/${productId}/bookmark`,
+      {}
+    );
+  }
+
+  // TODO: implement get all user bookmarks route
 }

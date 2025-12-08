@@ -30,7 +30,6 @@ export const REVIEW_PREFERENCES: ReviewPreference[] = [
 export const LIKED_SUBPREFERENCES: ReviewSubPreference[] = [
   {
     id: 'subPref.liked',
-    bucket: 'LIKED',
     key: 'LIKED',
     label: 'Liked',
     value: 70,

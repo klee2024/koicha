@@ -33,12 +33,9 @@ class UserBookmarkSerializer(serializers.ModelSerializer):
                     "product", 
                     "bookmarked_at"]
 
-# TODO: review this
-class UserBookmarkCreateSerializer(serializers.ModelSerializer):
+class UserBookmarkToggleSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     class Meta:
         model = UserBookmark
         fields = ["product"]
 
-    def create(self, validated_data):
-        request = self.context["request"]
-        return UserBookmark.objects.create(user=request.user, **validated_data)
