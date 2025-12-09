@@ -14,5 +14,6 @@ urlpatterns = [
 
     path("api/quiz/", include("apps.quiz.urls")),
     path("api/products/", include("apps.products.urls")),
-    path("api/reviews/", include("apps.reviews.urls"))
+    path("api/reviews/", include("apps.reviews.urls")),
+    path("api/reccomendations/", include("apps.reviews.urls")),
 ]

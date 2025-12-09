@@ -16,7 +16,7 @@ class UserProductMatch(models.Model):
         related_name="user_matches", # get all of the rec scores for a product of all users
     )
 
-    match_percentage = models.IntegerField()
+    match_percentage = models.DecimalField(max_digits=5, decimal_places=2)
     computed_at = models.DateTimeField(auto_now=True)
 
     class Meta:
