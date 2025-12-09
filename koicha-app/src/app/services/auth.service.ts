@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import {
-  HttpClient,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthSignInPayload, AuthSignUpPayload } from '../models/auth';
+import { Observable, switchMap, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,17 +18,31 @@ export class AuthService {
     );
   }
 
-  signIn(signInPayload: AuthSignInPayload) {
-    // also add the token to local storage to read from
-    this.http
+  signIn(
+    signInPayload: AuthSignInPayload
+  ): Observable<{ access: string; refresh: string }> {
+    return this.http
       .post<{ access: string; refresh: string }>(
         `${this.baseUrl}/${this.authUrl}/token/`,
         signInPayload
       )
-      .subscribe((response) => {
-        localStorage.setItem('refresh', response.refresh);
-        localStorage.setItem('access', response.access);
-      });
+      .pipe(
+        tap(({ access, refresh }) => {
+          localStorage.setItem('access', access);
+          localStorage.setItem('refresh', refresh);
+        })
+      );
+  }
+
+  signUpAndSignIn(signUpPayload: AuthSignUpPayload) {
+    return this.signUp(signUpPayload).pipe(
+      switchMap(() =>
+        this.signIn({
+          username: signUpPayload.username,
+          password: signUpPayload.password,
+        })
+      )
+    );
   }
 
   logout() {

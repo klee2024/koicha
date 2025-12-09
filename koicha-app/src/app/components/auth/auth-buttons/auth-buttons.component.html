@@ -1,0 +1,34 @@
+<div class="app-auth-buttons flex gap-4">
+  <button
+    class="sign-up mx-auto mt-2 inline-flex w-32 items-center justify-center rounded-xl border border-emerald-600 px-4 py-2 text-lg font-medium lowercase tracking-wide text-emerald-700 transition-colors hover:bg-emerald-600 hover:text-white"
+    type="button"
+    (click)="openAuth('signUp')"
+  >
+    sign up
+  </button>
+  <button
+    class="sign-in mx-auto mt-2 inline-flex w-32 items-center justify-center rounded-xl border border-emerald-600 px-4 py-2 text-lg font-medium lowercase tracking-wide text-emerald-700 transition-colors hover:bg-emerald-600 hover:text-white"
+    type="button"
+    (click)="openAuth('signIn')"
+  >
+    sign in
+  </button>
+</div>
+
+@if (activeMode) {
+<div
+  class="fixed inset-0 z-40 bg-white/40 backdrop-blur-sm"
+  (click)="closeAuth()"
+>
+  <div
+    class="flex min-h-full items-center justify-center p-4"
+    (click)="$event.stopPropagation()"
+  >
+    <app-signup-signin
+      [mode]="activeMode"
+      [overlay]="true"
+      (closed)="closeAuth()"
+    ></app-signup-signin>
+  </div>
+</div>
+}

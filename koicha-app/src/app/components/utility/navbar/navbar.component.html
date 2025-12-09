@@ -3,29 +3,37 @@
 >
   <div class="koicha-logo" aria-label="Koicha logo">Koicha</div>
 
-  <nav class="flex items-center gap-6 text-[24px]">
-    <a
-      routerLink="/explore"
-      routerLinkActive="selected-item-rust-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      aria-current="page"
-      >explore</a
-    >
+  <div class="relative flex items-center">
+    <nav class="flex items-center gap-6 text-[24px]">
+      <a
+        routerLink="/explore"
+        routerLinkActive="selected-item-rust-700"
+        [routerLinkActiveOptions]="{ exact: true }"
+        aria-current="page"
+        >explore</a
+      >
 
-    <a
-      routerLink="/tea-shelf"
-      routerLinkActive="selected-item-rust-700"
-      aria-current="page"
-      >tea shelf</a
-    >
+      <a
+        routerLink="/tea-shelf"
+        routerLinkActive="selected-item-rust-700"
+        aria-current="page"
+        >tea shelf</a
+      >
 
-    <a
-      routerLink="/taste-profile"
-      routerLinkActive="selected-item-rust-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      aria-current="page"
-      >taste profile</a
-    >
-    <!-- TODO: ensure that the taste-profile is highlighted properly when active   -->
-  </nav>
+      <a
+        routerLink="/taste-profile"
+        routerLinkActive="selected-item-rust-700"
+        [routerLinkActiveOptions]="{ exact: true }"
+        aria-current="page"
+        >taste profile</a
+      >
+      <!-- TODO: ensure that the taste-profile is highlighted properly when active   -->
+    </nav>
+
+    <div class="absolute -top-16 right-0">
+      <!-- TODO: if the user is not signed in, display the log in or sign up button-->
+      <app-auth-buttons></app-auth-buttons>
+      <!-- TODO: if the user is signed in, display the house icon -->
+    </div>
+  </div>
 </div>
