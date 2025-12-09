@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-bookmark-shelf',
@@ -18,7 +19,10 @@ export class BookmarkShelfComponent implements OnInit {
   productToReview?: ProductCardData;
   productToBookmark?: ProductCardData;
 
-  constructor(private userProductService: UserProductsService) {}
+  constructor(
+    private productService: ProductService,
+    private userProductService: UserProductsService
+  ) {}
   ngOnInit() {
     // initialize the userBookmarks array on init - use this to pass down into the Product card
     this.userProductService
@@ -41,7 +45,12 @@ export class BookmarkShelfComponent implements OnInit {
 
   onBookmarkProduct(product: ProductCardData) {
     this.productToBookmark = product;
-    console.log(`bookmark product button works: ${product.id}!`);
+    const productId = product.id;
+
+    // TODO: add error handling
+    this.productService.toggleBookmark(productId).subscribe((response) => {
+      console.log('product bookmark result: ', response);
+    });
   }
 
   closeReviewCard() {
