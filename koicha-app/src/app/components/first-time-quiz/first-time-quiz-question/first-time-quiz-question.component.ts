@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 export class FirstTimeQuizQuestionComponent {
   @Input() question?: QuizQuestion;
   @Input() control?: FormControl<string | null>;
+  @Input() lastQuestion?: boolean = false;
 
   @Output() answerSelected = new EventEmitter<string>();
   @Output() next = new EventEmitter<void>();

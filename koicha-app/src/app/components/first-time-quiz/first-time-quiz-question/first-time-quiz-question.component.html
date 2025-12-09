@@ -40,7 +40,8 @@
       (click)="next.emit()"
       [disabled]="!control?.value"
     >
-      next
+      <span *ngIf="!lastQuestion">next</span>
+      <span *ngIf="lastQuestion">discover my taste profile</span>
     </button>
   </div>
 </div>
