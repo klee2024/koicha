@@ -2,7 +2,7 @@ import { UserReview } from '../models/review';
 
 export const MOCK_REVIEWS: UserReview[] = [
   {
-    id: 'rev-001',
+    id: 1,
     userId: 'user-123',
     preparation: { id: 'prep1', name: 'Usucha', slug: 'usucha' },
     tags: [
@@ -10,7 +10,7 @@ export const MOCK_REVIEWS: UserReview[] = [
       { id: 'tag2', slug: 'cocoa', name: 'cocoa' },
       { id: 'tag3', slug: 'nutty', name: 'nutty' },
     ],
-    productId: '1',
+    productId: 1,
     productName: 'Kiyona Matcha',
     productBrand: 'Kettl',
     userRanking: 1,
@@ -29,9 +29,9 @@ export const MOCK_REVIEWS: UserReview[] = [
     reviewSubPreferenceValue: 50,
   },
   {
-    id: 'rev-003',
+    id: 3,
     userId: 'user-123',
-    productId: '2',
+    productId: 2,
     preparation: { id: 'prep2', slug: 'koicha', name: 'Koicha' },
     tags: [
       { id: 'tag4', slug: 'oceanic', name: 'oceanic' },
@@ -56,7 +56,7 @@ export const MOCK_REVIEWS: UserReview[] = [
     reviewSubPreferenceValue: 80,
   },
   {
-    id: 'rev-005',
+    id: 2,
     userId: 'user-456',
     preparation: { id: 'prep1', slug: 'koicha', name: 'Usucha' },
     tags: [
@@ -65,7 +65,7 @@ export const MOCK_REVIEWS: UserReview[] = [
     ],
     productUrl:
       'https://kettl.co/products/yamagumo-matcha?_pos=5&_sid=fbb9e8347&_ss=r',
-    productId: '3',
+    productId: 3,
     productName: 'Yamagumo Matcha',
     productBrand: 'Kettl',
     userRanking: 1,
@@ -81,7 +81,7 @@ export const MOCK_REVIEWS: UserReview[] = [
     reviewSubPreferenceValue: 90,
   },
   {
-    id: 'rev-006',
+    id: 4,
     userId: 'user-456',
     preparation: { id: 'prep3', slug: 'latte', name: 'Matcha Latte' },
     tags: [
@@ -89,7 +89,7 @@ export const MOCK_REVIEWS: UserReview[] = [
       { id: 'tag9', slug: 'sweet', name: 'sweet' },
     ],
     productUrl: 'https://kettl.co/products/matcha-milk-blend',
-    productId: '4',
+    productId: 4,
     productName: 'Matcha Milk Blend',
     productBrand: 'Kettl',
     userRanking: 2,
@@ -105,7 +105,7 @@ export const MOCK_REVIEWS: UserReview[] = [
     reviewSubPreferenceValue: 60,
   },
   {
-    id: 'rev-007',
+    id: 9,
     userId: 'user-789',
     preparation: { id: 'prep4', slug: 'cold-brew', name: 'Cold Brew' },
     tags: [
@@ -113,7 +113,7 @@ export const MOCK_REVIEWS: UserReview[] = [
       { id: 'tag11', slug: 'earthy', name: 'earthy' },
     ],
     productUrl: 'https://kettl.co/products/summer-brew',
-    productId: '5',
+    productId: 5,
     productName: 'Summer Brew Matcha',
     productBrand: 'Kettl',
     userRanking: 3,
@@ -129,7 +129,7 @@ export const MOCK_REVIEWS: UserReview[] = [
     reviewSubPreferenceValue: 10,
   },
   {
-    id: 'rev-008',
+    id: 10,
     userId: 'user-789',
     preparation: { id: 'prep1', slug: 'usucha', name: 'Usucha' },
     tags: [
@@ -137,7 +137,7 @@ export const MOCK_REVIEWS: UserReview[] = [
       { id: 'tag2', slug: 'cocoa', name: 'cocoa' },
     ],
     productUrl: 'https://kettl.co/products/wakaba-matcha',
-    productId: '6',
+    productId: 6,
     productName: 'Wakaba Matcha',
     productBrand: 'Kettl',
     userRanking: 4,
@@ -153,7 +153,7 @@ export const MOCK_REVIEWS: UserReview[] = [
     reviewSubPreferenceValue: 30,
   },
   {
-    id: 'rev-009',
+    id: 12,
     userId: 'user-321',
     preparation: { id: 'prep2', slug: 'koicha', name: 'Koicha' },
     tags: [
@@ -161,7 +161,7 @@ export const MOCK_REVIEWS: UserReview[] = [
       { id: 'tag13', slug: 'floral', name: 'floral' },
     ],
     productUrl: 'https://kettl.co/products/haru-matcha',
-    productId: '7',
+    productId: 7,
     productName: 'Haru Matcha',
     productBrand: 'Kettl',
     userRanking: 1,
@@ -178,7 +178,7 @@ export const MOCK_REVIEWS: UserReview[] = [
     reviewSubPreferenceValue: 90,
   },
   {
-    id: 'rev-010',
+    id: 13,
     userId: 'user-321',
     preparation: { id: 'prep5', slug: 'sparkling', name: 'Sparkling' },
     tags: [
@@ -186,7 +186,7 @@ export const MOCK_REVIEWS: UserReview[] = [
       { id: 'tag15', slug: 'bright', name: 'bright' },
     ],
     productUrl: 'https://kettl.co/products/matcha-soda',
-    productId: '8',
+    productId: 8,
     productName: 'Matcha Citrus Fizz',
     productBrand: 'Kettl',
     userRanking: 2,

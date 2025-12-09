@@ -1,7 +1,7 @@
 import { Preparation, Tag } from '../../../models/product';
 
 interface BaseProductCard {
-  id: string;
+  id: number;
   name: string;
   brand: string;
   image_url: string;

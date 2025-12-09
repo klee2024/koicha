@@ -2,7 +2,7 @@ import { Product } from '../models/product';
 
 export const MOCK_PRODUCTS: Product[] = [
   {
-    id: '1',
+    id: 1,
     name: 'Kiyona Matcha',
     brand: 'Kettl',
     preparation: { id: 'prep1', name: 'Usucha', slug: 'usucha' },
@@ -18,7 +18,7 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://kettl.co/products/kiyona-matcha?pr_prod_strat=e5_desc&pr_rec_id=a3ad54589&pr_rec_pid=8667352629498&pr_ref_pid=8098143666426&pr_seq=uniform',
   },
   {
-    id: '2',
+    id: 2,
     name: 'Kohata Matcha',
     brand: 'Kettl',
     preparation: { id: 'prep2', slug: 'koicha', name: 'Koicha' },
@@ -34,7 +34,7 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://kettl.co/collections/matcha-green-tea/products/kohata-matcha-20g',
   },
   {
-    id: '3',
+    id: 3,
     name: 'Yamagumo Matcha',
     brand: 'Kettl',
     preparation: { id: 'prep1', slug: 'koicha', name: 'Usucha' },

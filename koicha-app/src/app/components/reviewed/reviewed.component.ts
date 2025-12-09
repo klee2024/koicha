@@ -109,7 +109,7 @@ export class ReviewedComponent {
     };
   }
 
-  trackById(index: number, item: { id: number | string }) {
+  trackById(index: number, item: { id: number }) {
     return item.id;
   }
 }

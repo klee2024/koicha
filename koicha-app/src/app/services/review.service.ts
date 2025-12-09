@@ -71,7 +71,7 @@ export class ReviewService {
 
   createUserProductReview(
     userId: string,
-    productId: string,
+    productId: number,
     payload: UserReviewRequest
   ) {
     return of({ success: true }).pipe(delay(500));

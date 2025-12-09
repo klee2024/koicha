@@ -11,7 +11,7 @@ export interface Tag {
 }
 
 export interface Product {
-  id: string;
+  id: number;
   name: string;
   brand: string;
   preparation: Preparation;

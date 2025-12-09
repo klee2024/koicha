@@ -1,6 +1,6 @@
 export interface UserReviewRequest {
   userId: string;
-  productId: string;
+  productId: number;
   userRating: number;
   userReviewText: string | undefined;
 }

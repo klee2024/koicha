@@ -1,12 +1,12 @@
 import { Tag, Preparation } from './product';
 
 export interface UserReview {
-  id: string;
+  id: number;
   // product values
   userId: string;
   preparation: Preparation;
   tags: Tag[];
-  productId: string;
+  productId: number;
   productName: string;
   productBrand: string;
   userReviewText: string;
