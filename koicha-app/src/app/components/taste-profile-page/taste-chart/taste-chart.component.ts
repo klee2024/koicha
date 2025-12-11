@@ -5,9 +5,11 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { TasteProfile } from '../../../models/taste-profile';
+import {
+  TasteProfile,
+  TasteProfileFlavorCharacteristic,
+} from '../../../models/taste-profile';
 import { EChartsOption, ECharts } from 'echarts';
-import { SubFlavorCharacteristic } from '../../../models/taste-profile';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 
 import * as echarts from 'echarts/core';
@@ -31,8 +33,7 @@ export class TasteChartComponent implements OnChanges {
   mainFlavorLabels: string[] | undefined = undefined;
   mainFlavorValues: number[] | undefined = undefined;
 
-  subCharacteristics: Record<string, SubFlavorCharacteristic[]> | undefined =
-    undefined;
+  subCharacteristics: TasteProfileFlavorCharacteristic[] = [];
 
   radarOptions: EChartsOption = {};
 
@@ -45,10 +46,21 @@ export class TasteChartComponent implements OnChanges {
   }
 
   private updateChart(profile: TasteProfile) {
-    const mainFlavors = profile.mainCharacterstics ?? {};
-    const labels = Object.keys(mainFlavors);
-    const values = Object.values(mainFlavors);
-    this.subCharacteristics = profile.subCharacteristics ?? {};
+    const mainFlavors =
+      profile.flavor_characteristic_values?.filter(
+        (characteristic) =>
+          characteristic.flavor_characteristic.hierarchy == 'MAIN'
+      ) ?? [];
+    const labels = mainFlavors.map(
+      (characteristic) => characteristic.flavor_characteristic.name
+    );
+    const values = mainFlavors.map((characteristic) => characteristic.value);
+    // TODO: revisit subcharacteristic implementation after backend refactor
+    // this.subCharacteristics =
+    //   profile.flavor_characteristic_values?.filter(
+    //     (characteristic) =>
+    //       characteristic.flavor_characteristic.hierarchy == 'SUB'
+    //   ) ?? {};
     this.radarOptions = buildTasteRadarOptions({
       labels,
       values,

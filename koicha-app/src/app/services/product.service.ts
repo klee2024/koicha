@@ -38,4 +38,7 @@ export class ProductService {
   }
 
   // TODO: implement get all user bookmarks route
+
+  // TODO: implement get products with user's match percentages
+  
 }

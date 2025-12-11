@@ -1,24 +1,32 @@
-export interface SubFlavorCharacteristic {
-  label: string;
-  value: number;
-}
-
 export interface TasteProfileArchetype {
-  id: string;
-  archetypeName: string;
+  id: number;
+  slug: string;
+  name: string;
 }
 
 export interface TasteProfileDetail {
-  id: string;
+  id: number;
   archetype: TasteProfileArchetype;
-  archetypeMatch: number;
-  detailDescription: string;
+  archetype_match: number;
+  detail_description: string;
+}
+
+export interface FlavorCharacteristic {
+  id: number;
+  slug: string;
+  name: string;
+  hierarchy: string;
 }
 
 export interface TasteProfile {
-  id: string;
-  userId: string;
-  mainCharacterstics: Record<string, number> | undefined;
-  subCharacteristics: Record<string, SubFlavorCharacteristic[]> | undefined;
-  tasteProfileDetails: TasteProfileDetail[];
+  id: number;
+  user: number;
+  details: TasteProfileDetail[] | undefined;
+  flavor_characteristic_values: TasteProfileFlavorCharacteristic[] | undefined;
+}
+export interface TasteProfileFlavorCharacteristic {
+  id: number;
+  taste_profile: TasteProfile;
+  flavor_characteristic: FlavorCharacteristic;
+  value: number;
 }

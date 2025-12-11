@@ -73,7 +73,7 @@ class TasteProfileFlavorCharacteristic(models.Model):
     taste_profile = models.ForeignKey(
         TasteProfile, 
         on_delete=models.CASCADE, 
-        related_name="flavor_characteristic_links"
+        related_name="flavor_characteristic_values"
     )
     flavor_characteristic=models.ForeignKey(
         FlavorCharacteristic, 

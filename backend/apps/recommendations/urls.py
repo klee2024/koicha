@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import GetAllPreparations, GetAllTags, GetAllProducts
+from .views import GetAllRecommendedProducts
 
 urlpatterns = [
-    path("", GetAllPreparations.as_view(), name="recommendations"),
+    path("", GetAllRecommendedProducts.as_view(), name="recommendations"),
 ]

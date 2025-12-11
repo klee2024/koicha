@@ -24,18 +24,16 @@ export class TasteProfileComponent {
       return;
     }
 
+    this.tasteProfileService.getUserTasteProfile().subscribe((data) => {
+      this.tasteProfile = data;
+      console.log('taste profile retrieved');
+    });
+
     // this.tasteProfileService
-    //   .getTasteProfileByUserId(userId)
+    //   .getEmptyTasteProfileDetails(userId)
     //   .subscribe((data) => {
     //     this.tasteProfile = data;
     //     console.log('taste profile retrieved');
     //   });
-
-    this.tasteProfileService
-      .getEmptyTasteProfileDetails(userId)
-      .subscribe((data) => {
-        this.tasteProfile = data;
-        console.log('taste profile retrieved');
-      });
   }
 }

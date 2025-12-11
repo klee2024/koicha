@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 
+# Consider moving this to an entity called filters with another field for type
 class Preparation(models.Model):
     slug = models.SlugField(unique=True)
     name = models.CharField(max_length=100, unique=True)

@@ -1,13 +1,11 @@
 <!-- TODO: add consistent content box sizing -->
 <!-- TODO: fix the formatting of the taste profile details for responsive text boes (text box gets pushed vertically upon resizing to smaller screen) -->
 <div class="taste-profile">
-  <ng-container
-    *ngIf="tasteProfile?.tasteProfileDetails?.length; else elseBlock"
-  >
+  <ng-container *ngIf="tasteProfile?.details?.length; else elseBlock">
     <div class="flex flex-col gap-y-16">
       <div
         class="taste-profile-archetype"
-        *ngFor="let archetypeDetail of tasteProfile?.tasteProfileDetails"
+        *ngFor="let detail of tasteProfile?.details"
       >
         <div
           class="taste-preference-text flex flex-col gap-y-6 xl:gap-y-8 pt-4 w-full max-w-3xl"
@@ -16,16 +14,16 @@
             class="taste-preference-header flex flex-row gap-6 font-mono text-4xl"
           >
             <h2 class="taste-preference-heading">
-              {{ archetypeDetail.archetype.archetypeName }}
+              {{ detail.archetype.name }}
             </h2>
             <span class="taste-preference-match text-gray-400">
-              {{ archetypeDetail.archetypeMatch }}%</span
+              {{ detail.archetype_match }}%</span
             >
           </div>
           <div
             class="taste-preference-description font-sans text-xl w-full md:max-w-[40vw]"
           >
-            <p>{{ archetypeDetail.detailDescription }}</p>
+            <p>{{ detail.detail_description }}</p>
           </div>
         </div>
       </div>

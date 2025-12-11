@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from .querysets import products_with_match_for_user
-from .serializers import ExploreProductSerializer, ProductRecommendationSerializer
+from .serializers import ProductRecommendationSerializer
 
-class RecommendedProductsView(APIView):
+class GetAllRecommendedProducts(APIView):
     """
     GET /api/recommendations/
     Gets all products with the user's recommendation match score (if cached in the user product match table)

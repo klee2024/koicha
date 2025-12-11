@@ -4,7 +4,7 @@ import { ReviewProductRankingComponent } from '../review-product-ranking/review-
 import { ProductCardContentComponent } from '../../utility/product-card-content/product-card-content.component';
 import { ProductCardData } from '../../utility/product-card/productCardData';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule }  from '@angular/forms';
 import { ProductCardComponent } from '../../utility/product-card/product-card.component';
 import {
   ReviewPreference,
