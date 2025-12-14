@@ -17,7 +17,7 @@
         class="sr-only"
         type="radio"
         name="reviewPreference"
-        [value]="preference.bucket"
+        [value]="preference"
         [(ngModel)]="preferenceSelected"
         (ngModelChange)="onPreferenceChange($event)"
         required
@@ -26,14 +26,20 @@
         class="flex h-20 w-20 items-center justify-center rounded-full border border-black/10 shadow-md transition-all duration-200"
         [style.backgroundColor]="circleColor(preference)"
         [ngClass]="
-          preferenceSelected === preference.bucket ? 'scale-105' : 'opacity-80'
+          preferenceSelected && preferenceSelected.bucket === preference.bucket
+            ? 'scale-105'
+            : 'opacity-80'
         "
       ></span>
       <span
         class="text-sm tracking-wide text-neutral-800"
         [ngClass]="{
-          'font-semibold': preferenceSelected === preference.bucket,
-          'font-medium': preferenceSelected !== preference.bucket
+          'font-semibold':
+            preferenceSelected &&
+            preferenceSelected.bucket === preference.bucket,
+          'font-medium':
+            preferenceSelected &&
+            preferenceSelected.bucket !== preference.bucket
         }"
       >
         {{ preference.label }}

@@ -4,7 +4,7 @@ import { ReviewProductRankingComponent } from '../review-product-ranking/review-
 import { ProductCardContentComponent } from '../../utility/product-card-content/product-card-content.component';
 import { ProductCardData } from '../../utility/product-card/productCardData';
 import { CommonModule } from '@angular/common';
-import { FormsModule }  from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ProductCardComponent } from '../../utility/product-card/product-card.component';
 import {
   ReviewPreference,
@@ -15,7 +15,7 @@ import { RankingLineupComponent } from '../ranking-lineup/ranking-lineup.compone
 import { ProductLineup } from './product-lineup';
 import { ReviewService } from '../../../services/review.service';
 import { Observable } from 'rxjs';
-import { UserReviewRequest } from '../../../models/review-request';
+import { UserReviewRequest } from '../../../models/review';
 
 @Component({
   selector: 'app-create-review-card',
@@ -43,8 +43,8 @@ export class CreateReviewCardComponent implements OnInit {
   reviewInputText?: string;
 
   // preference selector
-  selectedPreference?: string;
-  selectedSubPreference?: string;
+  selectedPreference?: ReviewPreference;
+  selectedSubPreference?: ReviewSubPreference;
 
   // rating slider
   minSubPreferenceValue?: number;
@@ -80,25 +80,25 @@ export class CreateReviewCardComponent implements OnInit {
   createReview() {
     // TODO: auth for getting the user's id
     if (this.productCard && this.selectedRating) {
-      console.log('creating review');
-      const createReviewPayload: UserReviewRequest = {
-        userId: 'user123',
-        productId: this.productCard.id,
-        userRating: this.selectedRating,
-        userReviewText: this.reviewInputText,
-      };
+      console.log('selected preference: ', this.selectedSubPreference);
+      if (this.selectedSubPreference) {
+        const createReviewPayload: UserReviewRequest = {
+          product: this.productCard.id,
+          user_rating: this.selectedRating,
+          user_review_text: this.reviewInputText || '',
+          preference_level: this.selectedSubPreference.id,
+        };
 
-      this.reviewService
-        .createUserProductReview(
-          'user123',
-          this.productCard.id,
-          createReviewPayload
-        )
-        .subscribe((data) => {
-          console.log('review was created ', data);
-        });
-      console.log('creating review!');
-      this.closeCard();
+        console.log('creating review ', createReviewPayload);
+
+        this.reviewService
+          .createUserProductReview(createReviewPayload)
+          .subscribe((data) => {
+            console.log('review was created ', data);
+          });
+        console.log('creating review!');
+        this.closeCard();
+      }
       // TODO: present the new review
       // get the newly created review from the review card, use the review details component
       // to present the card
@@ -106,14 +106,19 @@ export class CreateReviewCardComponent implements OnInit {
   }
 
   // saves the preferenceInput as the enum value to the component field
-  savePreferenceInput(preferenceInputValue: string): void {
+  savePreferenceInput(
+    preferenceInputValue: ReviewPreference | undefined
+  ): void {
     this.selectedPreference = preferenceInputValue;
     console.log(this.selectedPreference);
   }
 
   // saves the first step of the review process, which is selecting if they
   // liked the product or didn't (savePreferenceInput) and saves the review text
-  saveReviewInput(text: string, preferenceInputValue: string): void {
+  saveReviewInput(
+    text: string,
+    preferenceInputValue: ReviewPreference | undefined
+  ): void {
     this.reviewInputText = text;
     this.reviewStep = this.COMPARE_PRODUCTS_STEP;
     console.log('preference input value', preferenceInputValue);
@@ -127,7 +132,7 @@ export class CreateReviewCardComponent implements OnInit {
     // pass these down to the slider component
     console.log('on preference selected ', this.selectedPreference);
     if (this.selectedPreference) {
-      this.reviewService.getSubPreferenceBucket(this.selectedPreference);
+      this.reviewService.getSubPreferenceBuckets(this.selectedPreference);
       this.subPreferences$ = this.reviewService.subPreferences$;
       console.log('sub preference: ', this.reviewService.subPreferences);
 
@@ -163,32 +168,35 @@ export class CreateReviewCardComponent implements OnInit {
           this.selectedRating,
           this.productCard
         );
+
+        // initialize the selected sub preference based off of the initial selected rating
+        this.selectedSubPreference = this.reviewService.findBucketForRating(
+          this.selectedRating
+        );
       }
     }
   }
 
-  onPreferenceSelectorChange(preferenceValue: string) {
-    console.log('preference value: ', preferenceValue);
-    if (this.selectedPreference !== preferenceValue) {
-      this.selectedPreference = preferenceValue;
+  onPreferenceSelectorChange(preference: ReviewPreference) {
+    console.log('preference value: ', preference);
+    if (this.selectedPreference !== preference) {
+      this.selectedPreference = preference;
     }
     this.onPreferenceSelected();
   }
 
   onSliderChange(ratingValue: number) {
     // call the service to get the products before and after this value
-    // set ranking-lineup to not visible
     this.selectedRating = ratingValue;
     if (this.selectedRating && this.productCard) {
       this.productLineup = this.reviewService.getProductLineup(
         this.selectedRating,
         this.productCard
       );
+      this.selectedSubPreference =
+        this.reviewService.findBucketForRating(ratingValue);
+      console.log('selected sub preference: ', this.selectedSubPreference);
     }
-  }
-
-  onSubPreferenceSelected(subPreference: string) {
-    console.log(subPreference);
   }
 
   closeCard(): void {

@@ -71,7 +71,7 @@ export enum FineSubPreference {
 
 // Config model for a sub-preference
 export interface ReviewSubPreference {
-  id: string; // e.g. 'subPref.loved'
+  id: number; // e.g. 'subPref.loved'
   label: string; // display text
   value: number; // 70 / 80 / 90
 }

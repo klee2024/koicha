@@ -39,17 +39,21 @@ class ReviewSerializer(serializers.ModelSerializer):
         
 class CreateReviewSerializer(serializers.ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(
-        queryset=Product.objects.all
+        queryset=Product.objects.all()
     )
 
     preference_level = serializers.PrimaryKeyRelatedField(
-        queryset=ReviewSubPreference.objects.all
+        queryset=ReviewSubPreference.objects.all()
+    )
+
+    user_review_text = serializers.CharField(
+        required=False,
+        allow_blank=True,
     )
 
     class Meta: 
         model = Review
         fields = ["id", 
-                  "user", 
                   "product", 
                   "user_rating", 
                   "user_review_text", 
@@ -57,6 +61,4 @@ class CreateReviewSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
         request = self.context["request"]
-        user = request.user
-
-        return Review.objects.create(user=user, **validated_data)
+        return Review.objects.create(user=request.user, **validated_data)

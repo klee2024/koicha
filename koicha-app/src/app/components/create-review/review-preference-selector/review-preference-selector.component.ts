@@ -19,8 +19,8 @@ export class ReviewPreferenceSelectorComponent {
   private readonly defaultPreferenceColor = '3C8C69';
 
   @Input() preferences?: ReviewPreference[] = [];
-  @Input() preferenceSelected?: string;
-  @Output() preferenceSelectedChange = new EventEmitter<string>();
+  @Input() preferenceSelected?: ReviewPreference;
+  @Output() preferenceSelectedChange = new EventEmitter<ReviewPreference>();
 
   circleColor(preference: ReviewPreference): string {
     const color =
@@ -28,9 +28,9 @@ export class ReviewPreferenceSelectorComponent {
     return `#${color}`;
   }
 
-  onPreferenceChange(value: string) {
-    this.preferenceSelectedChange.emit(value);
-    this.preferenceSelected = value;
-    console.log('emitting new value ', value);
+  onPreferenceChange(preference: ReviewPreference) {
+    this.preferenceSelectedChange.emit(preference);
+    this.preferenceSelected = preference;
+    console.log('emitting new value ', preference);
   }
 }

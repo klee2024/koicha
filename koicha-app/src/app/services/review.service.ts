@@ -5,7 +5,7 @@ import {
   ReviewSubPreference,
 } from '../models/review-preference';
 import { ProductLineup } from '../components/create-review/create-review-card/product-lineup';
-import { UserReviewRequest } from '../models/review-request';
+import { UserReviewRequest } from '../models/review';
 import { MOCK_REVIEWS } from '../data/reviews.mock';
 import { Review, UserReview } from '../models/review';
 import { Product } from '../models/product';
@@ -50,7 +50,7 @@ export class ReviewService {
       });
   }
 
-  getSubPreferenceBucket(bucket: string): void {
+  getSubPreferenceBuckets(preference: ReviewPreference): void {
     const preferences = this._preferences$.value;
     if (!preferences.length) {
       this._subPreferences$.next([]);
@@ -58,7 +58,7 @@ export class ReviewService {
     }
 
     const matchedPreference = preferences.find(
-      (preference) => preference.bucket === bucket
+      (pref) => pref.bucket === preference.bucket
     );
 
     const subpreferences = matchedPreference?.subpreferences ?? [];
@@ -70,14 +70,13 @@ export class ReviewService {
   // ==================
 
   // TODO: backend integration
-  createUserProductReview(
-    userId: string,
-    productId: number,
-    payload: UserReviewRequest
-  ) {
+  createUserProductReview(payload: UserReviewRequest) {
     // creates the user product review on the backend
     // update the user's taste profile
-    return of({ success: true }).pipe(delay(500));
+    return this.http.post<UserReviewRequest>(
+      `${this.baseUrl}/${this.appUrl}/`,
+      payload
+    );
   }
 
   // TODO: backend integration
@@ -272,5 +271,23 @@ export class ReviewService {
     }
 
     return { min, max };
+  }
+
+  // when passed in the ratingValue, gets the bucket that the rating preference belongs in
+  findBucketForRating(ratingValue: number): ReviewSubPreference | undefined {
+    const subPreferences = this._subPreferences$.value;
+    if (!subPreferences?.length) return undefined;
+
+    // ensure sorted by value (safe even if already sorted)
+    const sorted = [...subPreferences].sort((a, b) => a.value - b.value);
+
+    const idx = sorted.findIndex((bucket, i) => {
+      const next = sorted[i + 1];
+      return next
+        ? ratingValue >= bucket.value && ratingValue < next.value
+        : ratingValue >= bucket.value; // last bucket
+    });
+
+    return idx === -1 ? sorted[0] : sorted[idx];
   }
 }

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.permissions import IsAuthenticated, AllowAny  # or AllowAny for public quizzes
 from .models import Review, ReviewSubPreference, ReviewPreference
 from .serializers import ReviewSubPreferenceSerializer, ReviewPreferenceSerializer, CreateReviewSerializer, ReviewSerializer
@@ -23,11 +23,16 @@ class GetReviewPreferenceBuckets(APIView):
         serializer = ReviewPreferenceSerializer(review_preferences, many=True)
         return Response(serializer.data)
     
-class CreateReview(APIView): 
+class CreateReview(generics.CreateAPIView): 
     """
     POST /api/reviews/
     Creates a review for the requesting user
     """
+
+    serializer_class = CreateReviewSerializer
+    queryset = Review.objects.all()
+        
+
 
 class GetUserReviews(APIView): 
     """

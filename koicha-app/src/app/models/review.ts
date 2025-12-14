@@ -1,6 +1,7 @@
 import { Tag, Preparation, Product } from './product';
 import { ReviewSubPreference } from './review-preference';
 
+// TODO: depracate this model once refactored
 export interface UserReview {
   id: string;
   // product values
@@ -33,4 +34,11 @@ export interface Review {
   user_ranking: number;
   user_review_text: string;
   preference_level: ReviewSubPreference;
+}
+
+export interface UserReviewRequest {
+  product: number;
+  user_rating: number;
+  user_review_text: string | undefined;
+  preference_level: number;
 }
