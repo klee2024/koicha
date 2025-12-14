@@ -69,7 +69,6 @@ export class ReviewService {
   // REVIEW CRUD
   // ==================
 
-  // TODO: backend integration
   createUserProductReview(payload: UserReviewRequest) {
     // creates the user product review on the backend
     // update the user's taste profile

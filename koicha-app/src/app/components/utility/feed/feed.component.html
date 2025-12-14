@@ -1,9 +1,10 @@
 <section class="feed p-4">
   <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-3 xl:gap-14">
     <app-product-card
-      *ngFor="let item of cards; trackBy: trackById"
+      *ngFor="let item of cards; let i = index; trackBy: trackById"
       class="h-full"
       [productCardData]="item"
+      [productUserRanking]="i"
       (reviewSelected)="onCardSelected($event)"
       (productToReview)="onReviewProduct($event)"
       (productToBookmark)="onBookmarkProduct($event)"

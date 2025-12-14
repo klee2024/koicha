@@ -31,6 +31,8 @@ class CreateReview(generics.CreateAPIView):
 
     serializer_class = CreateReviewSerializer
     queryset = Review.objects.all()
+
+    # TODO: update the user's taste profile based on the review
         
 
 

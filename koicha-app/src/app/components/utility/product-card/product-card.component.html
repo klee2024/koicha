@@ -21,10 +21,10 @@
           </button>
         </div>
         <div
-          *ngIf="card.variant === 'review'"
+          *ngIf="card.variant === 'review' && productUserRanking != undefined"
           class="flex font-sans font-medium"
         >
-          {{ card.userRanking }}
+          {{ productUserRanking + 1 }}
         </div>
         <div></div>
         <!--empty div for styling purposes-->

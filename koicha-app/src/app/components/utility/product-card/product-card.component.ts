@@ -15,6 +15,7 @@ export class ProductCardComponent {
   // TODO: consider if exit can be removed
   @Input() exit: boolean = false;
   @Input() productCardData?: ProductCardData = undefined;
+  @Input() productUserRanking?: number = undefined;
 
   // TODO: rename reviewSelected so it is clear this is for presentational purposes
   @Output() reviewSelected = new EventEmitter<ReviewCard>();
