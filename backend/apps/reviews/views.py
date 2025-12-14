@@ -35,6 +35,16 @@ class GetUserReviews(APIView):
     Gets all of the user's reviews
     """
 
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        reviews = (
+            Review.objects.filter(user=request.user)
+            .order_by('-user_rating')
+        )
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data)
+
 class GetUserReviewsByPreference(APIView):
     """
     POST /api/reviews/user/preference/<preferenceId>

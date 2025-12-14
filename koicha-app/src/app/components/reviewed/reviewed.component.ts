@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ReviewService } from '../../services/review.service';
-import { UserReview } from '../../models/review';
+import { Review, UserReview } from '../../models/review';
 import { FeedComponent } from '../utility/feed/feed.component';
 import {
   ProductCardData,
@@ -67,21 +67,24 @@ export class ReviewedComponent {
     this.selectedReview = undefined;
   }
 
-  private mapToCard(review: UserReview): ProductCardData {
+  private mapToCard(review: Review): ProductCardData {
     return {
       id: review.id,
-      name: review.productName,
-      brand: review.productBrand,
-      image_url: review.productImageUrl,
-      product_url: review.productUrl,
-      preparation: review.preparation,
-      tags: review.tags,
+      name: review.product.name,
+      brand: review.product.brand,
+      image_url: review.product.image_url,
+      product_url: review.product.product_url,
+      preparation: review.product.preparation,
+      tags: review.product.tags,
       variant: 'review',
-      userScore: review.userRating,
-      userRanking: review.userRanking,
-      reviewText: review.userReviewText,
-      matchPercentage: review.matchPercentage,
-      reviewPreferenceValue: review.reviewPreferenceValue,
+      userScore: review.user_rating,
+      // TODO: depracate this, this should be calculated based off of the backend ordering
+      userRanking: review.user_ranking,
+      reviewText: review.user_review_text,
+      // TODO: determine how to get or join match percentage on the backend for reviews
+      matchPercentage: 0,
+      // TODO: refactor for review sub preference value
+      reviewPreferenceValue: review.preference_level,
     };
   }
 

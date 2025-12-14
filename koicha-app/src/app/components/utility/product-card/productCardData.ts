@@ -1,4 +1,5 @@
 import { Preparation, Tag } from '../../../models/product';
+import { ReviewSubPreference } from '../../../models/review-preference';
 
 interface BaseProductCard {
   id: number;
@@ -20,7 +21,7 @@ export interface ReviewCard extends BaseProductCard {
   userScore: number;
   userRanking: number;
   reviewText: string;
-  reviewPreferenceValue: number; // converted based on the enum
+  reviewPreferenceValue: ReviewSubPreference; // converted based on the enum
   containersFinished?: number;
 }
 

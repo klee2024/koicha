@@ -7,7 +7,7 @@ import {
 import { ProductLineup } from '../components/create-review/create-review-card/product-lineup';
 import { UserReviewRequest } from '../models/review-request';
 import { MOCK_REVIEWS } from '../data/reviews.mock';
-import { UserReview } from '../models/review';
+import { Review, UserReview } from '../models/review';
 import { Product } from '../models/product';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -81,8 +81,10 @@ export class ReviewService {
   }
 
   // TODO: backend integration
+  // Gets the requesting user's product reviews, sorted by the user's rating descending
   getUserProductReviews(userId: string) {
-    return of(MOCK_REVIEWS).pipe(delay(200));
+    // return of(MOCK_REVIEWS).pipe(delay(200));
+    return this.http.get<Review[]>(`${this.baseUrl}/${this.appUrl}/me/`);
   }
 
   // TODO: backend integration
