@@ -69,27 +69,28 @@ export class ReviewService {
   // REVIEW CRUD
   // ==================
 
+  // TODO: backend integration
   createUserProductReview(
     userId: string,
     productId: number,
     payload: UserReviewRequest
   ) {
+    // creates the user product review on the backend
+    // update the user's taste profile
     return of({ success: true }).pipe(delay(500));
   }
 
-  getUserProductReviewsByPreference(preferenceEnumValue: number) {
-    return of(
-      MOCK_REVIEWS.filter(
-        (review) => review.reviewPreferenceValue === preferenceEnumValue
-      )
-    ).pipe(delay(200));
-  }
+  // TODO: backend integration
   getUserProductReviews(userId: string) {
     return of(MOCK_REVIEWS).pipe(delay(200));
   }
+
+  // TODO: backend integration
   updateUserProductReview(userId: string, productId: string) {
     return of({ success: true }).pipe(delay(200));
   }
+
+  // TODO: backend integration
   deleteUserProductReview(userId: string, productId: string) {
     return of({ success: true }).pipe(delay(200));
   }

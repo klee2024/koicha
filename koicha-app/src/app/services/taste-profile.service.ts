@@ -17,10 +17,14 @@ export class TasteProfileService {
 
   constructor(private http: HttpClient) {}
 
-  // TODO: make this dynamic to grab by the userId
   getUserTasteProfile(): Observable<TasteProfile> {
     return this.http.get<TasteProfile>(`${this.baseUrl}/${this.appUrl}/me`);
   }
+
+  // TODO: update the user's taste profile from their review of a product
+  // updateUserTasteProfile(tasteProfileUpdateRequest: TasteProfileRequest){
+
+  // }
 
   // TODO: remove after backend integration- this is just for testing purposes
   // getEmptyTasteProfileDetails(userId: string): Observable<TasteProfile> {

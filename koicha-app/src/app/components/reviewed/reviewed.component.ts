@@ -63,30 +63,6 @@ export class ReviewedComponent {
     this.productToReview = undefined;
   }
 
-  // gets the list of products to compare based on the preference value the user selected
-  // ex: if the user selected that they liked the product, get only the other products that
-  // the user liked
-  onGetProductsToCompare(reviewPreferenceValue: number) {
-    this.reviewService
-      .getUserProductReviewsByPreference(reviewPreferenceValue)
-      .subscribe((data) => {
-        this.productsToCompare = data.map((review) => this.mapToCard(review));
-        console.log('got products to compare: ', this.productsToCompare);
-      });
-  }
-
-  onSkipProductComparison() {
-    console.log('skip product comparison');
-  }
-
-  onUndoProductComparison() {
-    console.log('undo product comparison');
-  }
-
-  onProductComparisonTooTough() {
-    console.log('product comparison too tough');
-  }
-
   clearSelection() {
     this.selectedReview = undefined;
   }

@@ -17,16 +17,9 @@ export class TasteProfileComponent {
   constructor(private tasteProfileService: TasteProfileService) {}
 
   ngOnInit() {
-    // TODO: implement auth service call
-    const userId = 'user123';
-    if (!userId) {
-      console.warn('No authenticated user found.');
-      return;
-    }
-
     this.tasteProfileService.getUserTasteProfile().subscribe((data) => {
       this.tasteProfile = data;
-      console.log('taste profile retrieved');
+      console.log('taste profile retrieved: ', this.tasteProfile);
     });
 
     // this.tasteProfileService

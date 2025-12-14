@@ -10,7 +10,7 @@ class TasteProfile(models.Model):
     )
     flavor_characteristics = models.ManyToManyField(
         "FlavorCharacteristic",
-        through="TasteProfileFlavorCharacteristic",
+        through="TasteProfileFlavorValue",
         related_name="taste_profiles",
         blank=True,
     )
@@ -54,39 +54,42 @@ class TasteProfileDetail(models.Model):
         return f"detail for dimension {self.dimension} for taste profile {self.taste_profile.id}, match: {self.archetype_match}" 
 
 class FlavorCharacteristic(models.Model):
-    class CharacteristicType(models.TextChoices):
-        MAIN = "main", "Main"
-        SUB = "sub", "Sub"
-
     slug = models.SlugField(unique=True)
     name = models.CharField(max_length=100, unique=True)
-    hierarchy = models.CharField(
-        max_length=10,
-        choices=CharacteristicType.choices,
-        default=CharacteristicType.MAIN,
+    parent = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        related_name="sub_characteristics",
+        on_delete=models.PROTECT,
     )
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        # parent is null => main; parent not null => sub
+        indexes = [models.Index(fields=["parent"])]
 
     def __str__(self):
-        return f"{self.name} ({self.hierarchy})"
+        return f"{self.name} ({self.parent})"
 
-class TasteProfileFlavorCharacteristic(models.Model): 
+class TasteProfileFlavorValue(models.Model): 
     taste_profile = models.ForeignKey(
         TasteProfile, 
         on_delete=models.CASCADE, 
-        related_name="flavor_characteristic_values"
+        related_name="flavor_values"
     )
-    flavor_characteristic=models.ForeignKey(
+    characteristic=models.ForeignKey(
         FlavorCharacteristic, 
         on_delete=models.CASCADE,
-        related_name="profile_links"
+        related_name="profile_values"
     ) 
     value=models.DecimalField(max_digits=5, decimal_places=2)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["taste_profile", "flavor_characteristic"],
-                name="unique_profile_flavor_characteristic",
+                fields=["taste_profile", "characteristic"],
+                name="unique_profile_characteristic_value",
             )
         ]
     def __str__(self):

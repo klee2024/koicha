@@ -15,10 +15,8 @@ export class QuizService {
     return this.http.get<Quiz>(`${this.baseUrl}/quiz/${quiz_slug}/latest/`);
   }
 
-  submitQuiz(
-    userId: string,
-    quizResults: { answers: (string | null)[] }
-  ) {
+  // TODO: backend integration
+  submitQuiz(userId: string, quizResults: { answers: (string | null)[] }) {
     return of({ success: true }).pipe(delay(100));
   }
 }

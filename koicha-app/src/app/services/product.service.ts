@@ -16,7 +16,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.baseUrl}/${this.appUrl}/products/`);
+    return this.http.get<Product[]>(`${this.baseUrl}/${this.appUrl}/`);
   }
 
   getPreparations() {
@@ -28,17 +28,4 @@ export class ProductService {
   getTags() {
     return this.http.get<Tag[]>(`${this.baseUrl}/${this.appUrl}/tags/`);
   }
-
-  // TODO: test and implement this
-  toggleBookmark(productId: number) {
-    return this.http.put<Tag[]>(
-      `${this.baseUrl}/${this.appUrl}/${productId}/bookmark`,
-      {}
-    );
-  }
-
-  // TODO: implement get all user bookmarks route
-
-  // TODO: implement get products with user's match percentages
-  
 }

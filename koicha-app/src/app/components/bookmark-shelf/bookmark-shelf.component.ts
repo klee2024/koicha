@@ -48,7 +48,7 @@ export class BookmarkShelfComponent implements OnInit {
     const productId = product.id;
 
     // TODO: add error handling
-    this.productService.toggleBookmark(productId).subscribe((response) => {
+    this.userProductService.toggleBookmark(productId).subscribe((response) => {
       console.log('product bookmark result: ', response);
     });
   }

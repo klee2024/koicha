@@ -15,18 +15,17 @@ export interface FlavorCharacteristic {
   id: number;
   slug: string;
   name: string;
-  hierarchy: string;
+  parent: number;
 }
 
 export interface TasteProfile {
   id: number;
   user: number;
   details: TasteProfileDetail[] | undefined;
-  flavor_characteristic_values: TasteProfileFlavorCharacteristic[] | undefined;
+  flavor_values: TasteProfileFlavorCharacteristic[] | undefined;
 }
 export interface TasteProfileFlavorCharacteristic {
   id: number;
-  taste_profile: TasteProfile;
-  flavor_characteristic: FlavorCharacteristic;
+  characteristic: FlavorCharacteristic;
   value: number;
 }
