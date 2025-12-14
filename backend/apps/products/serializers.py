@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Preparation, Tag, Product, UserBookmark
+from .models import Preparation, Tag, Product
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -28,18 +28,4 @@ class ProductSerializer(serializers.ModelSerializer):
                     "product_url", 
                     "tags"]
 
-class UserBookmarkSerializer(serializers.ModelSerializer): 
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
-    product = ProductSerializer()
-    class Meta: 
-          fields = ["id", 
-                    "user", 
-                    "product", 
-                    "bookmarked_at"]
-
-class UserBookmarkToggleSerializer(serializers.ModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
-    class Meta:
-        model = UserBookmark
-        fields = ["product"]
 

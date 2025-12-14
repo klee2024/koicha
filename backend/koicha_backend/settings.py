@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'apps.reviews.apps.ReviewsConfig',
     'apps.taste_profiles.apps.TasteProfilesConfig',
     'apps.users.apps.UsersConfig',
+    'apps.user_engagement.apps.UserEngagementConfig',
+
 ]
 
 REST_FRAMEWORK = {

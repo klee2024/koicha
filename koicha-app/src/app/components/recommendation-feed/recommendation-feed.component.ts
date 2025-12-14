@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
+import { UserProductsService } from '../../services/user-products-mock.service';
 
 @Component({
   selector: 'app-recommendation-feed',
@@ -31,7 +32,8 @@ export class RecommendationFeedComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private userProductService: UserProductsService
   ) {}
 
   ngOnInit() {
@@ -160,6 +162,9 @@ export class RecommendationFeedComponent implements OnInit {
   onBookmarkProduct(product: ProductCardData) {
     this.productToBookmark = product;
     console.log(`bookmark product button works: ${product.id}!`);
+    this.userProductService.toggleBookmark(product.id).subscribe((response) => {
+      console.log('product bookmark result: ', response);
+    });
   }
 
   closeReviewCard() {

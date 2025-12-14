@@ -6,6 +6,7 @@ import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
 import { ProductService } from '../../services/product.service';
+import { UserBookmark } from '../../models/bookmark';
 
 @Component({
   selector: 'app-bookmark-shelf',
@@ -25,12 +26,10 @@ export class BookmarkShelfComponent implements OnInit {
   ) {}
   ngOnInit() {
     // initialize the userBookmarks array on init - use this to pass down into the Product card
-    this.userProductService
-      .getUserBookmarks('placeholderUserId')
-      .subscribe((data) => {
-        this.userBookmarks = data.map((product) => this.mapToCard(product));
-        console.log('all bookmarks on init', this.userBookmarks);
-      });
+    this.userProductService.getUserBookmarks().subscribe((data) => {
+      this.userBookmarks = data.map((bookmark) => this.mapToCard(bookmark));
+      console.log('all bookmarks on init', this.userBookmarks);
+    });
   }
 
   trackById(index: number, item: { id: string }) {
@@ -57,19 +56,17 @@ export class BookmarkShelfComponent implements OnInit {
     this.productToReview = undefined;
   }
 
-  private mapToCard(product: Product): ProductCardData {
+  private mapToCard(bookmark: UserBookmark): ProductCardData {
     return {
-      id: product.id,
-      name: product.name,
-      brand: product.brand,
-      image_url: product.image_url,
-      product_url: product.product_url,
-      preparation: product.preparation,
-      tags: product.tags,
-      matchPercentage: product.matchPercentage ?? 0,
+      id: bookmark.product.id,
+      name: bookmark.product.name,
+      brand: bookmark.product.brand,
+      image_url: bookmark.product.image_url,
+      product_url: bookmark.product.product_url,
+      preparation: bookmark.product.preparation,
+      tags: bookmark.product.tags,
+      matchPercentage: bookmark.product.matchPercentage ?? 0,
       variant: 'recommendation',
     };
   }
 }
-
-// TODO: rename component so it's clear that this is bookmarks

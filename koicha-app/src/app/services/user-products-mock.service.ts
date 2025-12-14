@@ -6,13 +6,14 @@ import { MOCK_REVIEWS } from '../data/reviews.mock';
 import { UserReviewRequest } from '../models/review-request';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
+import { UserBookmark } from '../models/bookmark';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserProductsService {
   private readonly baseUrl = environment.apiBaseUrl; // e.g. 'http://localhost:8000/api/quiz'
-  private readonly appUrlRecommendations = 'recommendations';
+  private readonly appUrl = 'user_engagement';
 
   constructor(private http: HttpClient) {}
 
@@ -23,8 +24,11 @@ export class UserProductsService {
     return of({ success: true }).pipe(delay(300));
   }
 
-  getUserBookmarks(userId: string): Observable<Product[]> {
-    return of(MOCK_BOOKMARKS).pipe(delay(300));
+  // get all of the requesting user's bookmarks
+  getUserBookmarks(): Observable<UserBookmark[]> {
+    return this.http.get<UserBookmark[]>(
+      `${this.baseUrl}/${this.appUrl}/products/bookmarks/me/`
+    );
   }
 
   removeUserBookmark(userId: string, productId: string) {
@@ -33,9 +37,9 @@ export class UserProductsService {
 
   // TODO: test and implement this - param type should not be tag
   toggleBookmark(productId: number) {
-    return this.http.put<Tag[]>(
-      `${this.baseUrl}/${this.appUrlRecommendations}/${productId}/bookmark`,
-      {}
+    return this.http.put<{ bookmarked: boolean }>(
+      `${this.baseUrl}/${this.appUrl}/products/${productId}/bookmark/`,
+      { product: productId }
     );
   }
 
