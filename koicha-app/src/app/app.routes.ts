@@ -7,9 +7,10 @@ import { TasteProfileDetailsComponent } from './components/taste-profile-page/ta
 import { TasteProfileComponent } from './components/taste-profile-page/taste-profile/taste-profile.component';
 import { FirstTimeQuizPageComponent } from './components/first-time-quiz/first-time-quiz-page/first-time-quiz-page.component';
 import { SignupSigninComponent } from './components/auth/signup-signin/signup-signin.component';
-import { provideExperimentalCheckNoChangesForDebug } from '@angular/core';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'explore' },
   { path: 'explore', component: RecommendationFeedComponent },
   {
     path: 'tea-shelf',
@@ -28,4 +29,5 @@ export const routes: Routes = [
   },
   { path: 'taste-profile', component: TasteProfileComponent },
   { path: 'find-your-matcha', component: FirstTimeQuizPageComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];

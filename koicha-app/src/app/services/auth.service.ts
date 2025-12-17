@@ -11,6 +11,12 @@ export class AuthService {
   private readonly authUrl = 'auth';
   constructor(private http: HttpClient) {}
 
+  /**
+   * Sends a sign-up request to the authentication service.
+   *
+   * @param signUpPayload - The payload containing the user's sign-up information.
+   * @returns An Observable that emits the server's response to the sign-up request.
+   */
   signUp(signUpPayload: AuthSignUpPayload) {
     return this.http.post(
       `${this.baseUrl}/${this.authUrl}/signup/`,
@@ -18,6 +24,12 @@ export class AuthService {
     );
   }
 
+  /**
+   * Sends a sign-in request to the authentication service.
+   *
+   * @param signUpPayload - The payload containing the user's sign-in information.
+   * @returns An Observable that emits the server's response to the sign-in request with the access and refresh token
+   */
   signIn(
     signInPayload: AuthSignInPayload
   ): Observable<{ access: string; refresh: string }> {
@@ -34,6 +46,16 @@ export class AuthService {
       );
   }
 
+  /**
+   * Registers a new user and automatically signs them in using their credentials.
+   *
+   * This method first sends a sign-up request to create a new user account.
+   * Upon successful sign-up, it immediately sends a sign-in request using the
+   * provided username and password to authenticate the user.
+   *
+   * @param signUpPayload - The payload containing the user's sign-up information.
+   * @returns An Observable that emits the server's response to the sign-in request with the access and refresh tokens.
+   */
   signUpAndSignIn(signUpPayload: AuthSignUpPayload) {
     return this.signUp(signUpPayload).pipe(
       switchMap(() =>
@@ -45,6 +67,10 @@ export class AuthService {
     );
   }
 
+  /**
+   * Removes the user's credentials from local storage to perform the "log out"
+   *
+   */
   logout() {
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
