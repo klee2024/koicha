@@ -46,10 +46,26 @@ export class BookmarkShelfComponent implements OnInit {
     this.productToBookmark = product;
     const productId = product.id;
 
-    // TODO: add error handling
-    this.userProductService.toggleBookmark(productId).subscribe((response) => {
-      console.log('product bookmark result: ', response);
-    });
+    this.userProductService
+      .toggleBookmark(productId)
+      // handles the response when the product is bookmarked:true or bookmarked:false
+      // so the UI handles this responsively without a page refresh
+      .subscribe(({ bookmarked }) => {
+        if (bookmarked) {
+          const exists = this.userBookmarks.some(
+            (bookmark) => bookmark.id === productId
+          );
+          // if the product does not exist in the user's bookmarks already, then add it to the user's bookmark array
+          if (!exists) {
+            this.userBookmarks = [...this.userBookmarks, product];
+          }
+          // if the product does exist in the user's bookmarks already, remove it since the product is being unbookmarked
+        } else {
+          this.userBookmarks = this.userBookmarks.filter(
+            (bookmark) => bookmark.id !== productId
+          );
+        }
+      });
   }
 
   closeReviewCard() {
