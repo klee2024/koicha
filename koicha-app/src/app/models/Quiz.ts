@@ -21,3 +21,8 @@ export interface Quiz {
   created_at: string;
   questions: QuizQuestion[];
 }
+
+export interface QuizAnswer {
+  question_id: number;
+  answer_id: number | null;
+}

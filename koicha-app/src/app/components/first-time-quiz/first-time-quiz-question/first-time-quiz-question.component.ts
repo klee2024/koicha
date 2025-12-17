@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { QuizQuestion } from '../../../models/Quiz';
+import { QuizAnswer, QuizQuestion } from '../../../models/Quiz';
 import { CommonModule } from '@angular/common';
 import { FormControl } from '@angular/forms';
 
@@ -11,14 +11,14 @@ import { FormControl } from '@angular/forms';
 })
 export class FirstTimeQuizQuestionComponent {
   @Input() question?: QuizQuestion;
-  @Input() control?: FormControl<string | null>;
+  @Input() control?: FormControl<QuizAnswer>;
   @Input() lastQuestion?: boolean = false;
 
-  @Output() answerSelected = new EventEmitter<string>();
+  @Output() answerSelected = new EventEmitter<number>();
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
 
-  select(optionValue: string) {
-    this.answerSelected.emit(optionValue);
+  select(optionId: number) {
+    this.answerSelected.emit(optionId);
   }
 }

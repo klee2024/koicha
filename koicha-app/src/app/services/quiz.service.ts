@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { delay, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Quiz } from '../models/Quiz';
+import { Quiz, QuizAnswer } from '../models/Quiz';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class QuizService {
   }
 
   // TODO: backend integration
-  submitQuiz(userId: string, quizResults: { answers: (string | null)[] }) {
+  submitQuiz(userId: string, quizResults: { answers: QuizAnswer[] }) {
     return of({ success: true }).pipe(delay(100));
   }
 }

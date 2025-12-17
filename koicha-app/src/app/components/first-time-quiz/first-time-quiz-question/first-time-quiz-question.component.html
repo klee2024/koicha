@@ -9,17 +9,17 @@
   >
     {{ question.initial_prompt }}
   </div>
-  <!-- TODO: require a selection to continue -->
   <ul
     class="option-list flex flex-col items-center w-full max-w-[720px] mx-auto"
   >
     <li
       class="lowercase pt-10 cursor-pointer transition hover:text-neutral-500 w-full"
-      *ngFor="let option of question.options"
-      (click)="select(option.value)"
       [ngClass]="{
-        'font-semibold underline ...': control?.value === option.value
+        'font-semibold underline text-green-800':
+          control?.value?.answer_id === option.id
       }"
+      *ngFor="let option of question.options"
+      (click)="select(option.id)"
     >
       {{ option.label }}
     </li>
@@ -38,7 +38,7 @@
     <button
       class="text-green-700 underline disabled:opacity-40 disabled:cursor-not-allowed"
       (click)="next.emit()"
-      [disabled]="!control?.value"
+      [disabled]="control?.value?.answer_id == null"
     >
       <span *ngIf="!lastQuestion">next</span>
       <span *ngIf="lastQuestion">discover my taste profile</span>

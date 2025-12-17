@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { QuizQuestion } from '../../../models/Quiz';
+import { QuizQuestion, QuizAnswer } from '../../../models/Quiz';
 import { CommonModule } from '@angular/common';
 import { QuizService } from '../../../services/quiz.service';
 import { FirstTimeQuizIntroComponent } from '../first-time-quiz-intro/first-time-quiz-intro.component';
@@ -36,7 +36,7 @@ export class FirstTimeQuizPageComponent {
 
   get answersArray() {
     if (this.form) {
-      return this.form.get('answers') as FormArray<FormControl<string | null>>;
+      return this.form.get('answers') as FormArray<FormControl<QuizAnswer>>;
     }
     return;
   }
@@ -47,7 +47,7 @@ export class FirstTimeQuizPageComponent {
     private router: Router
   ) {
     this.fb.group({
-      answers: this.fb.array<FormControl<string | null>>([]),
+      answers: this.fb.array<FormControl<QuizAnswer>>([]),
     });
   }
 
@@ -57,11 +57,14 @@ export class FirstTimeQuizPageComponent {
       // TODO: add error handling here in case the quiz does not have quiz questions
       this.quizQuestions = quiz.questions;
       console.log('quiz questions: ', this.quizQuestions);
-      const controls = this.quizQuestions.map(() =>
-        this.fb.control<string | null>(null)
+      const controls = this.quizQuestions.map((q) =>
+        this.fb.control<QuizAnswer>(
+          { question_id: q.id, answer_id: null },
+          { nonNullable: true }
+        )
       );
       this.form = this.fb.group({
-        answers: this.fb.array<FormControl<string | null>>(controls),
+        answers: this.fb.array<FormControl<QuizAnswer>>(controls),
       });
     });
   }
@@ -90,14 +93,21 @@ export class FirstTimeQuizPageComponent {
     }
     if (this.quizQuestionIndex == -1) {
       // clear the first answer
-      this.answersArray?.at(0).setValue(null);
+      this.answersArray?.at(0).setValue({
+        question_id: 0,
+        answer_id: null,
+      });
     }
   }
 
-  onAnswerSelected(answerValue: string) {
+  onAnswerSelected(answerId: number) {
     // set the value to a form control
     if (this.answersArray && this.quizQuestionIndex > -1) {
-      this.answersArray.at(this.quizQuestionIndex).setValue(answerValue);
+      const currentQuestion = this.quizQuestions[this.quizQuestionIndex];
+      this.answersArray.at(this.quizQuestionIndex).setValue({
+        question_id: currentQuestion.id,
+        answer_id: answerId,
+      });
     }
   }
 
@@ -107,6 +117,7 @@ export class FirstTimeQuizPageComponent {
       const payload = {
         answers: this.answersArray.value,
       };
+      console.log('submitting quiz questions: ', payload);
       this.quizQuestionService.submitQuiz('user123', payload);
       this.router.navigate(['/taste-profile']);
     }
