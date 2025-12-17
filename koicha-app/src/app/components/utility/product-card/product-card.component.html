@@ -28,19 +28,46 @@
         </div>
         <div></div>
         <!--empty div for styling purposes-->
-        <div class="product-card-buttons flex gap-2">
+        <div class="product-card-buttons flex gap-3">
           <button
-            class="bookmark rounded-full bg-white/80 px-3 py-1 text-xs uppercase tracking-wide text-black backdrop-blur"
+            class="bookmark flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm uppercase tracking-wide text-black backdrop-blur"
             (click)="$event.stopPropagation(); productToBookmark.emit(card)"
           >
-            bookmark
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+              />
+            </svg>
           </button>
           <!-- TODO: update with appropriate symbols -->
           <button
-            class="userReview rounded-full bg-white/80 px-3 py-1 text-xs text-black backdrop-blur"
+            class="userReview flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm uppercase tracking-wide text-black backdrop-blur"
             (click)="$event.stopPropagation(); productToReview.emit(card)"
           >
-            <3
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-4 w-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
           </button>
           <!-- TODO: update with appropriate symbols -->
         </div>
