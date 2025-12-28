@@ -10,6 +10,7 @@ import { ReviewDetailsComponent } from '../review-details/review-details.compone
 import { CommonModule } from '@angular/common';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
 import { DropdownPopupComponent } from '../utility/dropdown-popup/dropdown-popup.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-reviewed',
@@ -33,7 +34,10 @@ export class ReviewedComponent {
 
   @Output() popupMessage = new EventEmitter<string>();
 
-  constructor(private reviewService: ReviewService) {}
+  constructor(
+    private reviewService: ReviewService,
+    public authService: AuthService
+  ) {}
 
   ngOnInit() {
     // TODO: make the fetch dynamic by grabbing the logged in user

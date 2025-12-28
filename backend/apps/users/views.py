@@ -5,7 +5,8 @@ from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
-from .serializers import RegisterSerializer, UserSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import RegisterSerializer, UserSerializer, UserTokenObtainPairSerializer
 
 User = get_user_model()
 
@@ -21,3 +22,6 @@ class MeView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+    
+class UserTokenObtainPairView(TokenObtainPairView): 
+    serializer_class = UserTokenObtainPairSerializer

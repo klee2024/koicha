@@ -5,7 +5,7 @@ import {
   HttpHandler,
   HttpEvent,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -15,16 +15,26 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const access = localStorage.getItem('access');
 
-    if (!access) {
-      return next.handle(req);
-    }
+    const authReq = access
+      ? req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${access}`,
+          },
+        })
+      : req;
 
-    const authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${access}`,
-      },
-    });
+    return next.handle(authReq).pipe(
+      catchError((error) => {
+        // if there's an expired auth token, remove
+        // the access tokens and retry the request
+        if (error.status === 401 && access) {
+          localStorage.removeItem('access');
+          localStorage.removeItem('refresh');
+          return next.handle(req);
+        }
 
-    return next.handle(authReq);
+        return throwError(() => error);
+      })
+    );
   }
 }

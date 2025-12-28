@@ -5,11 +5,13 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from apps.users.views import UserTokenObtainPairView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # auth
     path("api/auth/", include("apps.users.urls")),  # /api/auth/signup/
-    path("api/auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/auth/token/", UserTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 
     path("api/quiz/", include("apps.quiz.urls")),

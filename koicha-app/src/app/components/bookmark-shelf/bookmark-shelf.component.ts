@@ -7,6 +7,7 @@ import { ProductCardData } from '../utility/product-card/productCardData';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
 import { ProductService } from '../../services/product.service';
 import { UserBookmark } from '../../models/bookmark';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-bookmark-shelf',
@@ -22,9 +23,12 @@ export class BookmarkShelfComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private userProductService: UserProductsService
+    private userProductService: UserProductsService,
+    public authService: AuthService
   ) {}
   ngOnInit() {
+    // TODO: if the user is not signed in, display default image to sign up / sign in
+
     // initialize the userBookmarks array on init - use this to pass down into the Product card
     this.userProductService.getUserBookmarks().subscribe((data) => {
       this.userBookmarks = data.map((bookmark) => this.mapToCard(bookmark));

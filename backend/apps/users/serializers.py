@@ -7,6 +7,8 @@ from apps.taste_profiles.models import (
     FlavorCharacteristic,
 )
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 User = get_user_model()
 
 
@@ -17,6 +19,8 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "email", "username", "password"]
 
+    # ensures that if creating any of the objects fails, the whole user
+    # creation path fails 
     @transaction.atomic
     def create(self, validated_data):
         password = validated_data.pop("password")
@@ -42,3 +46,18 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "email", "username"]
+
+class UserTokenObtainPairSerializer(TokenObtainPairSerializer): 
+    @classmethod 
+    def get_token(cls, user):
+        token = super().get_token(user)
+        return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data['user'] = {
+            "id": self.user.id,
+            "username": self.user.username,
+            "email": self.user.email
+        }
+        return data 

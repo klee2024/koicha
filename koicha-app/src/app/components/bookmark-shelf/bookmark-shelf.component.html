@@ -1,22 +1,31 @@
 <!-- TODO: add consistent content box sizing -->
 
-<div class="header">
-  <app-feed
-    [cards]="userBookmarks"
-    (productToReview)="onReviewProduct($event)"
-    (productToBookmark)="onBookmarkProduct($event)"
-  ></app-feed>
+<ng-container *ngIf="authService.user$ | async as user; else signedOut">
+  <div class="header">
+    <app-feed
+      [cards]="userBookmarks"
+      (productToReview)="onReviewProduct($event)"
+      (productToBookmark)="onBookmarkProduct($event)"
+    ></app-feed>
 
-  <div
-    *ngIf="productToReview"
-    class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
-    (click)="closeReviewCard()"
-  >
-    <app-create-review-card
-      class="max-w-2xl"
-      [productCard]="productToReview"
-      (click)="$event.stopPropagation()"
-      (closeSelected)="closeReviewCard()"
-    ></app-create-review-card>
+    <div
+      *ngIf="productToReview"
+      class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+      (click)="closeReviewCard()"
+    >
+      <app-create-review-card
+        class="max-w-2xl"
+        [productCard]="productToReview"
+        (click)="$event.stopPropagation()"
+        (closeSelected)="closeReviewCard()"
+      ></app-create-review-card>
+    </div>
   </div>
-</div>
+</ng-container>
+
+<!-- TODO: styling -->
+<ng-template #signedOut>
+  <div class="max-w-xl text-lg text-neutral-600">
+    Sign in or sign up to bookmark products!
+  </div>
+</ng-template>

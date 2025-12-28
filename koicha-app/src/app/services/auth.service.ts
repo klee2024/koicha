@@ -2,14 +2,50 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { AuthSignInPayload, AuthSignUpPayload } from '../models/auth';
-import { Observable, switchMap, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { User } from '../models/User';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly baseUrl = environment.apiBaseUrl;
   private readonly authUrl = 'auth';
+
+  private userSubject = new BehaviorSubject<User | null>(null);
+  user$ = this.userSubject.asObservable();
+
   constructor(private http: HttpClient) {}
+
+  /**
+   * Gets if the user is signed in or not based off of the user field
+   * @returns Observable boolean if the user is authenticated
+   */
+  isAuthenticated$(): Observable<boolean> {
+    return this.user$.pipe(map((user) => !!user));
+  }
+
+  /**
+   * Gets if the user is signed in or not via backend auth/me endpoint
+   * Sets the user to the behavior subject
+   * @returns An Observable of the user
+   */
+  checkAuth(): Observable<User | null> {
+    return this.http.get<User>(`${this.baseUrl}/${this.authUrl}/me/`).pipe(
+      tap((user) => this.userSubject.next(user)),
+      catchError(() => {
+        this.userSubject.next(null);
+        return of(null);
+      })
+    );
+  }
 
   /**
    * Sends a sign-up request to the authentication service.
@@ -32,16 +68,17 @@ export class AuthService {
    */
   signIn(
     signInPayload: AuthSignInPayload
-  ): Observable<{ access: string; refresh: string }> {
+  ): Observable<{ access: string; refresh: string; user: User }> {
     return this.http
-      .post<{ access: string; refresh: string }>(
+      .post<{ access: string; refresh: string; user: User }>(
         `${this.baseUrl}/${this.authUrl}/token/`,
         signInPayload
       )
       .pipe(
-        tap(({ access, refresh }) => {
+        tap(({ access, refresh, user }) => {
           localStorage.setItem('access', access);
           localStorage.setItem('refresh', refresh);
+          this.userSubject.next(user);
         })
       );
   }

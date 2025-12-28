@@ -1,36 +1,46 @@
 <!-- TODO: add consistent content box sizing -->
-<div class="relative">
-  <app-feed
-    [cards]="userReviews"
-    (reviewSelected)="onReviewSelected($event)"
-    (productToReview)="onReviewProduct($event)"
-    (productToBookmark)="onBookmarkProduct($event)"
-  ></app-feed>
 
-  <div
-    *ngIf="productToReview"
-    class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
-    (click)="closeReviewCard()"
-  >
-    <app-create-review-card
-      class="max-w-2xl"
-      [productCard]="productToReview"
-      (click)="$event.stopPropagation()"
-      (closeSelected)="closeReviewCard()"
-    ></app-create-review-card>
-  </div>
+<ng-container *ngIf="authService.user$ | async as user; else signedOut">
+  <div class="relative">
+    <app-feed
+      [cards]="userReviews"
+      (reviewSelected)="onReviewSelected($event)"
+      (productToReview)="onReviewProduct($event)"
+      (productToBookmark)="onBookmarkProduct($event)"
+    ></app-feed>
 
-  <!-- TODO: decide whether to keep the grey out effect upon selecting a specific product -->
-  <div
-    *ngIf="selectedReview"
-    class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
-    (click)="clearSelection()"
-  >
-    <app-review-details
-      class="max-w-2xl"
-      [selectedReview]="selectedReview"
-      (click)="$event.stopPropagation()"
-      (closed)="clearSelection()"
-    ></app-review-details>
+    <div
+      *ngIf="productToReview"
+      class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+      (click)="closeReviewCard()"
+    >
+      <app-create-review-card
+        class="max-w-2xl"
+        [productCard]="productToReview"
+        (click)="$event.stopPropagation()"
+        (closeSelected)="closeReviewCard()"
+      ></app-create-review-card>
+    </div>
+
+    <!-- TODO: decide whether to keep the grey out effect upon selecting a specific product -->
+    <div
+      *ngIf="selectedReview"
+      class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+      (click)="clearSelection()"
+    >
+      <app-review-details
+        class="max-w-2xl"
+        [selectedReview]="selectedReview"
+        (click)="$event.stopPropagation()"
+        (closed)="clearSelection()"
+      ></app-review-details>
+    </div>
   </div>
-</div>
+</ng-container>
+
+<!-- TODO: styling -->
+<ng-template #signedOut>
+  <div class="max-w-xl text-lg text-neutral-600">
+    Sign in or sign up to see your reviewed products!
+  </div>
+</ng-template>
