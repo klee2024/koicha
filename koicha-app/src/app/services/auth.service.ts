@@ -111,5 +111,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
+    this.userSubject.next(null);
+    console.log('logout called, user$ is ', this.user$);
   }
 }

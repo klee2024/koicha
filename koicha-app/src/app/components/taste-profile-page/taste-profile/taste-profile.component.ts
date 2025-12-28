@@ -3,6 +3,8 @@ import { TasteProfileService } from '../../../services/taste-profile.service';
 import { TasteProfile } from '../../../models/taste-profile';
 import { TasteProfileDetailsComponent } from '../taste-profile-details/taste-profile-details.component';
 import { TasteChartComponent } from '../taste-chart/taste-chart.component';
+import { AuthService } from '../../../services/auth.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-taste-profile',
@@ -14,19 +16,25 @@ import { TasteChartComponent } from '../taste-chart/taste-chart.component';
 export class TasteProfileComponent {
   tasteProfile?: TasteProfile = undefined;
 
-  constructor(private tasteProfileService: TasteProfileService) {}
+  constructor(
+    private tasteProfileService: TasteProfileService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.tasteProfileService.getUserTasteProfile().subscribe((data) => {
-      this.tasteProfile = data;
-      console.log('taste profile retrieved: ', this.tasteProfile);
-    });
-
-    // this.tasteProfileService
-    //   .getEmptyTasteProfileDetails(userId)
-    //   .subscribe((data) => {
-    //     this.tasteProfile = data;
-    //     console.log('taste profile retrieved');
-    //   });
+    // TODO: clean up by refactoring for async
+    this.authService
+      .isAuthenticated$()
+      .pipe(
+        switchMap((isAuthed) => {
+          return isAuthed
+            ? this.tasteProfileService.getUserTasteProfile()
+            : this.tasteProfileService.getDefaultTasteProfile();
+        })
+      )
+      .subscribe((profile) => {
+        this.tasteProfile = profile;
+        console.log('taste profile retrieved:', profile);
+      });
   }
 }

@@ -6,9 +6,11 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(public authService: AuthService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -25,11 +27,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(
       catchError((error) => {
+        // TODO: update this logic after implementing token refresh
         // if there's an expired auth token, remove
         // the access tokens and retry the request
-        if (error.status === 401 && access) {
-          localStorage.removeItem('access');
-          localStorage.removeItem('refresh');
+        if (error.status === 401) {
+          this.authService.logout();
           return next.handle(req);
         }
 

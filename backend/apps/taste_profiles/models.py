@@ -6,7 +6,9 @@ class TasteProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, 
         on_delete=models.CASCADE, 
-        related_name="taste_profile"
+        related_name="taste_profile",
+        null=True, 
+        blank=True
     )
     flavor_characteristics = models.ManyToManyField(
         "FlavorCharacteristic",
@@ -14,6 +16,7 @@ class TasteProfile(models.Model):
         related_name="taste_profiles",
         blank=True,
     )
+    is_system = models.BooleanField(default=False)
 
     def __str__(self): 
         return f"Taste profile for {self.user}"

@@ -17,21 +17,17 @@ export class TasteProfileService {
 
   constructor(private http: HttpClient) {}
 
+  getDefaultTasteProfile(): Observable<TasteProfile> {
+    return this.http.get<TasteProfile>(
+      `${this.baseUrl}/${this.appUrl}/default`
+    );
+  }
+
   getUserTasteProfile(): Observable<TasteProfile> {
     return this.http.get<TasteProfile>(`${this.baseUrl}/${this.appUrl}/me`);
   }
 
   // TODO: update the user's taste profile from their review of a product
   // updateUserTasteProfile(tasteProfileUpdateRequest: TasteProfileRequest){
-
   // }
-
-  // TODO: remove after backend integration- this is just for testing purposes
-  // getEmptyTasteProfileDetails(userId: string): Observable<TasteProfile> {
-  //   return of(MOCK_TASTE_PROFILE_NO_DETAILS).pipe(delay(200));
-  // }
-
-  postFirstTimeQuizResults(userId: string, quizResults: string[]) {
-    return of({ success: true }).pipe(delay(100));
-  }
 }
