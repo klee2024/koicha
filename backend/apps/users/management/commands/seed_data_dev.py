@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from apps.products.models import Preparation, Product, Tag
+from apps.products.models import Preparation, Product, ProductTaste, Tag
 from apps.quiz.models import Quiz, QuizOption, QuizQuestion
 from apps.recommendations.models import UserProductMatch
 from apps.reviews.models import Review, ReviewPreference, ReviewSubPreference
@@ -16,6 +16,8 @@ from apps.taste_profiles.models import (
     TasteProfileFlavorDimension,
 )
 
+from apps.products.services.product_tastes import geometric_tag_intensities
+
 
 class Command(BaseCommand):
     help = "Seeds the database with representative data that spans every Django app."
@@ -23,12 +25,12 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with transaction.atomic():
             self.stdout.write(self.style.NOTICE("Starting Koicha seed data generation..."))
+            flavor_characteristics = self._create_flavor_characteristics()
             preparations = self._create_preparations()
             tags = self._create_tags()
             products = self._create_products(preparations, tags)
             self._create_quiz()
             archetypes = self._create_taste_profile_archetypes()
-            flavor_characteristics = self._create_flavor_characteristics()
             review_preferences = self._create_review_preferences()
             default_taste_profile = self._create_default_taste_profile()
         self.stdout.write(self.style.SUCCESS("Seed data ready. Run `python manage.py seed_data` anytime to refresh."))
@@ -66,6 +68,32 @@ class Command(BaseCommand):
             tags[spec["slug"]] = tag
         self.stdout.write(self.style.SUCCESS(f"Tags ready ({len(tags)})"))
         return tags
+    
+    def create_product_tastes(self, product, tags, base: float = 0.6):
+        """ 
+        Helper function to create product tastes based on tags 
+        """
+
+        # Get all of the main flavor charateristics
+        flavor_characteristics = FlavorCharacteristic.objects.filter(is_active=True, parent__isnull=True)
+
+        # Use the product's tags to create flavor intensity weights
+        tag_flavor_characteristic_intensities = geometric_tag_intensities(tags)
+
+        # For each tag that corresponds to a main flavor characteristic, create corresponding ProductTaste object based on the weights
+        for tag_slug, weight in tag_flavor_characteristic_intensities.items():
+            matching_flavor_characteristic = FlavorCharacteristic.objects.filter(
+                slug=tag_slug, 
+                is_active=True, 
+                parent__isnull=True).first()
+            if not matching_flavor_characteristic:
+                continue 
+            # if there's a matching flavor characteristic, create the ProductTaste object
+            ProductTaste.objects.update_or_create(
+                product = product, 
+                taste_dimension=matching_flavor_characteristic, 
+                defaults={"intensity": weight}
+            )
 
     def _create_products(self, preparations, tags):
         product_specs = [
@@ -237,11 +265,12 @@ class Command(BaseCommand):
             product.image_url = spec["image_url"]
             product.product_url = spec["product_url"]
             product.save()
-            # TODO: set tags properly
             product.tags.set([tags[tag_slug] for tag_slug in tag_slugs if tag_slug in tags])
+            self.create_product_tastes(product, spec["tags"])
             products[slug] = product
         self.stdout.write(self.style.SUCCESS(f"Products ready ({len(products)})"))
         return products
+
 
     def _create_quiz(self):
         quiz, _ = Quiz.objects.get_or_create(
@@ -414,7 +443,6 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Taste profile archetypes seeded"))
         return archetypes
 
-    # TODO: fix how flavor characteristics are grabbed and presented to the UI 
     def _create_flavor_characteristics(self):
         flavor_specs = [
             {"slug": "umami", "name": "umami"},
