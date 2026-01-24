@@ -1,5 +1,4 @@
 export interface UserReviewRequest {
-  userId: string;
   productId: number;
   userRating: number;
   userReviewText: string | undefined;

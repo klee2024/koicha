@@ -40,8 +40,7 @@ export class ReviewedComponent {
   ) {}
 
   ngOnInit() {
-    // TODO: make the fetch dynamic by grabbing the logged in user
-    this.reviewService.getUserProductReviews('user123').subscribe((data) => {
+    this.reviewService.getUserProductReviews().subscribe((data) => {
       this.userReviews = data.map((review) => this.mapToCard(review));
       console.log('user reviews have been saved: ', this.userReviews);
     });

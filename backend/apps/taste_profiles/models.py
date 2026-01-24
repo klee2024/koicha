@@ -1,6 +1,9 @@
 from django.db import models
 
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Q
+
 
 class TasteProfile(models.Model): 
     user = models.OneToOneField(
@@ -10,13 +13,26 @@ class TasteProfile(models.Model):
         null=True, 
         blank=True
     )
+    # TODO: update naming for clarity
     flavor_characteristics = models.ManyToManyField(
         "FlavorCharacteristic",
-        through="TasteProfileFlavorValue",
+        through="TasteProfileFlavorDimension",
+        through_fields=("taste_profile", "characteristic"),
         related_name="taste_profiles",
         blank=True,
     )
+    # used for default taste profile
     is_system = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(Q(is_system=True) & Q(user__isnull=True)) |
+                        (Q(is_system=False) & Q(user__isnull=False)),
+                name="tasteprofile_user_or_system",
+            ),
+        ]
 
     def __str__(self): 
         return f"Taste profile for {self.user}"
@@ -50,7 +66,10 @@ class TasteProfileDetail(models.Model):
         on_delete=models.PROTECT,
         related_name="taste_profile_details"
     )
-    archetype_match = models.DecimalField(max_digits = 5, decimal_places=2)
+    archetype_match = models.PositiveSmallIntegerField(
+        default=0, 
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
     detail_description = models.TextField(blank=True) # description generated for the specific user
 
     def __str__(self): 
@@ -66,27 +85,39 @@ class FlavorCharacteristic(models.Model):
         related_name="sub_characteristics",
         on_delete=models.PROTECT,
     )
-    active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        # parent is null => main; parent not null => sub
-        indexes = [models.Index(fields=["parent"])]
+        indexes = [
+            models.Index(fields=["parent"]),
+            models.Index(fields=["is_active", "parent"]),
+        ]
 
     def __str__(self):
-        return f"{self.name} ({self.parent})"
+        return self.name if not self.parent else f"{self.parent.name} → {self.name}"
 
-class TasteProfileFlavorValue(models.Model): 
+
+class TasteProfileFlavorDimension(models.Model): 
     taste_profile = models.ForeignKey(
         TasteProfile, 
         on_delete=models.CASCADE, 
-        related_name="flavor_values"
+        related_name="flavor_dimensions"
     )
     characteristic=models.ForeignKey(
         FlavorCharacteristic, 
         on_delete=models.CASCADE,
-        related_name="profile_values"
+        related_name="taste_profile_dimensions"
     ) 
-    value=models.DecimalField(max_digits=5, decimal_places=2)
+    
+    # score 0..100
+    value = models.PositiveSmallIntegerField(
+        default=50,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
+
+    # how much evidence supports this dimension
+    confidence = models.FloatField(default=0.0)
+
 
     class Meta:
         constraints = [
@@ -95,5 +126,10 @@ class TasteProfileFlavorValue(models.Model):
                 name="unique_profile_characteristic_value",
             )
         ]
+        indexes = [
+            models.Index(fields=["taste_profile"]),
+            models.Index(fields=["characteristic"]),
+        ]
+
     def __str__(self):
-        return f"{self.taste_profile} – {self.flavor_characteristic} = {self.value}"
+        return f"{self.taste_profile} – {self.characteristic.slug} = {self.value}"

@@ -30,10 +30,21 @@
       <!-- TODO: ensure that the taste-profile is highlighted properly when active   -->
     </nav>
 
-    <div class="absolute -top-16 right-0">
-      <!-- TODO: if the user is not signed in, display the log in or sign up button-->
-      <app-auth-buttons></app-auth-buttons>
-      <!-- TODO: if the user is signed in, display the house icon -->
+    <div class="auth-headers absolute -top-16 right-0">
+      <ng-container *ngIf="authService.user$ | async as user; else loggedOut">
+        <div class="user-logged-in text-right">
+          <div>Hello {{ user.username }}</div>
+          <button
+            class="italic text-green-700 underline decoration-green-700"
+            (click)="this.authService.logout()"
+          >
+            log out
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #loggedOut>
+        <app-auth-buttons></app-auth-buttons>
+      </ng-template>
     </div>
   </div>
 </div>

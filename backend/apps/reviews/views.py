@@ -54,7 +54,7 @@ class GetUserReviews(APIView):
 
 class GetUserReviewsByPreference(APIView):
     """
-    POST /api/reviews/user/preference/<preferenceId>
+    GET /api/reviews/user/preference-bucket/<preferenceId>
     Gets all of the user's reviews within a review preference bucket
     """
 
@@ -62,5 +62,12 @@ class GetUserReviewsByPreference(APIView):
     # returns the reviews that match the preference by 
     # geting the bucket that is on the subpreference level 
 
-    # def get(self, request, preferenceId):
-    #     serializer = ReviewSerializer(user_reviews_for_preference, many=True)
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, preference_id):
+        reviews = (
+            Review.objects.filter(user=request.user,preference_level=preference_id)
+            .order_by('user_rating')
+        )
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data)

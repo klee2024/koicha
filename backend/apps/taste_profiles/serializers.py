@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..users.serializers import UserSerializer
-from .models import TasteProfile, FlavorCharacteristic, TasteProfileArchetype, TasteProfileFlavorValue, TasteProfileDetail
+from .models import TasteProfile, FlavorCharacteristic, TasteProfileArchetype, TasteProfileFlavorDimension, TasteProfileDetail
 
 class FlavorCharacteristicSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,12 +8,12 @@ class FlavorCharacteristicSerializer(serializers.ModelSerializer):
         fields = ["id", "slug", "name", "parent"]
 
 
-class TasteProfileFlavorValueSerializer(serializers.ModelSerializer):
+class TasteProfileFlavorDimensionSerializer(serializers.ModelSerializer):
     characteristic = FlavorCharacteristicSerializer(read_only=True)
 
     class Meta:
-        model = TasteProfileFlavorValue
-        fields = ["id", "characteristic", "value"]
+        model = TasteProfileFlavorDimension
+        fields = ["id", "characteristic", "value", "confidence"]
 
 
 class TasteProfileArchetypeSerializer(serializers.ModelSerializer):
@@ -37,10 +37,10 @@ class TasteProfileDetailSerializer(serializers.ModelSerializer):
 
 
 class TasteProfileSerializer(serializers.ModelSerializer):
-    flavor_values = TasteProfileFlavorValueSerializer(many=True)
+    flavor_dimensions = TasteProfileFlavorDimensionSerializer(many=True)
     details = TasteProfileDetailSerializer(many=True, read_only=True)
     user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = TasteProfile
-        fields = ["id", "user", "flavor_values", "details"]
+        fields = ["id", "user", "flavor_dimensions", "details"]

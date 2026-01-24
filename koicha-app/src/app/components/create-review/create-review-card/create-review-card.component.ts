@@ -148,7 +148,7 @@ export class CreateReviewCardComponent implements OnInit {
         this.maxSubPreferenceValue = subPreferenceValueRange['max'];
       }
 
-      // initialize slider with the recommendationv value and
+      // initialize slider with the recommendation value and
       // get the product lineup based on the recommendation
       if (
         this.productCard &&
@@ -164,10 +164,11 @@ export class CreateReviewCardComponent implements OnInit {
           this.selectedRating = this.productCard.matchPercentage;
         }
 
-        this.productLineup = this.reviewService.getProductLineup(
-          this.selectedRating,
-          this.productCard
-        );
+        this.reviewService
+          .getProductLineup(this.selectedRating, this.productCard)
+          .subscribe((lineup) => {
+            this.productLineup = lineup;
+          });
 
         // initialize the selected sub preference based off of the initial selected rating
         this.selectedSubPreference = this.reviewService.findBucketForRating(
@@ -189,10 +190,11 @@ export class CreateReviewCardComponent implements OnInit {
     // call the service to get the products before and after this value
     this.selectedRating = ratingValue;
     if (this.selectedRating && this.productCard) {
-      this.productLineup = this.reviewService.getProductLineup(
-        this.selectedRating,
-        this.productCard
-      );
+      this.reviewService
+        .getProductLineup(this.selectedRating, this.productCard)
+        .subscribe((lineup) => {
+          this.productLineup = lineup;
+        });
       this.selectedSubPreference =
         this.reviewService.findBucketForRating(ratingValue);
       console.log('selected sub preference: ', this.selectedSubPreference);

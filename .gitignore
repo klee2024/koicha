@@ -42,3 +42,14 @@ testem.log
 Thumbs.db
 
 backend/.venv
+.env
+
+koicha-app/.angular/
+koicha-app/node_modules/
+backend/apps/users/__pycache__/
+backend/apps/users/migrations/__pycache__/
+backend/apps/users/migrations/__pycache__/
+**/__pycache__/
+*.pyc
+backend/server.log
+backend/koicha_backend/__pycache__/settings.cpython-313.pyc

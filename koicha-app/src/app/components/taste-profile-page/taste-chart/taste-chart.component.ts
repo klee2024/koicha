@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {
   TasteProfile,
-  TasteProfileFlavorCharacteristic,
+  TasteProfileFlavorDimension,
 } from '../../../models/taste-profile';
 import { EChartsOption, ECharts } from 'echarts';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
@@ -33,7 +33,7 @@ export class TasteChartComponent implements OnChanges {
   mainFlavorLabels: string[] | undefined = undefined;
   mainFlavorValues: number[] | undefined = undefined;
 
-  subCharacteristics: TasteProfileFlavorCharacteristic[] = [];
+  subCharacteristics: TasteProfileFlavorDimension[] = [];
 
   radarOptions: EChartsOption = {};
 
@@ -47,7 +47,7 @@ export class TasteChartComponent implements OnChanges {
 
   private updateChart(profile: TasteProfile) {
     const mainFlavors =
-      profile.flavor_values?.filter(
+      profile.flavor_dimensions?.filter(
         (flavor_value) => flavor_value.characteristic.parent == null
       ) ?? [];
     const labels = mainFlavors.map(

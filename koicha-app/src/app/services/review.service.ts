@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay, Observable, of } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, of, tap } from 'rxjs';
 import {
   ReviewPreference,
   ReviewSubPreference,
 } from '../models/review-preference';
 import { ProductLineup } from '../components/create-review/create-review-card/product-lineup';
-import { UserReviewRequest } from '../models/review';
-import { MOCK_REVIEWS } from '../data/reviews.mock';
-import { Review, UserReview } from '../models/review';
+import { Review, UserReviewRequest } from '../models/review';
 import { Product } from '../models/product';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -23,6 +21,11 @@ export class ReviewService {
 
   private _preferences$ = new BehaviorSubject<ReviewPreference[]>([]);
   private _subPreferences$ = new BehaviorSubject<ReviewSubPreference[]>([]);
+  private _userReviews$ = new BehaviorSubject<Review[]>([]);
+
+  get userReviews$(): Observable<Review[]> {
+    return this._userReviews$.asObservable();
+  }
 
   get preferences$(): Observable<ReviewPreference[]> {
     return this._preferences$.asObservable();
@@ -78,13 +81,14 @@ export class ReviewService {
     );
   }
 
-  // TODO: backend integration
   // Gets the requesting user's product reviews, sorted by the user's rating descending
-  getUserProductReviews(userId: string) {
-    // return of(MOCK_REVIEWS).pipe(delay(200));
-    return this.http.get<Review[]>(`${this.baseUrl}/${this.appUrl}/me/`);
-  }
+  getUserProductReviews() {
+    const cached = this._userReviews$.value;
 
+    return this.http
+      .get<Review[]>(`${this.baseUrl}/${this.appUrl}/me/`)
+      .pipe(tap((reviews) => this._userReviews$.next(reviews ?? [])));
+  }
   // TODO: backend integration
   updateUserProductReview(userId: string, productId: string) {
     return of({ success: true }).pipe(delay(200));
@@ -103,29 +107,29 @@ export class ReviewService {
   getProductLineup(
     ratingValue: number,
     productCurrentlyReviewing: Product
-  ): ProductLineup[] {
-    // get the user's reviews
-    // TODO: consider doing this just by the preference
-    const userReviews = MOCK_REVIEWS;
-    // get the insertion point based on the userReviews
-    const insertionIndex = this.findInsertionIndexDescendingBinary(
-      userReviews,
-      ratingValue
+  ): Observable<ProductLineup[]> {
+    return this.getUserProductReviews().pipe(
+      map((userReviews) => {
+        console.log('user reviews: ', userReviews);
+        const insertionIndex = this.findInsertionIndexDescendingBinary(
+          userReviews,
+          ratingValue
+        );
+        return this.findProductLineupFromInsertionPoint(
+          userReviews,
+          insertionIndex,
+          ratingValue,
+          productCurrentlyReviewing
+        );
+      })
     );
-    const lineup = this.findProductLineupFromInsertionPoint(
-      userReviews,
-      insertionIndex,
-      ratingValue,
-      productCurrentlyReviewing
-    );
-    return lineup;
   }
 
   findInsertionIndexDescendingBinary(
-    userReviews: UserReview[],
+    userReviews: Review[],
     newScore: number
   ): number {
-    userReviews.sort((a, b) => b.userRating - a.userRating);
+    userReviews.sort((a, b) => b.user_rating - a.user_rating);
     console.log('user reviews: ', userReviews);
     let left = 0;
     let right = userReviews.length;
@@ -133,7 +137,7 @@ export class ReviewService {
     while (left < right) {
       const mid = Math.floor((left + right) / 2);
 
-      if (newScore >= userReviews[mid].userRating) {
+      if (newScore >= userReviews[mid].user_rating) {
         right = mid;
       } else {
         left = mid + 1;
@@ -144,7 +148,7 @@ export class ReviewService {
 
   // TODO: refactor this method for clarity
   findProductLineupFromInsertionPoint(
-    userReviews: UserReview[],
+    userReviews: Review[],
     insertionIndex: number,
     newRating: number,
     productCurrentlyReviewing: Product
@@ -198,7 +202,8 @@ export class ReviewService {
 
     if (
       reviewIndexHigh != undefined &&
-      reviewIndexHigh < userReviews.length + 1
+      reviewIndexHigh >= 0 &&
+      reviewIndexHigh < userReviews.length
     ) {
       const highProduct: ProductLineup = this.buildProductLineup(
         reviewIndexHigh,
@@ -211,7 +216,8 @@ export class ReviewService {
 
     if (
       reviewIndexLow != undefined &&
-      reviewIndexLow < userReviews.length + 1
+      reviewIndexLow >= 0 &&
+      reviewIndexLow < userReviews.length
     ) {
       const lowProduct: ProductLineup = this.buildProductLineup(
         reviewIndexLow,
@@ -230,14 +236,14 @@ export class ReviewService {
   buildProductLineup(
     index: number,
     productRankingIncrement: number,
-    userReviews: UserReview[],
+    userReviews: Review[],
     productPosition: 'before' | 'after' | 'current'
   ): ProductLineup {
     return {
       productRanking: index + productRankingIncrement,
-      productName: userReviews[index].productName,
-      productBrand: userReviews[index].productBrand,
-      productRating: userReviews[index].userRating,
+      productName: userReviews[index].product.name,
+      productBrand: userReviews[index].product.brand,
+      productRating: userReviews[index].user_rating,
       productPosition: productPosition,
     };
   }

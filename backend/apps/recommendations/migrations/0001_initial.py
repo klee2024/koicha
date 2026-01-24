@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="UserBookmark",
+            name="UserProductMatch",
             fields=[
                 (
                     "id",
@@ -25,15 +25,22 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("bookmarked_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "match_percentage",
+                    models.DecimalField(decimal_places=2, max_digits=5),
+                ),
+                ("computed_at", models.DateTimeField(auto_now=True)),
                 (
                     "product",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="bookmarks",
+                        related_name="user_matches",
                         to="products.product",
                     ),
                 ),
             ],
+            options={
+                "ordering": ["-match_percentage"],
+            },
         ),
     ]

@@ -3,7 +3,7 @@ from django.db import transaction
 from django.contrib.auth import get_user_model
 from apps.taste_profiles.models import (
     TasteProfile,
-    TasteProfileFlavorValue,
+    TasteProfileFlavorDimension,
     FlavorCharacteristic,
 )
 
@@ -30,9 +30,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         # create the user's taste profile and seed defaults
         taste_profile = TasteProfile.objects.create(user=user)
-        main_characteristics = FlavorCharacteristic.objects.filter(parent__isnull=True, active=True)
-        TasteProfileFlavorValue.objects.bulk_create([
-            TasteProfileFlavorValue(
+        main_characteristics = FlavorCharacteristic.objects.filter(parent__isnull=True, is_active=True)
+        TasteProfileFlavorDimension.objects.bulk_create([
+            TasteProfileFlavorDimension(
                 taste_profile=taste_profile,
                 characteristic=fc,
                 value=0, # default flavor characteristic value

@@ -1,6 +1,10 @@
 from django.conf import settings
 from django.db import models
 
+from ..taste_profiles.models import FlavorCharacteristic
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+
 # Consider moving this to an entity called filters with another field for type
 class Preparation(models.Model):
     slug = models.SlugField(unique=True)
@@ -16,6 +20,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 class Product(models.Model):
@@ -36,8 +41,47 @@ class Product(models.Model):
         blank=True,
     )
 
+    taste_dimensions = models.ManyToManyField(
+        FlavorCharacteristic,
+        through="ProductTaste",
+        related_name="products",
+        blank=True,
+    )
+
     def __str__(self):
         return f"{self.name} ({self.brand})"
 
     
+# model to join taste profile value to a particular product 
+# i.e. this product is 70% nutty and 30% creamy 
+class ProductTaste(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="product_tastes",
+    )
+    taste_dimension = models.ForeignKey(
+        FlavorCharacteristic,
+        on_delete=models.CASCADE,
+        related_name="product_tastes",
+    )
+    intensity = models.PositiveSmallIntegerField(
+        default=100,  # MVP default for “tag present”
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["product", "taste_dimension"],
+                name="uniq_product_taste_dimension",
+            )
+        ]
+        indexes = [
+            models.Index(fields=["taste_dimension"]),
+            models.Index(fields=["product"]),
+        ]
+
+    def __str__(self):
+        return f"{self.product} · {self.taste_dimension} = {self.intensity}"
 

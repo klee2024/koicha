@@ -1,3 +1,5 @@
+import { Timestamp } from 'rxjs';
+
 export interface TasteProfileArchetype {
   id: number;
   slug: string;
@@ -22,10 +24,13 @@ export interface TasteProfile {
   id: number;
   user: number;
   details: TasteProfileDetail[] | undefined;
-  flavor_values: TasteProfileFlavorCharacteristic[] | undefined;
+  flavor_dimensions: TasteProfileFlavorDimension[] | undefined;
+  created_at: Date;
 }
-export interface TasteProfileFlavorCharacteristic {
+
+export interface TasteProfileFlavorDimension {
   id: number;
   characteristic: FlavorCharacteristic;
   value: number;
+  confidence: number;
 }
