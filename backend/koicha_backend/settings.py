@@ -163,3 +163,39 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+class SafeExtraFilter:
+    def filter(self, record):
+        for key in ("product_id", "review_id", "user_id", "product_tastes"):
+            if not hasattr(record, key):
+                setattr(record, key, "-")
+        return True
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "filters": ["safe_extra"],
+            "formatter": "verbose",
+        },
+    },
+    "filters": {
+        "safe_extra": {"()": "koicha_backend.settings.SafeExtraFilter"},
+    },
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(name)s %(message)s "
+                      "product_id=%(product_id)s review_id=%(review_id)s "
+                      "user_id=%(user_id)s product_tastes=%(product_tastes)s"
+        }
+    },
+    "loggers": {
+        "apps": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}

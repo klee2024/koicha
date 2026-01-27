@@ -77,6 +77,7 @@ class Command(BaseCommand):
         # Get all of the main flavor charateristics
         flavor_characteristics = FlavorCharacteristic.objects.filter(is_active=True, parent__isnull=True)
 
+      
         # Use the product's tags to create flavor intensity weights
         tag_flavor_characteristic_intensities = geometric_tag_intensities(tags)
 

@@ -29,10 +29,10 @@ class CreateReview(generics.CreateAPIView):
     Creates a review for the requesting user
     """
 
+    permission_classes = [IsAuthenticated]
+
     serializer_class = CreateReviewSerializer
     queryset = Review.objects.all()
-
-    # TODO: update the user's taste profile based on the review
         
 
 

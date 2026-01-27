@@ -35,7 +35,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             TasteProfileFlavorDimension(
                 taste_profile=taste_profile,
                 characteristic=fc,
-                value=0, # default flavor characteristic value
+                value=50, # default flavor characteristic value
             )
             for fc in main_characteristics
         ])

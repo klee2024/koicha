@@ -1,6 +1,8 @@
 from __future__ import annotations
 from typing import Dict, List
 
+from apps.taste_profiles.models import FlavorCharacteristic
+
 def geometric_tag_intensities(
     ordered_slugs: List[str],
     base: float = 0.6,
@@ -8,10 +10,18 @@ def geometric_tag_intensities(
 ) -> Dict[str, int]:
     """
     Convert an ordered list of slugs into integer intensities that sum to `total`,
-    using geometric decay: raw_i = base^i.
+    using geometric decay: raw_i = base^i.Ignore taste tags that do not contribute to the user's main taste profile 
+    dimensions. 
 
     Example: ["umami","grassy","nutty"], base=0.6 -> {umami:51, grassy:31, nutty:18}
     """
+
+    # get a list of all the slugs of the main flavor characteristics
+    main_flavor_dimensions = FlavorCharacteristic.objects.filter(is_active=True, parent__isnull=True).values_list('slug', flat=True)
+    
+    # filter out the slugs that are not in the main flavor characteristics
+    ordered_slugs = [slug for slug in ordered_slugs if slug in main_flavor_dimensions]
+
     if not ordered_slugs:
         return {}
 

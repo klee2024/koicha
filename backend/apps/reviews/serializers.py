@@ -1,7 +1,12 @@
+from ..taste_profiles.services.update_taste_profile import apply_review_to_taste_profile
+import logging
 from rest_framework import serializers
 from .models import ReviewPreference, ReviewSubPreference, Review
 from ..products.serializers import ProductSerializer
 from ..products.models import Product
+
+logger = logging.getLogger(__name__)
+
 
 
 class ReviewSubPreferenceSerializer(serializers.ModelSerializer): 
@@ -61,4 +66,12 @@ class CreateReviewSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
         request = self.context["request"]
-        return Review.objects.create(user=request.user, **validated_data)
+        review = Review.objects.create(user=request.user, **validated_data)
+        try: 
+            apply_review_to_taste_profile(review)
+        except: 
+            logger.exception(
+                "Failed to update taste profile after review creation",
+                extra={"review_id": review.id, "user_id": request.user.id, "product_id": review.product_id},
+            )
+        return review
