@@ -8,55 +8,23 @@ import logging
 from typing import Dict, Iterable, Tuple
 
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Count, Q
 
 from apps.taste_profiles.models import TasteProfile, TasteProfileFlavorDimension, FlavorCharacteristic
 from apps.products.models import ProductTaste
+from apps.reviews.models import Review
 
 logger = logging.getLogger(__name__)
-
-def clamp01(x: float) -> float:
-    return 0.0 if x < 0.0 else 1.0 if x > 1.0 else x
-
-
-def rating_to_weight(rating: int, gamma: float = 1.5) -> float:
-    """
-    Map rating 0..100 into signed weight [-1,1] where 50 is neutral.
-    gamma>1 makes mild ratings matter less.
-    """
-    w = (rating - 50) / 50.0  # [-1, 1]
-    if w == 0:
-        return 0.0
-    return (abs(w) ** gamma) * (1.0 if w > 0 else -1.0)
-
-
-def learning_rate(confidence: float, alpha0: float = 0.25, k: float = 5.0) -> float:
-    """
-    Decay learning rate as confidence grows.
-    """
-    return alpha0 / (1.0 + (confidence / k))
-
-
-def normalize_product_tastes(
-    tastes: Iterable[Tuple[int, int]]
-) -> Dict[int, float]:
-    """
-    tastes: iterable of (characteristic_id, intensity_0_100)
-    Returns normalized vector f where values sum to 1 across present dims.
-    Missing dims are implicitly 0 (not returned).
-    """
-    raw = {cid: intensity / 100.0 for cid, intensity in tastes if intensity > 0}
-    s = sum(raw.values())
-    if s <= 0:
-        return {}
-    return {cid: v / s for cid, v in raw.items()}
-
 
 @transaction.atomic
 def apply_review_to_taste_profile(review):
     """
     Updates a user's taste profile based on a new product rating
+    By averaging the user's rating of the products they have rated across the active main taste dimensions
+    Ex: If a user ranks a floral and creamy product a 76%, the 76% should be factored into their floral and creamy scores
     """
+
+    # TODO: VALIDATE THAT AVERAGE CALC IS WORKING PROPERLY
 
     # TODO: consider how to handle this - a user should always have a taste profile (created upon user creation)
     # get the user's taste profile
@@ -88,7 +56,9 @@ def apply_review_to_taste_profile(review):
             for characteristic in missing
         ])
 
-       # 3) Build normalized product vector f from ProductTaste (only active mains)
+    # Update each main taste dimension that is present in the product that is being reviewed 
+
+    # get the main taste dimenions of the product 
     product_tastes = list(
         ProductTaste.objects.filter(product_id=review.product, taste_dimension_id__in=active_main_dims)
         .values_list("taste_dimension_id", "intensity")
@@ -103,10 +73,8 @@ def apply_review_to_taste_profile(review):
                 "product_tastes": product_tastes
             },
         )
-
-    normalized_product_tastes = normalize_product_tastes(product_tastes)
-
-    if not normalized_product_tastes:
+    
+    if not product_tastes:
         logger.error(
             "Taste profile update skipped: product has no flavor dimensions",
             extra={
@@ -117,46 +85,37 @@ def apply_review_to_taste_profile(review):
         )
         return taste_profile
     
-    # 4) Convert rating to signed weight
-    w = rating_to_weight(int(review.user_rating), gamma=1.5)
-    if w == 0.0:
-        logger.info(
-            "Taste profile update skipped: neutral product rating",
-            extra={
-                "product_id": review.product_id,
-                "review_id": review.id,
-                "user_id": review.user_id,
-            },
+    # for each taste dimension, get the total count of products that the user has rated
+    dimension_ids = [taste_dimension_id for taste_dimension_id, _intensity in product_tastes]
+    dimension_rating_counts = dict(
+        Review.objects.filter(
+            user=review.user,
+            product__product_tastes__taste_dimension_id__in=dimension_ids,
         )
-        return taste_profile  # neutral rating doesn't change profile
-
-
-    # 5) Update only taste profile dimensions present in the product's dimensions
-    dims_to_update = list(
-        TasteProfileFlavorDimension.objects.select_for_update()
-        .filter(taste_profile=taste_profile, characteristic_id__in=normalized_product_tastes.keys())
+        .values_list("product__product_tastes__taste_dimension_id")
+        .annotate(total=Count("product", distinct=True))
+        .values_list("product__product_tastes__taste_dimension_id", "total")
+    )
+    current_user_dimension_ratings = dict(
+        TasteProfileFlavorDimension.objects.filter(taste_profile=taste_profile, characteristic_id__in=active_main_dims)
+        .values_list("characteristic_id", "value")
     )
 
-    # update the user's taste profile dimensions using ... algo 
-    for dim in dims_to_update: 
-        u = dim.value / 100.0
-        target = normalized_product_tastes[dim.characteristic_id]
-        alpha = learning_rate(dim.confidence, alpha0=0.25, k=5.0)
-        # u <- u + alpha*w*(target - u)
-        u2 = clamp01(u + alpha * w * (target - u))
+    # for each taste dimension in product tastes, calculate and set the user's new average 
+    # based on their current rating and the new ranking of the product
+    for taste_dimension_id, _intensity in product_tastes:
+        # set count of rated products to 1 since we have a default score of 50 for the main taste dimensions
+        total_rated_products_for_dimension = dimension_rating_counts.get(taste_dimension_id, 1) 
+        # get the user's current taste profile score for that dimension 
+        old_average = current_user_dimension_ratings[taste_dimension_id]
+        new_average_num = (old_average * total_rated_products_for_dimension) + review.user_rating 
+        new_average_denom = total_rated_products_for_dimension + 1
+        new_average = new_average_num / new_average_denom
 
-        dim.value = int(round(u2 * 100.0))
-
-        # confidence grows faster when:
-        # - rating is strong (abs(w))
-        # - the product expresses this dimension strongly (target)
-        dim.confidence += abs(w) * target
-
-    TasteProfileFlavorDimension.objects.bulk_update(dims_to_update, ["value", "confidence"])
+        # update the taste profile dimension with the new_average
+        TasteProfileFlavorDimension.objects.filter(taste_profile=taste_profile, characteristic=taste_dimension_id).update(value=new_average)
 
     return taste_profile
-
-
 
 
 
