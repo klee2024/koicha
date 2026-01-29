@@ -16,7 +16,7 @@ from apps.taste_profiles.models import (
     TasteProfileFlavorDimension,
 )
 
-from apps.products.services.product_tastes import geometric_tag_intensities
+from apps.products.services.product_tastes import calculate_tag_intensities
 
 
 class Command(BaseCommand):
@@ -79,7 +79,7 @@ class Command(BaseCommand):
 
       
         # Use the product's tags to create flavor intensity weights
-        tag_flavor_characteristic_intensities = geometric_tag_intensities(tags)
+        tag_flavor_characteristic_intensities = calculate_tag_intensities(tags)
 
         # For each tag that corresponds to a main flavor characteristic, create corresponding ProductTaste object based on the weights
         for tag_slug, weight in tag_flavor_characteristic_intensities.items():
