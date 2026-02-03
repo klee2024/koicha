@@ -27,6 +27,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ReviewedComponent {
   userReviews: ProductCardData[] = [];
+  loading = true;
   productToReview?: ProductCardData;
   selectedReview?: ReviewCard;
   productToBookmark?: ProductCardData;
@@ -42,6 +43,7 @@ export class ReviewedComponent {
   ngOnInit() {
     this.reviewService.getUserProductReviews().subscribe((data) => {
       this.userReviews = data.map((review) => this.mapToCard(review));
+      this.loading = false;
       console.log('user reviews have been saved: ', this.userReviews);
     });
   }
@@ -93,7 +95,7 @@ export class ReviewedComponent {
       // TODO: depracate this, this should be calculated based off of the backend ordering
       userRanking: review.user_ranking,
       reviewText: review.user_review_text,
-      // TODO: determine how to get or join match percentage on the backend for reviews
+      // TODO POST-MVP: determine how to get or join match percentage on the backend for reviews
       matchPercentage: undefined,
       // TODO: refactor for review sub preference value
       reviewPreferenceValue: review.preference_level,

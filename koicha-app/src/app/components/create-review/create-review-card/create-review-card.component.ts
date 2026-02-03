@@ -64,7 +64,7 @@ export class CreateReviewCardComponent implements OnInit {
 
   isCardVisible = true;
 
-  // TODO: Revisit these outputs post MVP
+  // TODO: POST-MVP Revisit these outputs
   // @Output() undoSelected = new EventEmitter<void>();
   // @Output() tooToughSelected = new EventEmitter<void>();
   // @Output() skipSelected = new EventEmitter<void>();
@@ -74,12 +74,10 @@ export class CreateReviewCardComponent implements OnInit {
   ngOnInit(): void {
     this.reviewService.getPreferenceBuckets();
     this.preferences$ = this.reviewService.preferences$;
-    console.log('preferences: ', this.preferences$);
   }
 
   // saves the review based on the user's inputs
   createReview() {
-    // TODO: auth for getting the user's id
     if (this.productCard && this.selectedRating != undefined) {
       console.log('selected preference: ', this.selectedSubPreference);
       if (this.selectedSubPreference) {
@@ -100,10 +98,8 @@ export class CreateReviewCardComponent implements OnInit {
               this.productCard.bookmarked = false;
               this.reviewCreated.emit(this.productCard);
             }
-            console.log('review was created ', data);
             this.closeCard();
           });
-        console.log('creating review!');
       }
       // TODO: present the new review
       // get the newly created review from the review card, use the review details component
@@ -134,8 +130,6 @@ export class CreateReviewCardComponent implements OnInit {
   }
 
   onPreferenceSelected() {
-    // TODO: call the service to get the list of subpreferences
-    // pass these down to the slider component
     console.log('on preference selected ', this.selectedPreference);
     if (this.selectedPreference) {
       this.reviewService.getSubPreferenceBuckets(this.selectedPreference);
@@ -166,9 +160,7 @@ export class CreateReviewCardComponent implements OnInit {
           this.selectedRating = this.minSubPreferenceValue;
         } else if (matchPercentage > this.maxSubPreferenceValue) {
           this.selectedRating = this.maxSubPreferenceValue;
-        } else if (
-          matchPercentage < this.minSubPreferenceValue
-        ) {
+        } else if (matchPercentage < this.minSubPreferenceValue) {
           this.selectedRating = this.minSubPreferenceValue;
         } else {
           this.selectedRating = matchPercentage;

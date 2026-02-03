@@ -18,6 +18,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class BookmarkShelfComponent implements OnInit {
   userBookmarks: ProductCardData[] = [];
+  loading = true;
   productToReview?: ProductCardData;
   productToBookmark?: ProductCardData;
 
@@ -27,11 +28,10 @@ export class BookmarkShelfComponent implements OnInit {
     public authService: AuthService
   ) {}
   ngOnInit() {
-    // TODO: if the user is not signed in, display default image to sign up / sign in
-
     // initialize the userBookmarks array on init - use this to pass down into the Product card
     this.userProductService.getUserBookmarks().subscribe((data) => {
       this.userBookmarks = data.map((bookmark) => this.mapToCard(bookmark));
+      this.loading = false;
       console.log('all bookmarks on init', this.userBookmarks);
     });
   }
@@ -42,7 +42,6 @@ export class BookmarkShelfComponent implements OnInit {
 
   onReviewProduct(product: ProductCardData) {
     this.productToReview = product;
-    console.log('review product button works!');
     // TODO: bring up the create review card component
   }
 

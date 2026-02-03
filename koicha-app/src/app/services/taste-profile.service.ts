@@ -1,9 +1,4 @@
 import { Injectable } from '@angular/core';
-// TODO: Revisit mocks
-// import {
-//   MOCK_TASTE_PROFILE,
-//   MOCK_TASTE_PROFILE_NO_DETAILS,
-// } from '../data/taste-profile.mock';
 import { TasteProfile } from '../models/taste-profile';
 import { delay, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';

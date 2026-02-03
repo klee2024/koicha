@@ -1,6 +1,6 @@
 <ng-container *ngIf="productCardData as card">
   <div
-    class="product-card-main relative overflow-hidden rounded-[10px]"
+    class="product-card-main relative overflow-hidden rounded-[10px] aspect-[1/1]"
     (click)="card.variant === 'review' && reviewSelected.emit(card)"
   >
     <!-- TODO: make a default image in case the image does not load for the product -->
@@ -66,10 +66,10 @@
               </svg>
             </ng-template>
           </button>
-          <!-- TODO: update with appropriate symbols -->
           <button
-            class="userReview flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm uppercase tracking-wide text-black backdrop-blur"
+            class="userReview flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm uppercase tracking-wide text-black backdrop-blur disabled:cursor-not-allowed disabled:opacity-50"
             (click)="$event.stopPropagation(); productToReview.emit(card)"
+            [disabled]="card.reviewed"
           >
             <ng-container *ngIf="card.reviewed; else outlineReview">
               <svg
@@ -103,7 +103,6 @@
               </svg>
             </ng-template>
           </button>
-          <!-- TODO: update with appropriate symbols -->
         </div>
       </div>
 

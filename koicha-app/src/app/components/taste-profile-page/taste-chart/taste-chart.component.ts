@@ -54,12 +54,6 @@ export class TasteChartComponent implements OnChanges {
       (flavor_value) => flavor_value.characteristic.name
     );
     const values = mainFlavors.map((characteristic) => characteristic.value);
-    // TODO: revisit subcharacteristic implementation after backend refactor
-    // this.subCharacteristics =
-    //   profile.flavor_characteristic_values?.filter(
-    //     (characteristic) =>
-    //       characteristic.flavor_characteristic.hierarchy == 'SUB'
-    //   ) ?? {};
     console.log('taste profile labels: ', labels);
     console.log('taste profile values: ', values);
     this.radarOptions = buildTasteRadarOptions({

@@ -2,13 +2,22 @@
 
 <ng-container *ngIf="authService.user$ | async as user; else signedOut">
   <div class="relative">
-    <ng-container *ngIf="userReviews.length; else emptyState">
+    <div
+      *ngIf="loading"
+      class="status flex min-h-[12rem] items-center justify-center px-4 text-center font-mono text-2xl text-green-700"
+    >
+      ...
+    </div>
+    <ng-container *ngIf="!loading && userReviews.length">
       <app-feed
         [cards]="userReviews"
         (reviewSelected)="onReviewSelected($event)"
         (productToReview)="onReviewProduct($event)"
         (productToBookmark)="onBookmarkProduct($event)"
       ></app-feed>
+    </ng-container>
+    <ng-container *ngIf="!loading && !userReviews.length">
+      <ng-container *ngTemplateOutlet="emptyState"></ng-container>
     </ng-container>
 
     <div

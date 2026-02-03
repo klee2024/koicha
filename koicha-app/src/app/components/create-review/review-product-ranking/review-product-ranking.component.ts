@@ -18,8 +18,6 @@ export class ReviewProductRankingComponent {
   @Output() tooToughSelected = new EventEmitter<void>();
   @Output() skipSelected = new EventEmitter<void>();
 
-  // TODO: how do I keep track of both the current product and the product it is being compared to
-  // in the service?
   onSelectProduct(selectedProduct: ProductCardData) {
     this.productSelected?.emit(selectedProduct);
   }
