@@ -21,8 +21,4 @@ export class TasteProfileService {
   getUserTasteProfile(): Observable<TasteProfile> {
     return this.http.get<TasteProfile>(`${this.baseUrl}/${this.appUrl}/me`);
   }
-
-  // TODO: update the user's taste profile from their review of a product
-  // updateUserTasteProfile(tasteProfileUpdateRequest: TasteProfileRequest){
-  // }
 }

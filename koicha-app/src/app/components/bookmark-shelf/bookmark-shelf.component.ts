@@ -42,7 +42,6 @@ export class BookmarkShelfComponent implements OnInit {
 
   onReviewProduct(product: ProductCardData) {
     this.productToReview = product;
-    // TODO: bring up the create review card component
   }
 
   onReviewCreated(product: ProductCardData) {

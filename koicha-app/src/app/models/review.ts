@@ -1,7 +1,6 @@
 import { Tag, Preparation, Product } from './product';
 import { ReviewSubPreference } from './review-preference';
 
-// TODO: depracate this model once refactored
 export interface UserReview {
   id: string;
   // product values
@@ -22,7 +21,7 @@ export interface UserReview {
   reviewSubPreferenceValue: number; // enum from the backend
   userRating: number;
   userRanking: number;
-  // TODO: post-mvp
+  // TODO POST_MVP: include this field in backend
   countOfProductFinished?: number;
 }
 

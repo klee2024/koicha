@@ -89,12 +89,12 @@ export class ReviewService {
       .get<Review[]>(`${this.baseUrl}/${this.appUrl}/me/`)
       .pipe(tap((reviews) => this._userReviews$.next(reviews ?? [])));
   }
-  // TODO: backend integration
+  // TODO POST-MVP: backend integration
   updateUserProductReview(userId: string, productId: string) {
     return of({ success: true }).pipe(delay(200));
   }
 
-  // TODO: backend integration
+  // TODO POST-MVP: backend integration
   deleteUserProductReview(userId: string, productId: string) {
     return of({ success: true }).pipe(delay(200));
   }
