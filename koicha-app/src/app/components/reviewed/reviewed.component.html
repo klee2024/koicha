@@ -22,7 +22,7 @@
 
     <div
       *ngIf="productToReview"
-      class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+      class="fixed inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
       (click)="closeReviewCard()"
     >
       <app-create-review-card
@@ -37,7 +37,7 @@
     <!-- TODO: decide whether to keep the grey out effect upon selecting a specific product -->
     <div
       *ngIf="selectedReview"
-      class="absolute inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
+      class="fixed inset-0 z-10 flex items-center justify-center bg-black/10 p-4"
       (click)="clearSelection()"
     >
       <app-review-details
