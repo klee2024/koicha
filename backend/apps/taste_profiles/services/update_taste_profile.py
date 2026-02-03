@@ -24,7 +24,11 @@ def apply_review_to_taste_profile(review):
     Ex: If a user ranks a floral and creamy product a 76%, the 76% should be factored into their floral and creamy scores
     """
 
-    # TODO: VALIDATE THAT AVERAGE CALC IS WORKING PROPERLY
+        # find active main dimensions (parent is null)
+    active_main_dims = list(
+        FlavorCharacteristic.objects.filter(is_active=True, parent__isnull=True)
+        .values_list("id", flat=True)
+    )
 
     # TODO: consider how to handle this - a user should always have a taste profile (created upon user creation)
     # get the user's taste profile
@@ -33,11 +37,6 @@ def apply_review_to_taste_profile(review):
         defaults={"is_system": False},
     )
 
-    # find active main dimensions (parent is null)
-    active_main_dims = list(
-        FlavorCharacteristic.objects.filter(is_active=True, parent__isnull=True)
-        .values_list("id", flat=True)
-    )
 
     # ensure TasteProfileFlavorDimension rows exist for all active mains
     existing_dim_ids = set(
@@ -116,6 +115,5 @@ def apply_review_to_taste_profile(review):
         TasteProfileFlavorDimension.objects.filter(taste_profile=taste_profile, characteristic=taste_dimension_id).update(value=new_average)
 
     return taste_profile
-
 
 
