@@ -70,7 +70,7 @@
       <button
         class="mt-4 inline-flex h-12 items-center justify-center rounded-xl border border-emerald-800 px-10 text-lg font-medium tracking-wide text-emerald-900 transition hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
         type="button"
-        [disabled]="!selectedRating"
+        [disabled]="selectedRating == null"
         (click)="createReview()"
       >
         Rate

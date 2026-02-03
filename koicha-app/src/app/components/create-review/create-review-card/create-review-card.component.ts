@@ -79,7 +79,7 @@ export class CreateReviewCardComponent implements OnInit {
   // saves the review based on the user's inputs
   createReview() {
     // TODO: auth for getting the user's id
-    if (this.productCard && this.selectedRating) {
+    if (this.productCard && this.selectedRating != undefined) {
       console.log('selected preference: ', this.selectedSubPreference);
       if (this.selectedSubPreference) {
         const createReviewPayload: UserReviewRequest = {
@@ -152,13 +152,14 @@ export class CreateReviewCardComponent implements OnInit {
       // get the product lineup based on the recommendation
       if (
         this.productCard &&
-        this.maxSubPreferenceValue &&
-        this.minSubPreferenceValue
+        this.maxSubPreferenceValue != undefined &&
+        this.minSubPreferenceValue != undefined
       ) {
         if (this.productCard.matchPercentage > this.maxSubPreferenceValue) {
           this.selectedRating = this.maxSubPreferenceValue;
-        }
-        if (this.productCard.matchPercentage < this.minSubPreferenceValue) {
+        } else if (
+          this.productCard.matchPercentage < this.minSubPreferenceValue
+        ) {
           this.selectedRating = this.minSubPreferenceValue;
         } else {
           this.selectedRating = this.productCard.matchPercentage;
@@ -189,7 +190,7 @@ export class CreateReviewCardComponent implements OnInit {
   onSliderChange(ratingValue: number) {
     // call the service to get the products before and after this value
     this.selectedRating = ratingValue;
-    if (this.selectedRating && this.productCard) {
+    if (this.selectedRating != undefined && this.productCard) {
       this.reviewService
         .getProductLineup(this.selectedRating, this.productCard)
         .subscribe((lineup) => {
