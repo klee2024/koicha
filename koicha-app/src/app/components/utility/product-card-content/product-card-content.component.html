@@ -3,6 +3,7 @@
     <a
       [href]="productCardData.product_url"
       class="product-name-link min-w-0 font-mono text-lg font-medium break-words"
+      (click)="$event.stopPropagation()"
       target="_blank"
       rel="noopener noreferrer"
       >{{ productCardData.name }}</a

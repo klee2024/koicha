@@ -30,7 +30,7 @@
         <!--empty div for styling purposes-->
         <div class="product-card-buttons flex gap-3">
           <button
-            class="bookmark flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm uppercase tracking-wide text-black backdrop-blur"
+            class="bookmark flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm uppercase tracking-wide text-neutral-800 backdrop-blur border border-black/10 shadow-sm"
             (click)="$event.stopPropagation(); productToBookmark.emit(card)"
           >
             <ng-container *ngIf="card.bookmarked; else outlineBookmark">
@@ -67,7 +67,7 @@
             </ng-template>
           </button>
           <button
-            class="userReview flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm uppercase tracking-wide text-black backdrop-blur disabled:cursor-not-allowed disabled:opacity-50"
+            class="userReview flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm uppercase tracking-wide text-neutral-800 backdrop-blur border border-black/10 shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
             (click)="$event.stopPropagation(); productToReview.emit(card)"
             [disabled]="card.reviewed"
           >
