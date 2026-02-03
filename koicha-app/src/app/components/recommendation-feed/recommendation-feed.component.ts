@@ -9,6 +9,8 @@ import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
 import { UserProductsService } from '../../services/user-products-mock.service';
+import { catchError, forkJoin, of } from 'rxjs';
+import { ReviewService } from '../../services/review.service';
 
 @Component({
   selector: 'app-recommendation-feed',
@@ -25,6 +27,8 @@ export class RecommendationFeedComponent implements OnInit {
   allTags: Tag[] = [];
   allPreps: Preparation[] = [];
   loading = true;
+  bookmarkedProductIds = new Set<number>();
+  reviewedProductIds = new Set<number>();
 
   productToReview?: ProductCardData;
   productToBookmark?: ProductCardData;
@@ -33,13 +37,27 @@ export class RecommendationFeedComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
-    private userProductService: UserProductsService
+    private userProductService: UserProductsService,
+    private reviewService: ReviewService
   ) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((data) => {
-      this.allProducts = data;
-      console.log('all products on init: ', this.allProducts);
+    forkJoin({
+      products: this.productService.getProducts(),
+      bookmarks: this.userProductService.getUserBookmarks().pipe(
+        catchError(() => of([]))
+      ),
+      reviews: this.reviewService.getUserProductReviews().pipe(
+        catchError(() => of([]))
+      ),
+    }).subscribe(({ products, bookmarks, reviews }) => {
+      this.allProducts = products;
+      this.bookmarkedProductIds = new Set(
+        bookmarks.map((bookmark) => bookmark.product.id)
+      );
+      this.reviewedProductIds = new Set(
+        reviews.map((review) => review.product.id)
+      );
       this.loading = false;
 
       // react to URL changes only after products are received
@@ -149,6 +167,8 @@ export class RecommendationFeedComponent implements OnInit {
       preparation: product.preparation,
       tags: product.tags ?? [],
       matchPercentage: product.matchPercentage ?? 0,
+      bookmarked: this.bookmarkedProductIds.has(product.id),
+      reviewed: this.reviewedProductIds.has(product.id),
       variant: 'recommendation',
     };
   }
@@ -159,10 +179,26 @@ export class RecommendationFeedComponent implements OnInit {
     console.log('review product button works!');
   }
 
+  onReviewCreated(product: ProductCardData) {
+    const target = this.filteredProductCards.find(
+      (card) => card.id === product.id
+    );
+    if (target) {
+      target.reviewed = true;
+      if (target.bookmarked) {
+        target.bookmarked = false;
+        this.userProductService
+          .toggleBookmark(target.id)
+          .subscribe(() => {});
+      }
+    }
+  }
+
   onBookmarkProduct(product: ProductCardData) {
     this.productToBookmark = product;
     console.log(`bookmark product button works: ${product.id}!`);
     this.userProductService.toggleBookmark(product.id).subscribe((response) => {
+      product.bookmarked = response.bookmarked;
       console.log('product bookmark result: ', response);
     });
   }

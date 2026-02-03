@@ -46,6 +46,20 @@ export class BookmarkShelfComponent implements OnInit {
     // TODO: bring up the create review card component
   }
 
+  onReviewCreated(product: ProductCardData) {
+    const target = this.userBookmarks.find((card) => card.id === product.id);
+    if (target) {
+      target.reviewed = true;
+      if (target.bookmarked) {
+        target.bookmarked = false;
+        this.userProductService.toggleBookmark(target.id).subscribe(() => {});
+      }
+      this.userBookmarks = this.userBookmarks.filter(
+        (card) => card.id !== product.id
+      );
+    }
+  }
+
   onBookmarkProduct(product: ProductCardData) {
     this.productToBookmark = product;
     const productId = product.id;
@@ -55,6 +69,7 @@ export class BookmarkShelfComponent implements OnInit {
       // handles the response when the product is bookmarked:true or bookmarked:false
       // so the UI handles this responsively without a page refresh
       .subscribe(({ bookmarked }) => {
+        product.bookmarked = bookmarked;
         if (bookmarked) {
           const exists = this.userBookmarks.some(
             (bookmark) => bookmark.id === productId
@@ -86,6 +101,7 @@ export class BookmarkShelfComponent implements OnInit {
       preparation: bookmark.product.preparation,
       tags: bookmark.product.tags,
       matchPercentage: bookmark.product.matchPercentage ?? 0,
+      bookmarked: true,
       variant: 'recommendation',
     };
   }

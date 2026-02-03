@@ -2,11 +2,13 @@
 
 <ng-container *ngIf="authService.user$ | async as user; else signedOut">
   <div class="header">
-    <app-feed
-      [cards]="userBookmarks"
-      (productToReview)="onReviewProduct($event)"
-      (productToBookmark)="onBookmarkProduct($event)"
-    ></app-feed>
+    <ng-container *ngIf="userBookmarks.length; else emptyState">
+      <app-feed
+        [cards]="userBookmarks"
+        (productToReview)="onReviewProduct($event)"
+        (productToBookmark)="onBookmarkProduct($event)"
+      ></app-feed>
+    </ng-container>
 
     <div
       *ngIf="productToReview"
@@ -17,15 +19,26 @@
         class="max-w-2xl"
         [productCard]="productToReview"
         (click)="$event.stopPropagation()"
+        (reviewCreated)="onReviewCreated($event)"
         (closeSelected)="closeReviewCard()"
       ></app-create-review-card>
     </div>
   </div>
 </ng-container>
 
+<ng-template #emptyState>
+  <div
+    class="status flex min-h-[12rem] items-center justify-center px-4 text-center font-mono text-2xl text-green-700"
+  >
+    bookmark products you want to try!
+  </div>
+</ng-template>
+
 <!-- TODO: styling -->
 <ng-template #signedOut>
-  <div class="max-w-xl text-lg text-neutral-600">
-    Sign in or sign up to bookmark products!
+  <div
+    class="status flex min-h-[12rem] items-center justify-center px-4 text-center font-mono text-2xl text-green-700"
+  >
+    sign in or sign up to view
   </div>
 </ng-template>

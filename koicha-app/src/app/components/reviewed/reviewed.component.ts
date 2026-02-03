@@ -56,6 +56,14 @@ export class ReviewedComponent {
     console.log(product);
   }
 
+  onReviewCreated(product: ProductCardData) {
+    const target = this.userReviews.find((card) => card.id === product.id);
+    if (target) {
+      target.reviewed = true;
+      target.bookmarked = false;
+    }
+  }
+
   onBookmarkProduct(product: ProductCardData) {
     this.productToBookmark = product;
 
@@ -80,6 +88,7 @@ export class ReviewedComponent {
       preparation: review.product.preparation,
       tags: review.product.tags,
       variant: 'review',
+      reviewed: true,
       userScore: review.user_rating,
       // TODO: depracate this, this should be calculated based off of the backend ordering
       userRanking: review.user_ranking,

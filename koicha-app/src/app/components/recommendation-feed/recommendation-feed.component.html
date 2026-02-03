@@ -59,6 +59,7 @@
         class="max-w-2xl"
         [productCard]="productToReview"
         (click)="$event.stopPropagation()"
+        (reviewCreated)="onReviewCreated($event)"
         (closeSelected)="closeReviewCard()"
       ></app-create-review-card>
     </div>

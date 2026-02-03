@@ -60,6 +60,7 @@ export class CreateReviewCardComponent implements OnInit {
   @Input() productCard?: ProductCardData;
   @Input() productsToCompare?: ProductCardData[];
   @Output() closeSelected = new EventEmitter<void>();
+  @Output() reviewCreated = new EventEmitter<ProductCardData>();
 
   isCardVisible = true;
 
@@ -94,10 +95,15 @@ export class CreateReviewCardComponent implements OnInit {
         this.reviewService
           .createUserProductReview(createReviewPayload)
           .subscribe((data) => {
+            if (this.productCard) {
+              this.productCard.reviewed = true;
+              this.productCard.bookmarked = false;
+              this.reviewCreated.emit(this.productCard);
+            }
             console.log('review was created ', data);
+            this.closeCard();
           });
         console.log('creating review!');
-        this.closeCard();
       }
       // TODO: present the new review
       // get the newly created review from the review card, use the review details component

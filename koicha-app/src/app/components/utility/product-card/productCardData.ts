@@ -10,6 +10,8 @@ interface BaseProductCard {
   preparation: Preparation;
   matchPercentage: number;
   tags: Tag[];
+  bookmarked?: boolean;
+  reviewed?: boolean;
 }
 
 export interface RecommendationCard extends BaseProductCard {
