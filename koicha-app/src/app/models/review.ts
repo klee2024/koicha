@@ -14,7 +14,7 @@ export interface UserReview {
   userReviewText: string;
   productUrl: string;
   productImageUrl: string;
-  matchPercentage: number;
+  matchPercentage?: number;
   // review values
   reviewPreferenceKey: string; // enum from the backend
   reviewPreferenceValue: number; // enum from the backend

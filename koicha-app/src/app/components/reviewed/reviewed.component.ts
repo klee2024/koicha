@@ -94,7 +94,7 @@ export class ReviewedComponent {
       userRanking: review.user_ranking,
       reviewText: review.user_review_text,
       // TODO: determine how to get or join match percentage on the backend for reviews
-      matchPercentage: 0,
+      matchPercentage: undefined,
       // TODO: refactor for review sub preference value
       reviewPreferenceValue: review.preference_level,
     };

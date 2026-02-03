@@ -161,14 +161,17 @@ export class CreateReviewCardComponent implements OnInit {
         this.maxSubPreferenceValue != undefined &&
         this.minSubPreferenceValue != undefined
       ) {
-        if (this.productCard.matchPercentage > this.maxSubPreferenceValue) {
+        const matchPercentage = this.productCard.matchPercentage;
+        if (matchPercentage == undefined) {
+          this.selectedRating = this.minSubPreferenceValue;
+        } else if (matchPercentage > this.maxSubPreferenceValue) {
           this.selectedRating = this.maxSubPreferenceValue;
         } else if (
-          this.productCard.matchPercentage < this.minSubPreferenceValue
+          matchPercentage < this.minSubPreferenceValue
         ) {
           this.selectedRating = this.minSubPreferenceValue;
         } else {
-          this.selectedRating = this.productCard.matchPercentage;
+          this.selectedRating = matchPercentage;
         }
 
         this.reviewService

@@ -166,7 +166,7 @@ export class RecommendationFeedComponent implements OnInit {
       product_url: product.product_url,
       preparation: product.preparation,
       tags: product.tags ?? [],
-      matchPercentage: product.matchPercentage ?? 0,
+      matchPercentage: product.matchPercentage,
       bookmarked: this.bookmarkedProductIds.has(product.id),
       reviewed: this.reviewedProductIds.has(product.id),
       variant: 'recommendation',

@@ -8,7 +8,7 @@ interface BaseProductCard {
   image_url: string;
   product_url: string;
   preparation: Preparation;
-  matchPercentage: number;
+  matchPercentage?: number;
   tags: Tag[];
   bookmarked?: boolean;
   reviewed?: boolean;

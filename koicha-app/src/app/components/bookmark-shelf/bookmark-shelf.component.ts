@@ -100,7 +100,7 @@ export class BookmarkShelfComponent implements OnInit {
       product_url: bookmark.product.product_url,
       preparation: bookmark.product.preparation,
       tags: bookmark.product.tags,
-      matchPercentage: bookmark.product.matchPercentage ?? 0,
+      matchPercentage: bookmark.product.matchPercentage,
       bookmarked: true,
       variant: 'recommendation',
     };
