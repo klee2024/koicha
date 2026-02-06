@@ -17,6 +17,7 @@ from apps.taste_profiles.models import (
 )
 
 from apps.products.services.product_tastes import calculate_tag_intensities
+from .product_specs import product_specs
 
 
 class Command(BaseCommand):
@@ -28,7 +29,7 @@ class Command(BaseCommand):
             flavor_characteristics = self._create_flavor_characteristics()
             preparations = self._create_preparations()
             tags = self._create_tags()
-            products = self._create_products(preparations, tags)
+            products = self._create_products_and_tags(preparations)
             self._create_quiz()
             archetypes = self._create_taste_profile_archetypes()
             review_preferences = self._create_review_preferences()
@@ -95,160 +96,21 @@ class Command(BaseCommand):
                 taste_dimension=matching_flavor_characteristic, 
                 defaults={"intensity": weight}
             )
+    
+    def create_product_tags(self, tags):
+        """ 
+        Helper function to create product tastes based on tags 
+        """
+        tag_objects = [] 
+        for slug in tags:
+            tag, _ = Tag.objects.get_or_create(slug=slug, name=slug)
+            tag_objects.append(tag)
+        self.stdout.write(self.style.SUCCESS(f"Tags ready ({len(tags)})"))
+        return tag_objects
 
-    def _create_products(self, preparations, tags):
-        product_specs = [
-            {
-                "slug": "kiyona-matcha",
-                "name": "Kiyona Matcha",
-                "brand": "Kettl",
-                "preparation": "usucha",
-                "image_url": "https://kettl.co/cdn/shop/files/3591029d-cbe4-4bee-b85e-3ac3eb4dbee0_1680x.jpg?v=1755114175",
-                "product_url": "https://kettl.co/products/kiyona-matcha?pr_prod_strat=e5_desc&pr_rec_id=a3ad54589&pr_rec_pid=8667352629498&pr_ref_pid=8098143666426&pr_seq=uniform",
-                "tags": ["astringent", "cocoa", "nutty"],
-            },
-            {
-                "slug": "kohata-matcha",
-                "name": "Kohata Matcha",
-                "brand": "Kettl",
-                "preparation": "koicha",
-                "image_url": "https://kettl.co/cdn/shop/files/4b86217c-e836-4027-a489-170dbe9514ae_1680x.jpg?v=1755022395",
-                "product_url": "https://kettl.co/collections/matcha-green-tea/products/kohata-matcha-20g",
-                "tags": ["oceanic", "savory", "umami"],
-            },
-            {
-                "slug": "yamagumo-matcha",
-                "name": "Yamagumo Matcha",
-                "brand": "Kettl",
-                "preparation": "usucha",
-                "image_url": "https://kettl.co/cdn/shop/files/2a9f4b9a-5227-4211-b208-83f94887f5c4_1680x.jpg?v=1752611694",
-                "product_url": "https://kettl.co/products/yamagumo-matcha?_pos=5&_sid=fbb9e8347&_ss=r",
-                "tags": ["astringent", "verdant"],
-            },
-            {
-                "slug": "sayaka",
-                "name": "Sayaka",
-                "brand": "Ippodo",
-                "preparation": "usucha",
-                "image_url": "https://ippodotea.com/cdn/shop/files/ippodo-tea-sayaka-matcha-plate.jpg?v=1761798292&width=600",
-                "product_url": "https://ippodotea.com/collections/matcha/products/sayaka-no-mukashi",
-                "tags": ["creamy", "sweet", "umami", "astringent"],
-            },
-            {
-                "slug": "ummon",
-                "name": "Ummon",
-                "brand": "Ippodo",
-                "preparation": "koicha",
-                "image_url": "https://ippodotea.com/cdn/shop/files/ippodo-tea-ummon-matcha-plate.jpg?v=1761797795&width=600",
-                "product_url": "https://ippodotea.com/collections/matcha/products/ummon-no-mukashi-40g",
-                "tags": ["sweet", "umami", "astringent"],
-            },
-            {
-                "slug": "kan",
-                "name": "Kan",
-                "brand": "Ippodo",
-                "preparation": "latte",
-                "image_url": "https://ippodotea.com/cdn/shop/files/ippodo-tea-kan-matcha-plate.jpg?v=1761833799&width=600",
-                "product_url": "https://ippodotea.com/collections/matcha/products/kan-20",
-                "tags": ["umami", "sweet", "astringent"],
-            },
-            {
-                "slug": "ikuyo",
-                "name": "Ikuyo",
-                "brand": "Ippodo",
-                "preparation": "latte",
-                "image_url": "https://ippodotea.com/cdn/shop/files/ippodo-tea-ikuyo-matcha-plate.jpg?v=1763055331&width=600",
-                "product_url": "https://ippodotea.com/collections/matcha/products/ikuyo-20",
-                "tags": ["astringent", "umami", "sweet"],
-            },
-            {
-                "slug": "wakaki",
-                "name": "Wakaki",
-                "brand": "Ippodo",
-                "preparation": "usucha",
-                "image_url": "https://ippodotea.com/cdn/shop/files/ippodo-tea-wakaki-matcha-plate.jpg?v=1761783548&width=600",
-                "product_url": "https://ippodotea.com/collections/matcha/products/wakaki-20g-box",
-                "tags": ["umami", "astringent", "sweet"],
-            },
-            {
-                "slug": "rockys-matcha-ceremonial-blend-matcha",
-                "name": "Ceremonial Blend",
-                "brand": "Rocky's Matcha",
-                "preparation": "latte",
-                "image_url": "https://www.rockysmatcha.com/cdn/shop/files/Swipe_Re-Edit.jpg?crop=center&height=150&v=1760692987&width=150",
-                "product_url": "https://www.rockysmatcha.com/products/rockys-matcha-ceremonial-blend-matcha-100g",
-                "tags": ["rich", "savory"],
-            },
-            {
-                "slug": "rockys-matcha-osada-ceremonial-blend",
-                "name": "Osada Ceremonial Blend",
-                "brand": "Rocky's Matcha",
-                "preparation": "latte",
-                "image_url": "https://www.rockysmatcha.com/cdn/shop/files/Rocky_sOct2024Photo7.2Large.jpg?crop=center&height=863&v=1763596042&width=720",
-                "product_url": "https://www.rockysmatcha.com/products/rockys-matcha-osada-ceremonial-blend-matcha-20g",
-                "tags": ["silky", "roasted"],
-            },
-            {
-                "slug": "rockys-matcha-Shiranami-ceremonial-blend",
-                "name": "Shiranami Ceremonial Blend",
-                "brand": "Rocky's Matcha",
-                "preparation": "usucha",
-                "image_url": "https://www.rockysmatcha.com/cdn/shop/files/rocky_smatchaShiranamiCeremonialBlendMatcha100g2-min.jpg?crop=center&height=863&v=1760685401&width=720",
-                "product_url": "https://www.rockysmatcha.com/products/rockys-matcha-shiranami-ceremonial-blend-matcha-20g",
-                "tags": ["vegetal", "umami"],
-            },
-            {
-                "slug": "rockys-matcha-organic-Kogacha",
-                "name": "Organic Kogacha",
-                "brand": "Rocky's Matcha",
-                "preparation": "latte",
-                "image_url": "https://www.rockysmatcha.com/cdn/shop/files/rocky_smatchaOrganicKogachaBlend20g2_a3e7b55b-c92f-4539-9c31-320f547b13f3.jpg?crop=center&height=863&v=1760683638&width=720",
-                "product_url": "https://www.rockysmatcha.com/products/rocky-s-matcha-organic-kogacha-blend-20g",
-                "tags": ["sweet", "umami", "chocolate"],
-            },
-            {
-                "slug": "rockys-matcha-koshun",
-                "name": "Single Cultivar Koshun",
-                "brand": "Rocky's Matcha",
-                "preparation": "latte",
-                "image_url": "https://www.rockysmatcha.com/cdn/shop/files/koshun-Rocky_sMatcha_May2024_Photo_Round100022.jpg?crop=center&height=863&v=1715825029&width=720",
-                "product_url": "https://www.rockysmatcha.com/products/rockys-matcha-single-cultivar-koshun-matcha-20g",
-                "tags": ["grassy", "earthy", "sweet"],
-            },
-            {
-                "slug": "rockys-matcha-asahi",
-                "name": "Single Cultivar Asahi",
-                "brand": "Rocky's Matcha",
-                "preparation": "latte",
-                "image_url": "https://www.rockysmatcha.com/cdn/shop/files/rocky_s_matcha_Single_Cultivar_Asahi_Matcha_20g_2-min.png?crop=center&height=863&v=1760621056&width=720",
-                "product_url": "https://www.rockysmatcha.com/products/rockys-matcha-single-cultivar-asahi-matcha-20g",
-                "tags": ["umami", "vanilla"],
-            },
-            {
-                "slug": "rockys-matcha-horii-shichimeien-narino",
-                "name": "Horii Shichimeien Narino",
-                "brand": "Rocky's Matcha",
-                "preparation": "usucha",
-                "image_url": "https://www.rockysmatcha.com/cdn/shop/files/Narino_Ball_2-White-min.jpg?crop=center&height=863&v=1760692723&width=720",
-                "product_url": "https://www.rockysmatcha.com/products/rockys-matcha-single-cultivar-narino-matcha-20g",
-                "tags": ["umami", "rich", "floral"],
-            },
-            # TODO: finish rocky's matcha 
-            # TODO: kettl matcha
-
-            {
-                "slug": "meiko-ceremonial-matcha",
-                "name": "Meiko™ Ceremonial Matcha",
-                "brand": "Matchaeologist",
-                "preparation": "latte",
-                "image_url": "https://www.matchaeologist.com/cdn/shop/products/P-01_1024x1024.jpg?v=1487288229",
-                "product_url": "https://www.matchaeologist.com/products/meiko-ceremonial-matcha?srsltid=AfmBOophHDiNmVeBfMC_UK7oLzN1Cfls2uOWo1LlIly5I6xyyFdjmE3u",
-                "tags": ["floral", "sweet", "savory", "astringent"],
-            },
-        ]
+    def _create_products_and_tags(self, preparations):
         products = {}
         for spec in product_specs:
-            tag_slugs = spec["tags"]
             prep = preparations[spec["preparation"]]
             slug = spec["slug"]
             product, _ = Product.objects.get_or_create(
@@ -266,7 +128,7 @@ class Command(BaseCommand):
             product.image_url = spec["image_url"]
             product.product_url = spec["product_url"]
             product.save()
-            product.tags.set([tags[tag_slug] for tag_slug in tag_slugs if tag_slug in tags])
+            product.tags.set(self.create_product_tags(spec["tags"]))
             self.create_product_tastes(product, spec["tags"])
             products[slug] = product
         self.stdout.write(self.style.SUCCESS(f"Products ready ({len(products)})"))

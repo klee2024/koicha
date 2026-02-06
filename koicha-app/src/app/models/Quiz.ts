@@ -24,5 +24,5 @@ export interface Quiz {
 
 export interface QuizAnswer {
   question_id: number;
-  answer_id: number | null;
+  option_id: number | null;
 }

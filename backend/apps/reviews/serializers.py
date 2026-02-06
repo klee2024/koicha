@@ -75,3 +75,4 @@ class CreateReviewSerializer(serializers.ModelSerializer):
                 extra={"review_id": review.id, "user_id": request.user.id, "product_id": review.product_id},
             )
         return review
+

@@ -7,16 +7,19 @@ import { Quiz, QuizAnswer } from '../models/Quiz';
   providedIn: 'root',
 })
 export class QuizService {
-  private readonly baseUrl = 'http://127.0.0.1:8000/api'; // e.g. 'http://localhost:8000/api/quiz'
+  private readonly baseUrl = 'http://127.0.0.1:8000/api/quiz'; // e.g. 'http://localhost:8000/api/quiz'
 
   constructor(private http: HttpClient) {}
 
-  getQuiz(quiz_slug: string) {
-    return this.http.get<Quiz>(`${this.baseUrl}/quiz/${quiz_slug}/latest/`);
+  getQuiz(quizSlug: string) {
+    return this.http.get<Quiz>(`${this.baseUrl}/${quizSlug}/latest/`);
   }
 
-  // TODO: backend integration
-  submitQuiz(userId: string, quizResults: { answers: QuizAnswer[] }) {
-    return of({ success: true }).pipe(delay(100));
+  submitQuiz(quizSlug: string, quizResults: { answers: QuizAnswer[] }) {
+    console.log('quizSlug: ', quizSlug);
+    return this.http.post(
+      `${this.baseUrl}/${quizSlug}/latest/submit/`,
+      quizResults
+    );
   }
 }

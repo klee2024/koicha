@@ -5,14 +5,14 @@ from apps.products.models import Product
 
 from dataclasses import dataclass
 import logging
-from typing import Dict, Iterable, Tuple
 
 from django.db import transaction
-from django.db.models import Count, Q
+from django.db.models import Count
 
 from apps.taste_profiles.models import TasteProfile, TasteProfileFlavorDimension, FlavorCharacteristic
 from apps.products.models import ProductTaste
 from apps.reviews.models import Review
+from .utils import get_or_create_profile_with_defaults
 
 logger = logging.getLogger(__name__)
 
@@ -30,30 +30,7 @@ def apply_review_to_taste_profile(review):
         .values_list("id", flat=True)
     )
 
-    # TODO: consider how to handle this - a user should always have a taste profile (created upon user creation)
-    # get the user's taste profile
-    taste_profile, _created = TasteProfile.objects.get_or_create(
-        user=review.user,
-        defaults={"is_system": False},
-    )
-
-
-    # ensure TasteProfileFlavorDimension rows exist for all active mains
-    existing_dim_ids = set(
-        TasteProfileFlavorDimension.objects.filter(taste_profile=taste_profile, characteristic_id__in=active_main_dims)
-        .values_list("characteristic_id", flat=True)
-    )
-    missing = [characteristic for characteristic in active_main_dims if characteristic not in existing_dim_ids]
-    if missing:
-        TasteProfileFlavorDimension.objects.bulk_create([
-            TasteProfileFlavorDimension(
-                taste_profile=taste_profile,
-                characteristic_id=characteristic,
-                value=50,
-                confidence=0.0,
-            )
-            for characteristic in missing
-        ])
+    taste_profile = get_or_create_profile_with_defaults(review, active_main_dims)
 
     # Update each main taste dimension that is present in the product that is being reviewed 
 

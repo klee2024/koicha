@@ -16,7 +16,7 @@
       class="lowercase pt-10 cursor-pointer transition hover:text-neutral-500 w-full"
       [ngClass]="{
         'font-semibold underline text-green-800':
-          control?.value?.answer_id === option.id
+          control?.value?.option_id === option.id
       }"
       *ngFor="let option of question.options"
       (click)="select(option.id)"
@@ -38,7 +38,7 @@
     <button
       class="text-green-700 underline disabled:opacity-40 disabled:cursor-not-allowed"
       (click)="next.emit()"
-      [disabled]="control?.value?.answer_id == null"
+      [disabled]="control?.value?.option_id == null"
     >
       <span *ngIf="!lastQuestion">next</span>
       <span *ngIf="lastQuestion">discover my taste profile</span>

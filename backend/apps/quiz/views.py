@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny  # or AllowAny for public quizzes
 from .models import Quiz, QuizAnswer, QuizOption, QuizQuestion, QuizSession
 from .serializers import QuizSerializer, QuizSubmitSerializer
+from ..taste_profiles.services.quiz_taste_profile import apply_quiz_to_taste_profile
 
 class LatestQuizView(APIView): 
     """
@@ -61,10 +62,11 @@ class SubmitQuizAnswers(APIView):
             quiz=latest_quiz
         )
 
-        # 4. store answers
+        # 4. store answers and build answer list to apply answers to taste profile
+        quiz_answers = []
         for answer in answers_data: 
             question_id = answer["question_id"]
-            option_id = answer["answer_id"]
+            option_id = answer["option_id"]
             try:
                 question = QuizQuestion.objects.get(id=question_id, quiz=latest_quiz)
                 option = QuizOption.objects.get(id=option_id, question=question)
@@ -73,13 +75,19 @@ class SubmitQuizAnswers(APIView):
                     {"detail": "Invalid question/option pairing."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-            QuizAnswer.objects.create(
+            quiz_answers.append(QuizAnswer.objects.create(
                 session=session, 
                 question=question, 
                 option=option
-            )
+            ))
+
+        try:
+            apply_quiz_to_taste_profile(session, quiz_answers)
+        except Exception as e:
+            # Log the error for debugging purposes
+            print(f"Error applying quiz to taste profile: {e}")
         
-        # 5. TODO: If first-time-quiz, update the taste profile
+    
         return Response({"detail": "Quiz submitted."}, status=status.HTTP_201_CREATED)
  
 

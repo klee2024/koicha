@@ -59,7 +59,7 @@ export class FirstTimeQuizPageComponent {
       console.log('quiz questions: ', this.quizQuestions);
       const controls = this.quizQuestions.map((q) =>
         this.fb.control<QuizAnswer>(
-          { question_id: q.id, answer_id: null },
+          { question_id: q.id, option_id: null },
           { nonNullable: true }
         )
       );
@@ -95,7 +95,7 @@ export class FirstTimeQuizPageComponent {
       // clear the first answer
       this.answersArray?.at(0).setValue({
         question_id: 0,
-        answer_id: null,
+        option_id: null,
       });
     }
   }
@@ -106,7 +106,7 @@ export class FirstTimeQuizPageComponent {
       const currentQuestion = this.quizQuestions[this.quizQuestionIndex];
       this.answersArray.at(this.quizQuestionIndex).setValue({
         question_id: currentQuestion.id,
-        answer_id: answerId,
+        option_id: answerId,
       });
     }
   }
@@ -118,8 +118,10 @@ export class FirstTimeQuizPageComponent {
         answers: this.answersArray.value,
       };
       console.log('submitting quiz questions: ', payload);
-      this.quizQuestionService.submitQuiz('user123', payload);
-      this.router.navigate(['/taste-profile']);
+      this.quizQuestionService.submitQuiz(this.quizSlug, payload).subscribe({
+        next: () => this.router.navigate(['/taste-profile']),
+        error: (err) => console.error('submit failed', err),
+      });
     }
   }
 }
