@@ -1,6 +1,6 @@
 <section class="recommendation-feed">
   <div class="filters">
-    <div class="filter-row flex flex-wrap items-center gap-x-6 gap-y-2 pl-4">
+    <div class="filter-row flex flex-wrap items-center gap-x-10 gap-y-2 pl-4">
       <span class="font-mono text-xl shrink-0">flavor profiles</span>
       <ul
         class="filter-list flex flex-wrap items-center gap-4"
@@ -10,14 +10,19 @@
           *ngFor="let tag of allTags; trackBy: trackById"
           [id]="tag.id"
           (click)="toggleTag(tag.slug)"
-          [class.is-active-green-700]="activeTagSlugs.includes(tag.slug)"
           class="text-xl font-sans"
         >
-          {{ tag.name }}
+          <button
+            [class.is-active-green-700]="activeTagSlugs.includes(tag.slug)"
+          >
+            {{ tag.name }}
+          </button>
         </li>
       </ul>
     </div>
-    <div class="filter-row flex flex-wrap items-center gap-x-16 gap-y-2 pl-4 mt-4 w-full">
+    <div
+      class="filter-row flex flex-wrap items-center gap-x-16 gap-y-2 pl-4 mt-4"
+    >
       <span class="font-mono text-xl pr-3">preparations</span>
       <ul
         class="filter-list flex flex-wrap items-center gap-4"
@@ -27,10 +32,14 @@
           *ngFor="let prep of allPreps; trackBy: trackById"
           [id]="prep.id"
           (click)="togglePreparation(prep.slug)"
-          [class.is-active-green-700]="activePrepSlug === prep.slug"
-          class="text-xl font-sans lowercase"
+          class="text-xl font-sans"
         >
-          {{ prep.name }}
+          <button
+            [class.is-active-green-700]="activePrepSlug === prep.slug"
+            class="lowercase"
+          >
+            {{ prep.name }}
+          </button>
         </li>
       </ul>
     </div>

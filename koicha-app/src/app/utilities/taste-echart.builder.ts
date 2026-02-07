@@ -13,16 +13,20 @@ export function buildTasteRadarOptions({
   values,
   color = '#40826D',
   rings = 5,
-  radius = '78%',
+  radius = '70%',
 }: TasteRadarArgs): EChartsOption {
   return {
     tooltip: { trigger: 'item' },
     radar: {
       radius,
-      center: ['50%', '50%'],
+      center: ['50%', '37%'],
       shape: 'polygon',
       splitNumber: rings,
-      axisName: { color: '#333' },
+      axisName: {
+        color: '#333',
+        fontSize: 18,
+        fontFamily: 'IBM Plex Mono, monospace',
+      },
 
       splitLine: {
         lineStyle: {
