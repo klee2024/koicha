@@ -8,10 +8,27 @@ import { TasteProfileComponent } from './components/taste-profile-page/taste-pro
 import { FirstTimeQuizPageComponent } from './components/first-time-quiz/first-time-quiz-page/first-time-quiz-page.component';
 import { SignupSigninComponent } from './components/auth/signup-signin/signup-signin.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import {
+  productsResolver,
+  bookmarksResolver,
+  reviewsResolver,
+  tagsResolver,
+  preparationsResolver,
+} from './resolvers/explore.resolvers';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'explore' },
-  { path: 'explore', component: RecommendationFeedComponent },
+  {
+    path: 'explore',
+    component: RecommendationFeedComponent,
+    resolve: {
+      products: productsResolver,
+      bookmarks: bookmarksResolver,
+      reviews: reviewsResolver,
+      tags: tagsResolver,
+      preparations: preparationsResolver,
+    },
+  },
   {
     path: 'tea-shelf',
     component: TeaShelfPageComponent,

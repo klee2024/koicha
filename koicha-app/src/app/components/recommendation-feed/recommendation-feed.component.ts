@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, Preparation, Tag } from '../../models/product';
 
-import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
@@ -9,8 +8,8 @@ import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
 import { UserProductsService } from '../../services/user-products-mock.service';
-import { catchError, forkJoin, of } from 'rxjs';
-import { ReviewService } from '../../services/review.service';
+import { UserBookmark } from '../../models/bookmark';
+import { Review } from '../../models/review';
 
 @Component({
   selector: 'app-recommendation-feed',
@@ -36,22 +35,18 @@ export class RecommendationFeedComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService,
-    private userProductService: UserProductsService,
-    private reviewService: ReviewService
+    private userProductService: UserProductsService
   ) {}
 
   ngOnInit() {
-    forkJoin({
-      products: this.productService.getProducts(),
-      bookmarks: this.userProductService.getUserBookmarks().pipe(
-        catchError(() => of([]))
-      ),
-      reviews: this.reviewService.getUserProductReviews().pipe(
-        catchError(() => of([]))
-      ),
-    }).subscribe(({ products, bookmarks, reviews }) => {
+    this.route.data.subscribe((data) => {
+      const products = data['products'] as Product[];
+      const bookmarks = data['bookmarks'] as UserBookmark[];
+      const reviews = data['reviews'] as Review[];
+
       this.allProducts = products;
+      this.allTags = data['tags'] as Tag[];
+      this.allPreps = data['preparations'] as Preparation[];
       this.bookmarkedProductIds = new Set(
         bookmarks.map((bookmark) => bookmark.product.id)
       );
@@ -59,20 +54,11 @@ export class RecommendationFeedComponent implements OnInit {
         reviews.map((review) => review.product.id)
       );
       this.loading = false;
+    });
 
-      // react to URL changes only after products are received
-      this.route.queryParamMap.subscribe((queryParams) =>
-        this.applyFiltersFromParams(queryParams)
-      );
-    });
-    this.productService.getTags().subscribe((tags) => {
-      this.allTags = tags;
-      console.log('all tags on init: ', this.allTags);
-    });
-    this.productService.getPreparations().subscribe((preparations) => {
-      this.allPreps = preparations;
-      console.log('all preps on init: ', this.allPreps);
-    });
+    this.route.queryParamMap.subscribe((queryParams) =>
+      this.applyFiltersFromParams(queryParams)
+    );
   }
 
   // FILTER BY TAGS AND QUERY PARAMS
