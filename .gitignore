@@ -53,3 +53,5 @@ backend/apps/users/migrations/__pycache__/
 *.pyc
 backend/server.log
 backend/koicha_backend/__pycache__/settings.cpython-313.pyc
+koicha_backend/__pycache__/settings.cpython-313.pyc
+apps/__init__.py

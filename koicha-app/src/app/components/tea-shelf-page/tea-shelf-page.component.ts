@@ -10,5 +10,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './tea-shelf-page.component.css',
 })
 export class TeaShelfPageComponent {
+  checkAuth() {
+    throw new Error('Method not implemented.');
+  }
   constructor(public authService: AuthService) {}
 }

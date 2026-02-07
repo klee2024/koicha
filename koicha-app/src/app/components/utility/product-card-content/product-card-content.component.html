@@ -8,7 +8,7 @@
       rel="noopener noreferrer"
       >{{ productCardData.name }}</a
     >
-    <span class="product-brand shrink-0 font-mono text-lg">{{
+    <span class="product-brand shrink-0 font-mono text-lg italic">{{
       productCardData.brand
     }}</span>
   </div>
@@ -34,7 +34,7 @@
     <ng-container class="variant" *ngIf="!hideProductMetrics">
       @switch (productCardData.variant){ @case ('review'){
       <div class="recommendation-percent font-mono text-xs">
-        Rating: {{ productCardData.userScore }}
+        Rating: {{ productCardData.userScore / 10 | number : "1.1-1" }}
       </div>
       } @case ('recommendation'){
       <div
