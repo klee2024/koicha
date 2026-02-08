@@ -91,10 +91,12 @@ export class FirstTimeQuizPageComponent {
       this.quizQuestionIndex -= 1;
     }
     if (this.quizQuestionIndex == -1) {
-      // clear the first answer
-      this.answersArray?.at(0).setValue({
-        question_id: 0,
-        option_id: null,
+      // clear all answers when returning to intro
+      this.answersArray?.controls.forEach((control, i) => {
+        control.setValue({
+          question_id: this.quizQuestions[i].id,
+          option_id: null,
+        });
       });
     }
   }
