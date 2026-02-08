@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { QuizQuestion, QuizAnswer } from '../../../models/Quiz';
 import { CommonModule } from '@angular/common';
 import { QuizService } from '../../../services/quiz.service';
+import { AuthService } from '../../../services/auth.service';
 import { FirstTimeQuizIntroComponent } from '../first-time-quiz-intro/first-time-quiz-intro.component';
 import {
   FormControl,
@@ -11,7 +12,9 @@ import {
   FormArray,
 } from '@angular/forms';
 import { FirstTimeQuizQuestionComponent } from '../first-time-quiz-question/first-time-quiz-question.component';
+import { SignupSigninComponent } from '../../auth/signup-signin/signup-signin.component';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-first-time-quiz-page',
@@ -21,6 +24,7 @@ import { Router } from '@angular/router';
     FirstTimeQuizIntroComponent,
     ReactiveFormsModule,
     FirstTimeQuizQuestionComponent,
+    SignupSigninComponent,
   ],
   templateUrl: './first-time-quiz-page.component.html',
   styleUrl: './first-time-quiz-page.component.css',
@@ -41,9 +45,12 @@ export class FirstTimeQuizPageComponent {
     return;
   }
 
+  showSignup = false;
+
   constructor(
     private fb: FormBuilder,
     private quizQuestionService: QuizService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.fb.group({
@@ -113,15 +120,33 @@ export class FirstTimeQuizPageComponent {
   }
 
   private submit() {
-    if (this.form && this.answersArray) {
-      if (this.form.invalid) return;
-      const payload = {
-        answers: this.answersArray.value,
-      };
-      this.quizQuestionService.submitQuiz(this.quizSlug, payload).subscribe({
-        next: () => this.router.navigate(['/taste-profile']),
-        error: (err) => console.error('submit failed', err),
+    if (!this.form || !this.answersArray || this.form.invalid) return;
+
+    this.authService
+      .isAuthenticated$()
+      .pipe(take(1))
+      .subscribe((isAuth) => {
+        if (isAuth) {
+          this.submitQuiz();
+        } else {
+          this.showSignup = true;
+        }
       });
-    }
+  }
+
+  onSignupComplete() {
+    this.showSignup = false;
+    this.submitQuiz();
+  }
+
+  private submitQuiz() {
+    if (!this.form || !this.answersArray) return;
+    const payload = {
+      answers: this.answersArray.value,
+    };
+    this.quizQuestionService.submitQuiz(this.quizSlug, payload).subscribe({
+      next: () => this.router.navigate(['/taste-profile']),
+      error: (err) => console.error('submit failed', err),
+    });
   }
 }

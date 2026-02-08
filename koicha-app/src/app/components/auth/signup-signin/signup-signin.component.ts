@@ -64,7 +64,9 @@ export class SignupSigninComponent implements OnInit {
       this.authService.signUpAndSignIn(this.form.value).subscribe({
         next: () => {
           this.closed.emit();
-          this.router.navigate(['/taste-profile']);
+          if (!this.overlay) {
+            this.router.navigate(['/taste-profile']);
+          }
         },
         error: (err: HttpErrorResponse) => {
           this.errorMessage =
