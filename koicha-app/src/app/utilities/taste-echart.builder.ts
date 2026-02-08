@@ -27,7 +27,6 @@ export function buildTasteRadarOptions({
         fontSize: 20,
         fontFamily: 'IBM Plex Mono, monospace',
       },
-      axisNameGap: 14,
 
       splitLine: {
         lineStyle: {
@@ -81,7 +80,7 @@ export function buildTasteRadarOptions({
             radius: '75%',
             center: ['50%', '50%'],
             axisName: {
-              fontSize: 20,
+              fontSize: 14,
             },
             axisNameGap: 6,
           },
