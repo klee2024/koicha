@@ -163,7 +163,7 @@ class Command(BaseCommand):
                     {"value": "creamy", "label": "Cozy"},
                     {"value": "floral", "label": "Airy"},
                     {"value": "umami", "label": "Luxurious"},
-                    {"value": "grassy", "label": "Minimalist"},
+                    {"value": "grassy", "label": "Minimal"},
                 ],
             },
             {
@@ -209,20 +209,20 @@ class Command(BaseCommand):
                 "initial_prompt": "What looks good on the menu?",
                 "follow_up_prompt": "",
                 "options": [
-                    {"value": "umami", "label": "Mushroom pappardelle"},
-                    {"value": "nutty", "label": "Pistachio croissant"},
-                    {"value": "astringent", "label": "Sushi"},
-                    {"value": "grassy", "label": "Salad"},
+                    {"value": "umami", "label": "Mushroom soup"},
+                    {"value": "nutty", "label": "Soba noodles"},
+                    {"value": "astringent", "label": "Persimmon tart"},
+                    {"value": "grassy", "label": "Green Salad"},
                 ],
             },
             {
                 "initial_prompt": "You'll take a",
                 "follow_up_prompt": "to go",
                 "options": [
-                    {"value": "nutty", "label": "Cardamom bun"},
+                    {"value": "nutty", "label": "Almond Croissant"},
                     {"value": "creamy", "label": "Canele"},
-                    {"value": "floral", "label": "Orange blossom madeleine"},
-                    {"value": "umami", "label": "Spinach and white cheddar puff pastry"},
+                    {"value": "floral", "label": "Lavender Shortbread"},
+                    {"value": "umami", "label": "Asiago bearclaw"},
                 ],
             },
         ]
