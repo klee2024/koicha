@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
@@ -21,8 +22,6 @@ export class SignupSigninComponent implements OnInit {
   @Input() overlay = false;
   @Output() closed = new EventEmitter<void>();
 
-  // TODO: implement dynamic error messages
-  // TODO: add proper form validators that populate the error message
   errorMessage = '';
   form!: FormGroup;
 
@@ -67,8 +66,10 @@ export class SignupSigninComponent implements OnInit {
           this.closed.emit();
           this.router.navigate(['/taste-profile']);
         },
-        error: () => {
-          this.errorMessage = 'Unable to sign up. Please try again.';
+        error: (err: HttpErrorResponse) => {
+          this.errorMessage =
+            this.extractErrorMessage(err) ||
+            'unable to sign up. please try again.';
         },
       });
       return;
@@ -78,10 +79,28 @@ export class SignupSigninComponent implements OnInit {
       next: () => {
         this.closed.emit();
       },
-      error: () => {
-        this.errorMessage = 'Unable to sign in. Please try again.';
+      error: (err: HttpErrorResponse) => {
+        this.errorMessage =
+          this.extractErrorMessage(err) ||
+          'unable to sign in. please try again.';
       },
     });
+  }
+
+  private extractErrorMessage(err: HttpErrorResponse): string | null {
+    const body = err.error;
+    if (!body || typeof body !== 'object') return null;
+
+    const messages: string[] = [];
+    for (const field of Object.keys(body)) {
+      const fieldErrors = body[field];
+      if (Array.isArray(fieldErrors)) {
+        messages.push(...fieldErrors);
+      } else if (typeof fieldErrors === 'string') {
+        messages.push(fieldErrors);
+      }
+    }
+    return messages.length ? messages.join(' ') : null;
   }
 
   closeForm() {

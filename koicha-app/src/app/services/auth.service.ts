@@ -105,6 +105,27 @@ export class AuthService {
   }
 
   /**
+   * Uses the stored refresh token to obtain a new access token.
+   * Updates localStorage with the new tokens on success.
+   *
+   * @returns An Observable that emits the new access token string.
+   */
+  refreshToken(): Observable<string> {
+    const refresh = localStorage.getItem('refresh');
+    return this.http
+      .post<{ access: string }>(
+        `${this.baseUrl}/${this.authUrl}/token/refresh/`,
+        { refresh }
+      )
+      .pipe(
+        tap(({ access }) => {
+          localStorage.setItem('access', access);
+        }),
+        map(({ access }) => access)
+      );
+  }
+
+  /**
    * Removes the user's credentials from local storage to perform the "log out"
    *
    */

@@ -18,6 +18,18 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "email", "username", "password"]
+        extra_kwargs = {
+            "email": {
+                "error_messages": {
+                    "unique": "a user with this email already exists",
+                },
+            },
+            "username": {
+                "error_messages": {
+                    "unique": "a user with this username already exists",
+                },
+            },
+        }
 
     # ensures that if creating any of the objects fails, the whole user
     # creation path fails 
