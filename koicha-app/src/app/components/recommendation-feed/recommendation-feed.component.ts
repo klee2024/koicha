@@ -7,14 +7,17 @@ import { Router } from '@angular/router';
 import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
+import { SignupSigninComponent } from '../auth/signup-signin/signup-signin.component';
 import { UserProductsService } from '../../services/user-products-mock.service';
+import { AuthService } from '../../services/auth.service';
 import { UserBookmark } from '../../models/bookmark';
 import { Review } from '../../models/review';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-recommendation-feed',
   standalone: true,
-  imports: [CommonModule, FeedComponent, CreateReviewCardComponent],
+  imports: [CommonModule, FeedComponent, CreateReviewCardComponent, SignupSigninComponent],
   templateUrl: './recommendation-feed.component.html',
   styleUrl: './recommendation-feed.component.css',
 })
@@ -32,10 +35,14 @@ export class RecommendationFeedComponent implements OnInit {
   productToReview?: ProductCardData;
   productToBookmark?: ProductCardData;
 
+  showSignup = false;
+  pendingAction?: () => void;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userProductService: UserProductsService
+    private userProductService: UserProductsService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -157,7 +164,9 @@ export class RecommendationFeedComponent implements OnInit {
 
   // CARD BUTTON CLICK HANDLERS
   onReviewProduct(product: ProductCardData) {
-    this.productToReview = product;
+    this.requireAuth(() => {
+      this.productToReview = product;
+    });
   }
 
   onReviewCreated(product: ProductCardData) {
@@ -174,14 +183,38 @@ export class RecommendationFeedComponent implements OnInit {
   }
 
   onBookmarkProduct(product: ProductCardData) {
-    this.productToBookmark = product;
-    this.userProductService.toggleBookmark(product.id).subscribe((response) => {
-      product.bookmarked = response.bookmarked;
+    this.requireAuth(() => {
+      this.productToBookmark = product;
+      this.userProductService
+        .toggleBookmark(product.id)
+        .subscribe((response) => {
+          product.bookmarked = response.bookmarked;
+        });
     });
   }
 
   closeReviewCard() {
     this.productToReview = undefined;
+  }
+
+  onSignupComplete() {
+    this.showSignup = false;
+    this.pendingAction?.();
+    this.pendingAction = undefined;
+  }
+
+  private requireAuth(action: () => void) {
+    this.authService
+      .isAuthenticated$()
+      .pipe(take(1))
+      .subscribe((isAuth) => {
+        if (isAuth) {
+          action();
+        } else {
+          this.pendingAction = action;
+          this.showSignup = true;
+        }
+      });
   }
 
   trackById(index: number, item: { id: number | string }) {

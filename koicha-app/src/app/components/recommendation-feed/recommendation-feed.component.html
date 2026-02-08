@@ -79,3 +79,21 @@
     ></app-feed>
   </div>
 </section>
+
+@if (showSignup) {
+<div
+  class="fixed inset-0 z-40 bg-white/40 backdrop-blur-sm"
+  (click)="showSignup = false; pendingAction = undefined"
+>
+  <div
+    class="flex min-h-full items-center justify-center p-4"
+    (click)="$event.stopPropagation()"
+  >
+    <app-signup-signin
+      mode="signUp"
+      [overlay]="true"
+      (closed)="onSignupComplete()"
+    ></app-signup-signin>
+  </div>
+</div>
+}
