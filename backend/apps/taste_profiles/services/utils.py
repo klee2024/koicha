@@ -4,11 +4,6 @@ from apps.taste_profiles.models import TasteProfileFlavorDimension
 from apps.taste_profiles.models import TasteProfile, TasteProfileFlavorDimension, FlavorCharacteristic
 
 def get_or_create_profile_with_defaults(user, active_main_dims):
-    # find active main dimensions (parent is null)
-    active_main_dims = list(
-        FlavorCharacteristic.objects.filter(is_active=True, parent__isnull=True)
-        .values_list("id", flat=True)
-    )
 
     taste_profile, _created = TasteProfile.objects.get_or_create(
         user=user,

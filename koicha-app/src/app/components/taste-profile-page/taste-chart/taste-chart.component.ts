@@ -54,8 +54,6 @@ export class TasteChartComponent implements OnChanges {
       (flavor_value) => flavor_value.characteristic.name
     );
     const values = mainFlavors.map((characteristic) => characteristic.value);
-    console.log('taste profile labels: ', labels);
-    console.log('taste profile values: ', values);
     this.radarOptions = buildTasteRadarOptions({
       labels,
       values,

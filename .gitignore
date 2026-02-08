@@ -55,3 +55,8 @@ backend/server.log
 backend/koicha_backend/__pycache__/settings.cpython-313.pyc
 koicha_backend/__pycache__/settings.cpython-313.pyc
 apps/__init__.py
+backend/koicha_backend/__pycache__
+backend/koicha_backend/__pycache__/settings.cpython-313.pyc
+
+CLAUDE.md
+backend/apps/__init__.py

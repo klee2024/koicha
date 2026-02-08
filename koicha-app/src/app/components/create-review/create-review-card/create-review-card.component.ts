@@ -79,7 +79,6 @@ export class CreateReviewCardComponent implements OnInit {
   // saves the review based on the user's inputs
   createReview() {
     if (this.productCard && this.selectedRating != undefined) {
-      console.log('selected preference: ', this.selectedSubPreference);
       if (this.selectedSubPreference) {
         const createReviewPayload: UserReviewRequest = {
           product: this.productCard.id,
@@ -87,8 +86,6 @@ export class CreateReviewCardComponent implements OnInit {
           user_review_text: this.reviewInputText || '',
           preference_level: this.selectedSubPreference.id,
         };
-
-        console.log('creating review ', createReviewPayload);
 
         this.reviewService
           .createUserProductReview(createReviewPayload)
@@ -112,7 +109,6 @@ export class CreateReviewCardComponent implements OnInit {
     preferenceInputValue: ReviewPreference | undefined
   ): void {
     this.selectedPreference = preferenceInputValue;
-    console.log(this.selectedPreference);
   }
 
   // saves the first step of the review process, which is selecting if they
@@ -123,18 +119,14 @@ export class CreateReviewCardComponent implements OnInit {
   ): void {
     this.reviewInputText = text;
     this.reviewStep = this.COMPARE_PRODUCTS_STEP;
-    console.log('preference input value', preferenceInputValue);
     this.savePreferenceInput(preferenceInputValue);
     this.onPreferenceSelected();
-    console.log(this.reviewInputText);
   }
 
   onPreferenceSelected() {
-    console.log('on preference selected ', this.selectedPreference);
     if (this.selectedPreference) {
       this.reviewService.getSubPreferenceBuckets(this.selectedPreference);
       this.subPreferences$ = this.reviewService.subPreferences$;
-      console.log('sub preference: ', this.reviewService.subPreferences);
 
       // get min and max values for the sliders
       const subPreferenceValueRange =
@@ -181,7 +173,6 @@ export class CreateReviewCardComponent implements OnInit {
   }
 
   onPreferenceSelectorChange(preference: ReviewPreference) {
-    console.log('preference value: ', preference);
     if (this.selectedPreference !== preference) {
       this.selectedPreference = preference;
     }
@@ -199,7 +190,6 @@ export class CreateReviewCardComponent implements OnInit {
         });
       this.selectedSubPreference =
         this.reviewService.findBucketForRating(ratingValue);
-      console.log('selected sub preference: ', this.selectedSubPreference);
     }
   }
 

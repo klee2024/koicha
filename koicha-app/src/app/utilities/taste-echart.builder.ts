@@ -24,9 +24,10 @@ export function buildTasteRadarOptions({
       splitNumber: rings,
       axisName: {
         color: '#333',
-        fontSize: 18,
+        fontSize: 20,
         fontFamily: 'IBM Plex Mono, monospace',
       },
+      axisNameGap: 14,
 
       splitLine: {
         lineStyle: {
@@ -72,5 +73,23 @@ export function buildTasteRadarOptions({
     textStyle: {
       fontSize: 16,
     },
+    media: [
+      {
+        query: { maxWidth: 640 },
+        option: {
+          radar: {
+            radius: '75%',
+            center: ['50%', '50%'],
+            axisName: {
+              fontSize: 20,
+            },
+            axisNameGap: 6,
+          },
+          textStyle: {
+            fontSize: 12,
+          },
+        },
+      },
+    ],
   };
 }

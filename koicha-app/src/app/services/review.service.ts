@@ -110,7 +110,6 @@ export class ReviewService {
   ): Observable<ProductLineup[]> {
     return this.getUserProductReviews().pipe(
       map((userReviews) => {
-        console.log('user reviews: ', userReviews);
         const insertionIndex = this.findInsertionIndexDescendingBinary(
           userReviews,
           ratingValue
@@ -130,7 +129,6 @@ export class ReviewService {
     newScore: number
   ): number {
     userReviews.sort((a, b) => b.user_rating - a.user_rating);
-    console.log('user reviews: ', userReviews);
     let left = 0;
     let right = userReviews.length;
 

@@ -34,7 +34,6 @@ export class TasteProfileComponent {
       )
       .subscribe((profile) => {
         this.tasteProfile = profile;
-        console.log('taste profile retrieved:', profile);
       });
   }
 }

@@ -31,7 +31,6 @@ export class ReviewProductSliderComponent {
   constructor() {}
 
   private clampToRange(value: number, min: number, max: number): number {
-    console.log('clamping to range');
     if (value > max) return max;
     if (value < min) return min;
     return value;

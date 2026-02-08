@@ -25,8 +25,4 @@ export class ProductCardComponent {
   trackById(index: number, item: { id: string }) {
     return item.id;
   }
-
-  showProductReview() {
-    console.log('open product review');
-  }
 }

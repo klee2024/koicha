@@ -56,7 +56,6 @@ export class FirstTimeQuizPageComponent {
     this.quizQuestionService.getQuiz(this.quizSlug).subscribe((quiz) => {
       // TODO: add error handling here in case the quiz does not have quiz questions
       this.quizQuestions = quiz.questions;
-      console.log('quiz questions: ', this.quizQuestions);
       const controls = this.quizQuestions.map((q) =>
         this.fb.control<QuizAnswer>(
           { question_id: q.id, option_id: null },
@@ -117,7 +116,6 @@ export class FirstTimeQuizPageComponent {
       const payload = {
         answers: this.answersArray.value,
       };
-      console.log('submitting quiz questions: ', payload);
       this.quizQuestionService.submitQuiz(this.quizSlug, payload).subscribe({
         next: () => this.router.navigate(['/taste-profile']),
         error: (err) => console.error('submit failed', err),

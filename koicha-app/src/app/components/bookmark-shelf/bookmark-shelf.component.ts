@@ -32,7 +32,6 @@ export class BookmarkShelfComponent implements OnInit {
     this.userProductService.getUserBookmarks().subscribe((data) => {
       this.userBookmarks = data.map((bookmark) => this.mapToCard(bookmark));
       this.loading = false;
-      console.log('all bookmarks on init', this.userBookmarks);
     });
   }
 

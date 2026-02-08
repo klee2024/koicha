@@ -16,7 +16,6 @@ export class QuizService {
   }
 
   submitQuiz(quizSlug: string, quizResults: { answers: QuizAnswer[] }) {
-    console.log('quizSlug: ', quizSlug);
     return this.http.post(
       `${this.baseUrl}/${quizSlug}/latest/submit/`,
       quizResults

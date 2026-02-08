@@ -64,9 +64,6 @@ export class RecommendationFeedComponent implements OnInit {
   // FILTER BY TAGS AND QUERY PARAMS
   private applyFilters() {
     let products = this.allProducts;
-    console.log('products: ', products);
-    console.log('active tag slugs, ', this.activeTagSlugs);
-    console.log('active prep slugs, ', this.activePrepSlug);
     if (this.activeTagSlugs.length) {
       products = products.filter((product) =>
         this.activeTagSlugs.every((slug) =>
@@ -79,7 +76,6 @@ export class RecommendationFeedComponent implements OnInit {
         (product) => product.preparation?.slug === this.activePrepSlug
       );
     }
-    console.log(products);
     this.filteredProductCards = products.map((product) =>
       this.mapToCard(product)
     );
@@ -162,7 +158,6 @@ export class RecommendationFeedComponent implements OnInit {
   // CARD BUTTON CLICK HANDLERS
   onReviewProduct(product: ProductCardData) {
     this.productToReview = product;
-    console.log('review product button works!');
   }
 
   onReviewCreated(product: ProductCardData) {
@@ -173,19 +168,15 @@ export class RecommendationFeedComponent implements OnInit {
       target.reviewed = true;
       if (target.bookmarked) {
         target.bookmarked = false;
-        this.userProductService
-          .toggleBookmark(target.id)
-          .subscribe(() => {});
+        this.userProductService.toggleBookmark(target.id).subscribe(() => {});
       }
     }
   }
 
   onBookmarkProduct(product: ProductCardData) {
     this.productToBookmark = product;
-    console.log(`bookmark product button works: ${product.id}!`);
     this.userProductService.toggleBookmark(product.id).subscribe((response) => {
       product.bookmarked = response.bookmarked;
-      console.log('product bookmark result: ', response);
     });
   }
 

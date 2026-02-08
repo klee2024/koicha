@@ -31,6 +31,5 @@ export class ReviewPreferenceSelectorComponent {
   onPreferenceChange(preference: ReviewPreference) {
     this.preferenceSelectedChange.emit(preference);
     this.preferenceSelected = preference;
-    console.log('emitting new value ', preference);
   }
 }

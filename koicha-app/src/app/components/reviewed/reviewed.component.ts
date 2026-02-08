@@ -44,7 +44,6 @@ export class ReviewedComponent {
     this.reviewService.getUserProductReviews().subscribe((data) => {
       this.userReviews = data.map((review) => this.mapToCard(review));
       this.loading = false;
-      console.log('user reviews have been saved: ', this.userReviews);
     });
   }
 
@@ -54,8 +53,6 @@ export class ReviewedComponent {
 
   onReviewProduct(product: ProductCardData) {
     this.productToReview = product;
-    console.log('review product button works!');
-    console.log(product);
   }
 
   onReviewCreated(product: ProductCardData) {
@@ -68,8 +65,6 @@ export class ReviewedComponent {
 
   onBookmarkProduct(product: ProductCardData) {
     this.productToBookmark = product;
-
-    console.log(`bookmark product button works: ${product.id}!`);
   }
 
   closeReviewCard() {

@@ -30,7 +30,7 @@ def apply_review_to_taste_profile(review):
         .values_list("id", flat=True)
     )
 
-    taste_profile = get_or_create_profile_with_defaults(review.user)
+    taste_profile = get_or_create_profile_with_defaults(review.user, active_main_dims)
 
     # Update each main taste dimension that is present in the product that is being reviewed 
 
