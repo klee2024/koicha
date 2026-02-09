@@ -135,8 +135,7 @@ npm start
 ![Taste Profile](/screenshots/taste-profile.png)
 **Explore products**
 ![Explore products](/screenshots/explore-products.png)
-**Review interface**
-**Write a Review**
+**Write a review**
 ![Write review](/screenshots/writing-product-review.png)
 **Rate product**
 ![Rate product](/screenshots/rating-product.png)
