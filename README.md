@@ -129,7 +129,13 @@ npm start
 
 ## Screenshots
 
-- Onboarding quiz flow
-- Taste profile radar chart
-- Product detail page
-- Review interface
+Onboarding quiz flow
+![Onboarding Quiz](/screenshots/onboarding-quiz.png)
+Taste profile
+![Taste Profile](/screenshots/taste-profile.png)
+Explore products
+![Explore products](/screenshots/explore-products.png)
+Review interface
+![Write review](/screenshots/writing-product-review.png)
+![Rate product](/screenshots/rating-product.png)
+![User reviews](/screenshots/user-reviews.png)
