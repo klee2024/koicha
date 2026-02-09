@@ -93,7 +93,7 @@ class Command(BaseCommand):
             # if there's a matching flavor characteristic, create the ProductTaste object
             ProductTaste.objects.update_or_create(
                 product = product, 
-                taste_dimension=matching_flavor_characteristic, 
+                taste_characteristic=matching_flavor_characteristic, 
                 defaults={"intensity": weight}
             )
     

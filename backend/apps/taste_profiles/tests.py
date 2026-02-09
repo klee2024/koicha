@@ -11,7 +11,7 @@ from apps.users.models import User
 
 class ApplyReviewToTasteProfileTests(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="tester", password="pw")
+        self.user = User.objects.create_user(username="tester", email="tester@test.com", password="pw")
         self.preference = ReviewPreference.objects.create(
             bucket="LIKED",
             label="I liked it",
@@ -32,7 +32,7 @@ class ApplyReviewToTasteProfileTests(TestCase):
 
     def _create_product_with_taste(self, name):
         product = Product.objects.create(name=name, brand="Brand", preparation=self.preparation)
-        ProductTaste.objects.create(product=product, taste_dimension=self.dimension, intensity=100)
+        ProductTaste.objects.create(product=product, taste_characteristic=self.dimension, intensity=100)
         return product
 
     def test_first_review_averages_with_default_dimension_value(self):
@@ -81,7 +81,7 @@ class ApplyReviewToTasteProfileTests(TestCase):
         self.assertEqual(dim.value, 75)
 
     def test_creates_default_taste_profile_when_missing(self):
-        user = User.objects.create_user(username="newbie", password="pw")
+        user = User.objects.create_user(username="newbie", email="newbie@test.com", password="pw")
         self.assertFalse(TasteProfile.objects.filter(user=user).exists())
 
         FlavorCharacteristic.objects.create(

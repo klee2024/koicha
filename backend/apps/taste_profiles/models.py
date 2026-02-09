@@ -47,7 +47,7 @@ class TasteProfileArchetype(models.Model):
         return f"Taste profile archetype: {self.name}" 
     
 class TasteProfileDetail(models.Model):
-    class DimensionType(models.TextChoices):
+    class DetailType(models.TextChoices):
         FLAVOR = "flavor", "Flavor"
         FREQUENCY = "frequency", "Frequency"
     
@@ -56,10 +56,10 @@ class TasteProfileDetail(models.Model):
         on_delete=models.CASCADE, 
         related_name="details"
     )
-    dimension = models.CharField(
+    detail_type = models.CharField(
         max_length=20, 
-        choices=DimensionType.choices, 
-        default=DimensionType.FLAVOR
+        choices=DetailType.choices, 
+        default=DetailType.FLAVOR
     )
     archetype = models.ForeignKey(
         TasteProfileArchetype, 
@@ -73,7 +73,7 @@ class TasteProfileDetail(models.Model):
     detail_description = models.TextField(blank=True) # description generated for the specific user
 
     def __str__(self): 
-        return f"detail for dimension {self.dimension} for taste profile {self.taste_profile.id}, match: {self.archetype_match}" 
+        return f"detail for dimension {self.detail_type} for taste profile {self.taste_profile.id}, match: {self.archetype_match}" 
 
 class FlavorCharacteristic(models.Model):
     slug = models.SlugField(unique=True)

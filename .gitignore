@@ -1,13 +1,11 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
 # Compiled output
-/dist
+dist/
 /tmp
 /out-tsc
 /bazel-out
 
 # Node
-/node_modules
+node_modules/
 npm-debug.log
 yarn-error.log
 
@@ -19,8 +17,6 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
-
-# Visual Studio Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -28,8 +24,8 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
-/.angular/cache
+# Angular
+.angular/
 .sass-cache/
 /connect.lock
 /coverage
@@ -37,26 +33,19 @@ yarn-error.log
 testem.log
 /typings
 
-# System file
+# System files
 .DS_Store
 Thumbs.db
 
-backend/.venv
-.env
-
-koicha-app/.angular/
-koicha-app/node_modules/
-backend/apps/users/__pycache__/
-backend/apps/users/migrations/__pycache__/
-backend/apps/users/migrations/__pycache__/
+# Python
 **/__pycache__/
 *.pyc
+backend/.venv/
+backend/env/
 backend/server.log
-backend/koicha_backend/__pycache__/settings.cpython-313.pyc
-koicha_backend/__pycache__/settings.cpython-313.pyc
-apps/__init__.py
-backend/koicha_backend/__pycache__
-backend/koicha_backend/__pycache__/settings.cpython-313.pyc
 
+# Environment
+.env
+
+# Claude
 CLAUDE.md
-backend/apps/__init__.py

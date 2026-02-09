@@ -36,8 +36,8 @@ def apply_review_to_taste_profile(review):
 
     # get the main taste dimenions of the product 
     product_tastes = list(
-        ProductTaste.objects.filter(product_id=review.product, taste_dimension_id__in=active_main_dims)
-        .values_list("taste_dimension_id", "intensity")
+        ProductTaste.objects.filter(product_id=review.product, taste_characteristic_id__in=active_main_dims)
+        .values_list("taste_characteristic_id", "intensity")
     )
 
     logger.info(
@@ -62,15 +62,15 @@ def apply_review_to_taste_profile(review):
         return taste_profile
     
     # for each taste dimension, get the total count of products that the user has rated
-    dimension_ids = [taste_dimension_id for taste_dimension_id, _intensity in product_tastes]
+    dimension_ids = [taste_characteristic_id for taste_characteristic_id, _intensity in product_tastes]
     dimension_rating_counts = dict(
         Review.objects.filter(
             user=review.user,
-            product__product_tastes__taste_dimension_id__in=dimension_ids,
+            product__product_tastes__taste_characteristic_id__in=dimension_ids,
         )
-        .values_list("product__product_tastes__taste_dimension_id")
+        .values_list("product__product_tastes__taste_characteristic_id")
         .annotate(total=Count("product", distinct=True))
-        .values_list("product__product_tastes__taste_dimension_id", "total")
+        .values_list("product__product_tastes__taste_characteristic_id", "total")
     )
     current_user_dimension_ratings = dict(
         TasteProfileFlavorDimension.objects.filter(taste_profile=taste_profile, characteristic_id__in=active_main_dims)
@@ -79,17 +79,17 @@ def apply_review_to_taste_profile(review):
 
     # for each taste dimension in product tastes, calculate and set the user's new average 
     # based on their current rating and the new ranking of the product
-    for taste_dimension_id, _intensity in product_tastes:
+    for taste_characteristic_id, _intensity in product_tastes:
         # set count of rated products to 1 since we have a default score of 50 for the main taste dimensions
-        total_rated_products_for_dimension = dimension_rating_counts.get(taste_dimension_id, 1) 
+        total_rated_products_for_dimension = dimension_rating_counts.get(taste_characteristic_id, 1) 
         # get the user's current taste profile score for that dimension 
-        old_average = current_user_dimension_ratings[taste_dimension_id]
+        old_average = current_user_dimension_ratings[taste_characteristic_id]
         new_average_num = (old_average * total_rated_products_for_dimension) + review.user_rating 
         new_average_denom = total_rated_products_for_dimension + 1
         new_average = new_average_num / new_average_denom
 
         # update the taste profile dimension with the new_average
-        TasteProfileFlavorDimension.objects.filter(taste_profile=taste_profile, characteristic=taste_dimension_id).update(value=new_average)
+        TasteProfileFlavorDimension.objects.filter(taste_profile=taste_profile, characteristic=taste_characteristic_id).update(value=new_average)
 
     return taste_profile
 

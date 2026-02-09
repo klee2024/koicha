@@ -60,7 +60,7 @@ class ProductTaste(models.Model):
         on_delete=models.CASCADE,
         related_name="product_tastes",
     )
-    taste_dimension = models.ForeignKey(
+    taste_characteristic = models.ForeignKey(
         FlavorCharacteristic,
         on_delete=models.CASCADE,
         related_name="product_tastes",
@@ -73,15 +73,15 @@ class ProductTaste(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["product", "taste_dimension"],
-                name="uniq_product_taste_dimension",
+                fields=["product", "taste_characteristic"],
+                name="uniq_product_taste_characteristic",
             )
         ]
         indexes = [
-            models.Index(fields=["taste_dimension"]),
+            models.Index(fields=["taste_characteristic"]),
             models.Index(fields=["product"]),
         ]
 
     def __str__(self):
-        return f"{self.product} · {self.taste_dimension} = {self.intensity}"
+        return f"{self.product} · {self.taste_characteristic} = {self.intensity}"
 
