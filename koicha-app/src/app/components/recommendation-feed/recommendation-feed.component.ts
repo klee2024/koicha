@@ -8,7 +8,7 @@ import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';
 import { CreateReviewCardComponent } from '../create-review/create-review-card/create-review-card.component';
 import { SignupSigninComponent } from '../auth/signup-signin/signup-signin.component';
-import { UserProductsService } from '../../services/user-products-mock.service';
+import { UserProductsService } from '../../services/user-products.service';
 import { AuthService } from '../../services/auth.service';
 import { UserBookmark } from '../../models/bookmark';
 import { Review } from '../../models/review';
@@ -17,7 +17,12 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-recommendation-feed',
   standalone: true,
-  imports: [CommonModule, FeedComponent, CreateReviewCardComponent, SignupSigninComponent],
+  imports: [
+    CommonModule,
+    FeedComponent,
+    CreateReviewCardComponent,
+    SignupSigninComponent,
+  ],
   templateUrl: './recommendation-feed.component.html',
   styleUrl: './recommendation-feed.component.css',
 })

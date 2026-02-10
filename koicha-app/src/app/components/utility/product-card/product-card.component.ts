@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserProductsService } from '../../../services/user-products-mock.service';
+import { UserProductsService } from '../../../services/user-products.service';
 import { ProductCardContentComponent } from '../product-card-content/product-card-content.component';
 import { ProductCardData, ReviewCard } from './productCardData';
 

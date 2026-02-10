@@ -5,7 +5,7 @@ import { Product, Preparation, Tag } from '../models/product';
 import { UserBookmark } from '../models/bookmark';
 import { Review } from '../models/review';
 import { ProductService } from '../services/product.service';
-import { UserProductsService } from '../services/user-products-mock.service';
+import { UserProductsService } from '../services/user-products.service';
 import { ReviewService } from '../services/review.service';
 import { AuthService } from '../services/auth.service';
 

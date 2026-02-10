@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
-import { UserProductsService } from '../../services/user-products-mock.service';
+import { UserProductsService } from '../../services/user-products.service';
 import { CommonModule } from '@angular/common';
 import { FeedComponent } from '../utility/feed/feed.component';
 import { ProductCardData } from '../utility/product-card/productCardData';

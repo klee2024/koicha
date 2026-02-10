@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { TasteProfile } from '../models/taste-profile';
 import { delay, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasteProfileService {
-  private readonly baseUrl = 'http://127.0.0.1:8000/api'; // e.g. 'http://localhost:8000/api/quiz'
+  private readonly baseUrl = environment.apiBaseUrl;
   private appUrl = 'taste_profiles';
 
   constructor(private http: HttpClient) {}

@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ProductService {
-  private readonly baseUrl = environment.apiBaseUrl; // e.g. 'http://localhost:8000/api/quiz'
+  private readonly baseUrl = environment.apiBaseUrl;
   private readonly appUrl = 'products';
 
   constructor(private http: HttpClient) {}
