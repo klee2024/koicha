@@ -28,7 +28,7 @@ services:
           name: koicha-backend
           property: host
       - key: FRONTEND_URL
-        value: "" # Set this to your frontend URL after deploy, e.g. https://koicha-frontend.onrender.com
+        value: "https://koicha-frontend.onrender.com"
       - key: PYTHON_VERSION
         value: "3.13.0"
 

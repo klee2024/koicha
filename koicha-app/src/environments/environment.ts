@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: 'https://koicha-backend.onrender.com/api',
+  apiBaseUrl: 'https://koicha-backend.onrender.com',
 };
