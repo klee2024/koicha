@@ -39,6 +39,10 @@ Koicha solves the problem of matcha discovery by aggregating matcha products acr
 
 - [Figma Prototype](https://www.figma.com/design/r48e6fTboGayjiVc2CnS90/Koicha?node-id=0-1&p=f&t=6wS0F7K0gsusdPcW-0)
 
+**Deployment**
+
+- Render _(note: the first request after idle time takes ~30 seconds to wake up)_
+
 ---
 
 ## Engineering Design Highlights
