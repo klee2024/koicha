@@ -47,6 +47,5 @@ backend/server.log
 # Environment
 .env
 
-# Claude
 CLAUDE.md
 .DS_Store
