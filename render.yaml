@@ -36,7 +36,6 @@ services:
   - type: web
     name: koicha-frontend
     runtime: static
-    plan: free
     rootDir: koicha-app
     buildCommand: "npm install && npm run build"
     staticPublishPath: dist/koicha-app/browser
