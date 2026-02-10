@@ -8,7 +8,7 @@ import { ProductLineup } from '../components/create-review/create-review-card/pr
 import { Review, UserReviewRequest } from '../models/review';
 import { Product } from '../models/product';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

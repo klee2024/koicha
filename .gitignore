@@ -49,3 +49,4 @@ backend/server.log
 
 # Claude
 CLAUDE.md
+.DS_Store
