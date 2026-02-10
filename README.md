@@ -14,6 +14,8 @@ Koicha solves the problem of matcha discovery by aggregating matcha products acr
 - **Product Discovery**: Browse and review matcha products with flavor profile and preparation tags
 - **Persistent User Data**: Authentication with saved reviews, bookmarks, and evolving taste profiles
 
+_best enjoyed on desktops_
+
 ---
 
 ## Tech Stack
