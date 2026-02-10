@@ -17,7 +17,7 @@ services:
       - key: DATABASE_URL
         fromDatabase:
           name: koicha-db
-          property: connectionURI
+          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
@@ -28,10 +28,7 @@ services:
           name: koicha-backend
           property: host
       - key: FRONTEND_URL
-        fromService:
-          type: web
-          name: koicha-frontend
-          property: url
+        value: "" # Set this to your frontend URL after deploy, e.g. https://koicha-frontend.onrender.com
       - key: PYTHON_VERSION
         value: "3.13.0"
 
