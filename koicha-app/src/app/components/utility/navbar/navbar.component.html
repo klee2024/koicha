@@ -5,8 +5,8 @@
   <div class="koicha-logo" aria-label="Koicha logo">Koicha</div>
 
   <!-- Right: auth (mobile above nav) + nav + auth (desktop absolute) -->
-  <div class="relative flex flex-col items-end md:flex-row md:items-center md:pt-0">
-    <div class="auth-headers mb-2 md:hidden">
+  <div class="relative flex flex-col items-end pt-[9px] md:flex-row md:items-center md:pt-0">
+    <div class="auth-headers mb-1 md:hidden">
       <ng-container *ngIf="authService.user$ | async as user; else loggedOutMobile">
         <div class="user-logged-in flex items-center gap-1.5 italic text-sm">
           <span>hello, {{ user.username }}</span>

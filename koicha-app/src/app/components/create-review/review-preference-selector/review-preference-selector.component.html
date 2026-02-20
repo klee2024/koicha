@@ -1,5 +1,5 @@
 <div
-  class="select-review-preference w-full flex flex-col items-center text-center gap-6 py-8"
+  class="select-review-preference w-full flex flex-col items-center text-center gap-4 sm:gap-6 py-4 sm:py-8"
   *ngIf="preferences"
 >
   <p class="text-lg font-semibold tracking-wide text-neutral-900 font-mono">
@@ -7,10 +7,10 @@
   </p>
 
   <div
-    class="preference-selector-input flex flex-wrap justify-center gap-8 w-full"
+    class="preference-selector-input flex flex-nowrap justify-center gap-3 sm:gap-8 w-full"
   >
     <label
-      class="flex flex-col items-center gap-3 cursor-pointer text-center font-mono"
+      class="flex flex-col items-center gap-2 sm:gap-3 cursor-pointer text-center font-mono"
       *ngFor="let preference of preferences"
     >
       <input
@@ -23,7 +23,7 @@
         required
       />
       <span
-        class="flex h-20 w-20 items-center justify-center rounded-full border border-black/10 shadow-md transition-all duration-200"
+        class="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full border border-black/10 shadow-md transition-all duration-200"
         [style.backgroundColor]="circleColor(preference)"
         [ngClass]="
           preferenceSelected && preferenceSelected.bucket === preference.bucket
@@ -32,7 +32,7 @@
         "
       ></span>
       <span
-        class="text-sm tracking-wide text-neutral-800"
+        class="text-xs sm:text-sm tracking-wide text-neutral-800"
         [ngClass]="{
           'font-semibold':
             preferenceSelected &&
