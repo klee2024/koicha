@@ -60,10 +60,11 @@
     <div class="status pl-4" *ngIf="loading">...</div>
 
     <div
-      class="status flex min-h-[12rem] items-center justify-center px-4 text-center font-mono text-2xl text-green-700"
+      class="status flex min-h-[12rem] items-center justify-center px-4 text-center font-mono sm:text-2xl text-green-700"
       *ngIf="!loading && filteredProductCards.length === 0"
     >
-      No products found. You have unique taste!
+      no products found.<br class="md:hidden" />
+      you have unique taste!
     </div>
 
     <div
