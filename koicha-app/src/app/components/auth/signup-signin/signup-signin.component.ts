@@ -21,6 +21,7 @@ export class SignupSigninComponent implements OnInit {
   @Input() mode: 'signUp' | 'signIn' = 'signUp';
   @Input() overlay = false;
   @Output() closed = new EventEmitter<void>();
+  @Output() dismissed = new EventEmitter<void>();
 
   errorMessage = '';
   form!: FormGroup;
@@ -104,6 +105,6 @@ export class SignupSigninComponent implements OnInit {
   }
 
   closeForm() {
-    this.closed.emit();
+    this.dismissed.emit();
   }
 }

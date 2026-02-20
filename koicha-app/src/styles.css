@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 :root {
   /* colors */
   --koicha-green-700: #366d49;
@@ -56,11 +61,10 @@
   }
 
   /* Optional: scale down on very small screens to avoid tall headers */
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     .koicha-logo {
-      --circle-size: 120px;
-      --font-size: 36px;
-      /* re-computed automatically by the calc() above */
+      --circle-size: 90px;
+      --font-size: 28px;
     }
   }
 }

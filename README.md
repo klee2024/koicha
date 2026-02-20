@@ -14,9 +14,11 @@ Koicha solves the problem of matcha discovery by aggregating matcha products acr
 - **Product Discovery**: Browse and review matcha products with flavor profile and preparation tags
 - **Persistent User Data**: Authentication with saved reviews, bookmarks, and evolving taste profiles
 
+https://koicha-frontend.onrender.com/explore
+
 _best enjoyed on desktops_
 
-https://koicha-frontend.onrender.com/explore
+_(note: the first request after idle time takes ~30 seconds to wake up)_
 
 ---
 
@@ -45,7 +47,7 @@ https://koicha-frontend.onrender.com/explore
 
 **Deployment**
 
-- Render _(note: the first request after idle time takes ~30 seconds to wake up)_
+- Render
 
 ---
 
