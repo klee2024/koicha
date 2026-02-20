@@ -5,9 +5,13 @@
   <div class="koicha-logo" aria-label="Koicha logo">Koicha</div>
 
   <!-- Right: auth (mobile above nav) + nav + auth (desktop absolute) -->
-  <div class="relative flex flex-col items-end pt-[9px] md:flex-row md:items-center md:pt-0">
+  <div
+    class="relative flex flex-col items-end pt-[9px] md:flex-row md:items-center md:pt-0"
+  >
     <div class="auth-headers mb-1 md:hidden">
-      <ng-container *ngIf="authService.user$ | async as user; else loggedOutMobile">
+      <ng-container
+        *ngIf="authService.user$ | async as user; else loggedOutMobile"
+      >
         <div class="user-logged-in flex items-center gap-1.5 italic text-sm">
           <span>hello, {{ user.username }}</span>
           <span class="text-gray-400">&middot;</span>
@@ -24,11 +28,13 @@
       </ng-template>
     </div>
 
-    <nav class="flex flex-col items-end gap-2 text-lg md:flex-row md:items-center md:gap-6 md:text-[24px]">
+    <nav
+      class="flex flex-col items-end gap-2 text-lg md:flex-row md:items-center md:gap-6 md:text-[24px]"
+    >
       <a
         routerLink="/explore"
         routerLinkActive="selected-item-rust-700"
-        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLinkActiveOptions]="{ exact: false }"
         aria-current="page"
         >explore</a
       >
