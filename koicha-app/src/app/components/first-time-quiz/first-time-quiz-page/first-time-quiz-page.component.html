@@ -1,8 +1,8 @@
-<div class="quiz-question-container text-4xl font-mono">
+<div class="quiz-question-container sm:text-4xl font-mono">
   @switch (quizQuestionIndex) { @case (-1) {
   <app-first-time-quiz-intro></app-first-time-quiz-intro>
   <div
-    class="w-full flex justify-end mt-6 pr-20 text-green-700 underline opacity-0 animate-fade-in [animation-delay:5.0s]"
+    class="w-full flex justify-end mt-6 pr-10 sm:pr-20 text-green-700 underline opacity-0 animate-fade-in [animation-delay:5.0s]"
   >
     <button class="underline-offset-4" (click)="startQuiz()">
       let's begin
