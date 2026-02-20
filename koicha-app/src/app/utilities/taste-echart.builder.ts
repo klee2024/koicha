@@ -77,15 +77,15 @@ export function buildTasteRadarOptions({
         query: { maxWidth: 640 },
         option: {
           radar: {
-            radius: '75%',
+            radius: '60%',
             center: ['50%', '50%'],
             axisName: {
-              fontSize: 14,
+              fontSize: 11,
             },
-            axisNameGap: 6,
+            // axisNameGap: 11,
           },
           textStyle: {
-            fontSize: 12,
+            fontSize: 10,
           },
         },
       },
