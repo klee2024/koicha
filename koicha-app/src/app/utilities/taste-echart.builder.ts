@@ -13,7 +13,7 @@ export function buildTasteRadarOptions({
   values,
   color = '#40826D',
   rings = 5,
-  radius = '70%',
+  radius = '80%',
 }: TasteRadarArgs): EChartsOption {
   return {
     tooltip: { trigger: 'item' },
