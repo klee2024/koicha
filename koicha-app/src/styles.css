@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 90%;
+}
+
 html,
 body {
   overflow-x: hidden;

@@ -323,7 +323,12 @@ class Command(BaseCommand):
         return flavor_characteristics
     
     def _create_default_taste_profile(self):
-        taste_profile = TasteProfile.objects.get_or_create(is_system=True)
+        taste_profile, created = TasteProfile.objects.get_or_create(is_system=True)
+
+        if not created:
+            self.stdout.write(self.style.SUCCESS("Default Taste Profile already exists, skipping"))
+            return taste_profile
+
         main_characteristics = FlavorCharacteristic.objects.filter(parent__isnull=True, is_active=True)
 
         TasteProfileFlavorDimension.objects.bulk_create([

@@ -1,5 +1,5 @@
 <div
-  class="quiz-question w-full py-16 px-3 sm:px-24 sm:py-12 md:px-96 md:py-24 md:py-24 flex flex-col h-full min-h-[70vh]"
+  class="quiz-question w-full py-16 px-3 py-6 sm:px-24 sm:py-12 md:px-96 flex flex-col h-full min-h-[70vh]"
   *ngIf="question"
 >
   <div
@@ -31,7 +31,7 @@
       ...{{ question.follow_up_prompt }}
     </div>
   </div>
-  <div class="flex w-full justify-between pt-12 items-center">
+  <div class="flex w-full justify-between sm:pt-12 items-center">
     <button class="text-rust-500 underline" (click)="back.emit()">back</button>
     <button
       class="text-green-700 underline disabled:opacity-40 disabled:cursor-not-allowed"

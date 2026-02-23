@@ -19,12 +19,12 @@ export function buildTasteRadarOptions({
     tooltip: { trigger: 'item' },
     radar: {
       radius,
-      center: ['50%', '37%'],
+      center: ['50%', '50%'],
       shape: 'polygon',
       splitNumber: rings,
       axisName: {
         color: '#333',
-        fontSize: 20,
+        fontSize: 16,
         fontFamily: 'IBM Plex Mono, monospace',
       },
 
@@ -74,7 +74,7 @@ export function buildTasteRadarOptions({
     },
     media: [
       {
-        query: { maxWidth: 640 },
+        query: { maxWidth: 500 },
         option: {
           radar: {
             radius: '60%',

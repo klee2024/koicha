@@ -27,13 +27,13 @@ product_specs = [
                 "tags": ["oceanic", "savory", "umami"],
             },
             {
-                "slug": "yamagumo-matcha",
-                "name": "Yamagumo Matcha",
+                "slug": "uji-homare-matcha",
+                "name": "Uji Homare Matcha",
                 "brand": "Kettl",
                 "preparation": "usucha",
-                "image_url": "https://kettl.co/cdn/shop/files/2a9f4b9a-5227-4211-b208-83f94887f5c4_1680x.jpg?v=1752611694",
-                "product_url": "https://kettl.co/products/yamagumo-matcha?_pos=5&_sid=fbb9e8347&_ss=r",
-                "tags": ["astringent", "verdant"],
+                "image_url": "https://kettl.co/cdn/shop/files/a09da220-cf92-45a7-83cd-d9516e5a4bd9.jpg",
+                "product_url": "https://kettl.co/products/uji-homare-matcha",
+                "tags": ["umami", "nutty", "verdant", "oceanic"],
             },
             {
                 "slug": "suiteki-matcha",
