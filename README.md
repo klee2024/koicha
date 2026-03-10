@@ -16,10 +16,6 @@ Koicha solves the problem of matcha discovery by aggregating matcha products acr
 
 https://koicha-frontend.onrender.com/explore
 
-_best enjoyed on desktops_
-
-_(note: the first request after idle time takes ~30 seconds to wake up)_
-
 ---
 
 ## Tech Stack
