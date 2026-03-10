@@ -33,11 +33,11 @@ export const reviewsResolver: ResolveFn<Review[]> = () => {
 
   return authService.isAuthenticated$().pipe(
     take(1),
-    switchMap((isAuth) =>
-      isAuth
+    switchMap((isAuth) => {
+      return isAuth
         ? reviewService.getUserProductReviews().pipe(catchError(() => of([])))
-        : of([])
-    )
+        : of([]);
+    })
   );
 };
 

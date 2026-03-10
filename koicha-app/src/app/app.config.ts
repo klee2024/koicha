@@ -1,4 +1,5 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
+import { AuthService } from './services/auth.service';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -22,5 +23,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideEchartsCore({ echarts }),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    provideAppInitializer(() => {
+      const authService = inject(AuthService);
+      return authService.checkAuth();
+    }),
   ],
 };
