@@ -147,15 +147,15 @@ export class CreateReviewCardComponent implements OnInit {
         this.maxSubPreferenceValue != undefined &&
         this.minSubPreferenceValue != undefined
       ) {
-        const matchPercentage = this.productCard.matchPercentage;
-        if (matchPercentage == undefined) {
+        const baseValue = this.selectedRating ?? this.productCard.matchPercentage;
+        if (baseValue == undefined) {
           this.selectedRating = this.minSubPreferenceValue;
-        } else if (matchPercentage > this.maxSubPreferenceValue) {
+        } else if (baseValue > this.maxSubPreferenceValue) {
           this.selectedRating = this.maxSubPreferenceValue;
-        } else if (matchPercentage < this.minSubPreferenceValue) {
+        } else if (baseValue < this.minSubPreferenceValue) {
           this.selectedRating = this.minSubPreferenceValue;
         } else {
-          this.selectedRating = matchPercentage;
+          this.selectedRating = baseValue;
         }
 
         this.reviewService
@@ -191,6 +191,10 @@ export class CreateReviewCardComponent implements OnInit {
       this.selectedSubPreference =
         this.reviewService.findBucketForRating(ratingValue);
     }
+  }
+
+  goBack(): void {
+    this.reviewStep = this.WRITE_REVIEW_STEP;
   }
 
   closeCard(): void {
