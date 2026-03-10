@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ReviewService {
-  private readonly baseUrl = environment.apiBaseUrl; // e.g. 'http://localhost:8000/api/quiz'
+  private readonly baseUrl = environment.apiBaseUrl;
   private readonly appUrl = 'reviews';
 
   constructor(private http: HttpClient) {}
@@ -22,6 +22,7 @@ export class ReviewService {
   private _preferences$ = new BehaviorSubject<ReviewPreference[]>([]);
   private _subPreferences$ = new BehaviorSubject<ReviewSubPreference[]>([]);
   private _userReviews$ = new BehaviorSubject<Review[]>([]);
+  private _userReviewsLoaded = false;
 
   get userReviews$(): Observable<Review[]> {
     return this._userReviews$.asObservable();
@@ -81,13 +82,20 @@ export class ReviewService {
     );
   }
 
-  // Gets the requesting user's product reviews, sorted by the user's rating descending
+  // Gets the requesting user's product reviews, sorted by the user's rating descending.
+  // Fetches once and returns the cached result on subsequent calls.
   getUserProductReviews() {
-    const cached = this._userReviews$.value;
-
+    if (this._userReviewsLoaded) {
+      return of(this._userReviews$.value);
+    }
     return this.http
       .get<Review[]>(`${this.baseUrl}/${this.appUrl}/me/`)
-      .pipe(tap((reviews) => this._userReviews$.next(reviews ?? [])));
+      .pipe(
+        tap((reviews) => {
+          this._userReviews$.next(reviews ?? []);
+          this._userReviewsLoaded = true;
+        })
+      );
   }
   // TODO POST-MVP: backend integration
   updateUserProductReview(userId: string, productId: string) {
