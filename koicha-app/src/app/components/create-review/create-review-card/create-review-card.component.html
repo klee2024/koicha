@@ -24,11 +24,11 @@
       </app-review-preference-selector>
     </ng-container>
 
-    <div class="create-review-actions flex flex-col gap-6 -mt-2">
+    <div class="create-review-actions flex flex-col gap-6 -mt-2 min-h-[340px]">
       @switch (reviewStep) { @case (WRITE_REVIEW_STEP) {
-      <div class="w-full mt-0">
+      <div class="flex-1 flex flex-col mt-0">
         <label
-          class="review-input flex flex-col gap-3 text-left text-center w-full block"
+          class="review-input flex-1 flex flex-col gap-3 text-left text-center w-full"
         >
           <span
             class="review-input__label text-lg font-semibold tracking-wide text-neutral-900 font-mono"
@@ -37,7 +37,7 @@
           </span>
           <textarea
             #reviewInput
-            class="review-input__textbox w-full min-h-[160px] resize-none rounded-2xl border border-neutral-900/20 bg-white/70 p-4 text-base leading-relaxed tracking-wide text-neutral-900 shadow-inner focus:outline-none focus:ring-2 focus:ring-neutral-900/40"
+            class="review-input__textbox flex-1 w-full min-h-[160px] resize-none rounded-2xl border border-neutral-900/20 bg-white/70 p-4 text-base leading-relaxed tracking-wide text-neutral-900 shadow-inner focus:outline-none focus:ring-2 focus:ring-neutral-900/40"
             placeholder="Share your thoughts"
             rows="4"
             [value]="reviewInputText ?? ''"
