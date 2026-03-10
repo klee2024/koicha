@@ -37,7 +37,7 @@
           </span>
           <textarea
             #reviewInput
-            class="review-input__textbox flex-1 w-full min-h-[160px] resize-none rounded-2xl border border-neutral-900/20 bg-white/70 p-4 text-base leading-relaxed tracking-wide text-neutral-900 shadow-inner focus:outline-none focus:ring-2 focus:ring-neutral-900/40"
+            class="review-input__textbox flex-1 w-full resize-none rounded-2xl border border-neutral-900/20 bg-white/70 p-4 text-base leading-relaxed tracking-wide text-neutral-900 shadow-inner focus:outline-none focus:ring-2 focus:ring-neutral-900/40"
             placeholder="Share your thoughts"
             rows="4"
             [value]="reviewInputText ?? ''"
@@ -46,7 +46,7 @@
       </div>
 
       <button
-        class="mt-4 inline-flex h-12 items-center justify-center rounded-xl border border-emerald-800 px-10 text-lg font-medium tracking-wide text-emerald-900 transition hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
+        class="mt-auto inline-flex h-12 items-center justify-center rounded-xl border border-emerald-800 px-10 text-lg font-medium tracking-wide text-emerald-900 transition hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
         type="button"
         [disabled]="!selectedPreference"
         (click)="saveReviewInput(reviewInput.value, selectedPreference)"
@@ -68,16 +68,16 @@
 
       <app-ranking-lineup [productLineup]="productLineup"></app-ranking-lineup>
       <!-- BIND THIS  -->
-      <div class="flex gap-3">
+      <div class="mt-auto flex gap-3">
         <button
-          class="mt-4 inline-flex h-12 items-center justify-center rounded-xl border border-neutral-300 px-6 text-lg font-medium tracking-wide text-neutral-600 transition hover:bg-neutral-50"
+          class="inline-flex h-12 items-center justify-center rounded-xl border border-neutral-300 px-6 text-lg font-medium tracking-wide text-neutral-600 transition hover:bg-neutral-50"
           type="button"
           (click)="goBack()"
         >
           &larr; Notes
         </button>
         <button
-          class="mt-4 inline-flex h-12 flex-1 items-center justify-center rounded-xl border border-emerald-800 px-10 text-lg font-medium tracking-wide text-emerald-900 transition hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
+          class="inline-flex h-12 flex-1 items-center justify-center rounded-xl border border-emerald-800 px-10 text-lg font-medium tracking-wide text-emerald-900 transition hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
           type="button"
           [disabled]="selectedRating == null"
           (click)="createReview()"
