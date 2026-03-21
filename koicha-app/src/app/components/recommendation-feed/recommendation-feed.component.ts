@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Product, Preparation, Tag } from '../../models/product';
 
 import { CommonModule } from '@angular/common';
@@ -10,9 +11,10 @@ import { CreateReviewCardComponent } from '../create-review/create-review-card/c
 import { SignupSigninComponent } from '../auth/signup-signin/signup-signin.component';
 import { UserProductsService } from '../../services/user-products.service';
 import { AuthService } from '../../services/auth.service';
+import { ReviewService } from '../../services/review.service';
 import { UserBookmark } from '../../models/bookmark';
 import { Review } from '../../models/review';
-import { take } from 'rxjs';
+import { forkJoin, skip, filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-recommendation-feed',
@@ -47,7 +49,9 @@ export class RecommendationFeedComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userProductService: UserProductsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private reviewService: ReviewService,
+    private destroyRef: DestroyRef
   ) {}
 
   ngOnInit() {
@@ -71,6 +75,29 @@ export class RecommendationFeedComponent implements OnInit {
     this.route.queryParamMap.subscribe((queryParams) =>
       this.applyFiltersFromParams(queryParams)
     );
+
+    // update the bookmarks and reviews when the user signs in
+    // i.e. user is on the explore page, then signs in - boomarks and reviews should populate
+    this.authService.user$
+      .pipe(
+        skip(1),
+        filter((user) => !!user),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        forkJoin({
+          bookmarks: this.userProductService.getUserBookmarks(),
+          reviews: this.reviewService.getUserProductReviews(),
+        }).subscribe(({ bookmarks, reviews }) => {
+          this.bookmarkedProductIds = new Set(
+            bookmarks.map((bookmark) => bookmark.product.id)
+          );
+          this.reviewedProductIds = new Set(
+            reviews.map((review) => review.product.id)
+          );
+          this.applyFilters();
+        });
+      });
   }
 
   // FILTER BY TAGS AND QUERY PARAMS
@@ -204,8 +231,14 @@ export class RecommendationFeedComponent implements OnInit {
 
   onSignupComplete() {
     this.showSignup = false;
-    this.pendingAction?.();
-    this.pendingAction = undefined;
+    this.userProductService.getUserBookmarks().subscribe((bookmarks) => {
+      this.bookmarkedProductIds = new Set(
+        bookmarks.map((bookmark) => bookmark.product.id)
+      );
+      this.applyFilters();
+      this.pendingAction?.();
+      this.pendingAction = undefined;
+    });
   }
 
   private requireAuth(action: () => void) {
