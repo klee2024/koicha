@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv(
 
 DEBUG = os.getenv("DEBUG", "True").lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "koicha.app"]
 RENDER_EXTERNAL_HOSTNAME = os.getenv("ALLOWED_HOSTS")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -78,6 +78,8 @@ AUTH_USER_MODEL = "users.User"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+    "http://koicha.app",
+    "https://koicha.app",
 ]
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 if FRONTEND_URL:

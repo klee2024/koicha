@@ -53,7 +53,7 @@ https://koicha-frontend.onrender.com/explore
 Instead of creating a guest or temporary account, I use a system-owned taste profile. This avoids a fake user profile which adds unneeded user objects while still allowing unauthenticated users to experience the full product flow.
 
 **Radar chart for taste profile**
-Radar charts visualize matcha across curated main flavor dimensions (grassy, umami, nutty, bitter, creamy, etc.). This allows for an intuitive representation of how products and preferences balance multiple taste characertistics.
+Radar charts visualize matcha across curated main flavor dimensions (grassy, umami, nutty, bitter, creamy, etc.). This allows for an intuitive representation of how products and preferences balance multiple taste characteristics.
 
 **Preparation-based discovery**
 In order to enjoy matcha in its best form, it should be consumed according to the preparation it was created for. Emphasizing and allowing filtering by product preparation encourages users to explore matcha blends with intention.
@@ -113,15 +113,15 @@ npm start
 
 ## Roadmap
 
-**Phase 1: Core Experience** ✅
+**Phase 1: Core Product** (Complete)
 
 - User authentication and profiles
 - Product browsing and reviews
 - Taste profile visualization
 
-**Phase 2: Intelligence** (In Progress)
+**Phase 2: Smart Recommendations** (In Progress)
 
-- Recommendation engine to create a match % for a product based on the user's tatse profile
+- Recommendation engine to create a match % for a product based on the user's taste profile
 - Automated product scraper to expand catalog
 - Taste archetype classification (e.g., "Traditionalist," "Adventurer")
 - Smarter product rating and comparison tool
