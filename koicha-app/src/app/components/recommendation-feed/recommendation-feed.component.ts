@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 import { ReviewService } from '../../services/review.service';
 import { UserBookmark } from '../../models/bookmark';
 import { Review } from '../../models/review';
-import { forkJoin, skip, filter, take } from 'rxjs';
+import { forkJoin, skip, take } from 'rxjs';
 
 @Component({
   selector: 'app-recommendation-feed',
@@ -76,15 +76,15 @@ export class RecommendationFeedComponent implements OnInit {
       this.applyFiltersFromParams(queryParams)
     );
 
-    // update the bookmarks and reviews when the user signs in
-    // i.e. user is on the explore page, then signs in - boomarks and reviews should populate
     this.authService.user$
-      .pipe(
-        skip(1),
-        filter((user) => !!user),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(() => {
+      .pipe(skip(1), takeUntilDestroyed(this.destroyRef))
+      .subscribe((user) => {
+        if (!user) {
+          this.bookmarkedProductIds = new Set();
+          this.reviewedProductIds = new Set();
+          this.applyFilters();
+          return;
+        }
         forkJoin({
           bookmarks: this.userProductService.getUserBookmarks(),
           reviews: this.reviewService.getUserProductReviews(),
