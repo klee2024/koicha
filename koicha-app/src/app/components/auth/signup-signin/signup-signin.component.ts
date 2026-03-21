@@ -24,12 +24,13 @@ export class SignupSigninComponent implements OnInit {
   @Output() dismissed = new EventEmitter<void>();
 
   errorMessage = '';
+  fieldErrors: Record<string, string> = {};
   form!: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly authService: AuthService
   ) {
     this.form = this.fb.group({
       email: [''],
@@ -42,9 +43,7 @@ export class SignupSigninComponent implements OnInit {
     if (this.mode === 'signIn') {
       // sign in: no email, username + password required
       this.form.get('email')?.clearValidators();
-      this.form
-        .get('username')
-        ?.setValidators([Validators.required, Validators.email]);
+      this.form.get('username')?.setValidators([Validators.required]);
       this.form.get('password')?.setValidators([Validators.required]);
     } else {
       // sign up: email + username + password
@@ -61,6 +60,15 @@ export class SignupSigninComponent implements OnInit {
   }
 
   submit() {
+    this.errorMessage = '';
+    this.fieldErrors = {};
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.setClientSideFieldErrors();
+      return;
+    }
+
     if (this.mode == 'signUp') {
       this.authService.signUpAndSignIn(this.form.value).subscribe({
         next: () => {
@@ -70,9 +78,7 @@ export class SignupSigninComponent implements OnInit {
           }
         },
         error: (err: HttpErrorResponse) => {
-          this.errorMessage =
-            this.extractErrorMessage(err) ||
-            'unable to sign up. please try again.';
+          this.extractServerErrors(err);
         },
       });
       return;
@@ -82,26 +88,53 @@ export class SignupSigninComponent implements OnInit {
       next: () => {
         this.closed.emit();
       },
-      error: () => {
-        this.errorMessage = 'unable to sign in. please try again.';
+      error: (err: HttpErrorResponse) => {
+        if (err.status === 401 || err.status === 400) {
+          this.errorMessage = 'incorrect username or password.';
+        } else {
+          this.errorMessage = 'something went wrong. please try again.';
+        }
       },
     });
   }
 
-  private extractErrorMessage(err: HttpErrorResponse): string | null {
-    const body = err.error;
-    if (!body || typeof body !== 'object') return null;
+  private setClientSideFieldErrors() {
+    const controls = this.form.controls;
+    if (controls['email']?.errors?.['required']) {
+      this.fieldErrors['email'] = 'email is required.';
+    } else if (controls['email']?.errors?.['email']) {
+      this.fieldErrors['email'] = 'please enter a valid email.';
+    }
+    if (controls['username']?.errors?.['required']) {
+      this.fieldErrors['username'] = 'username is required.';
+    }
+    if (controls['password']?.errors?.['required']) {
+      this.fieldErrors['password'] = 'password is required.';
+    } else if (controls['password']?.errors?.['minlength']) {
+      this.fieldErrors['password'] = 'password must be at least 8 characters.';
+    }
+  }
 
-    const messages: string[] = [];
+  private extractServerErrors(err: HttpErrorResponse) {
+    const body = err.error;
+    if (!body || typeof body !== 'object') {
+      this.errorMessage = 'something went wrong. please try again.';
+      return;
+    }
+
+    const generalMessages: string[] = [];
     for (const field of Object.keys(body)) {
-      const fieldErrors = body[field];
-      if (Array.isArray(fieldErrors)) {
-        messages.push(...fieldErrors);
-      } else if (typeof fieldErrors === 'string') {
-        messages.push(fieldErrors);
+      const errors = body[field];
+      const message = Array.isArray(errors) ? errors[0] : errors;
+      if (['email', 'username', 'password'].includes(field)) {
+        this.fieldErrors[field] = message;
+      } else {
+        generalMessages.push(message);
       }
     }
-    return messages.length ? messages.join(' ') : null;
+    if (generalMessages.length) {
+      this.errorMessage = generalMessages.join(' ');
+    }
   }
 
   closeForm() {

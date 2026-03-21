@@ -36,10 +36,14 @@
         email
         <input
           class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100/70 px-4 py-3 text-lg text-slate-900 outline-none transition-all focus:border-slate-400 focus:bg-white focus:ring-1 focus:ring-slate-300"
+          [class.border-rose-400]="fieldErrors['email']"
           formControlName="email"
           type="email"
           required
         />
+        <p class="mt-1 min-h-[1rem] text-xs font-medium lowercase tracking-wide text-rose-500" aria-live="polite">
+          {{ fieldErrors['email'] }}
+        </p>
       </label>
       }
       <label
@@ -48,10 +52,14 @@
         username
         <input
           class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100/70 px-4 py-3 text-lg text-slate-900 outline-none transition-all focus:border-slate-400 focus:bg-white focus:ring-1 focus:ring-slate-300"
+          [class.border-rose-400]="fieldErrors['username']"
           formControlName="username"
           type="text"
           required
         />
+        <p class="mt-1 min-h-[1rem] text-xs font-medium lowercase tracking-wide text-rose-500" aria-live="polite">
+          {{ fieldErrors['username'] }}
+        </p>
       </label>
 
       <label
@@ -60,14 +68,18 @@
         password
         <input
           class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-100/70 px-4 py-3 text-lg text-slate-900 outline-none transition-all focus:border-slate-400 focus:bg-white focus:ring-1 focus:ring-slate-300"
+          [class.border-rose-400]="fieldErrors['password']"
           formControlName="password"
           type="password"
           required
         />
+        <p class="mt-1 min-h-[1rem] text-xs font-medium lowercase tracking-wide text-rose-500" aria-live="polite">
+          {{ fieldErrors['password'] }}
+        </p>
       </label>
 
       <p
-        class="min-h-[1.5rem] text-center text-sm font-semibold lowercase tracking-wide text-rose-500"
+        class="min-h-[1.25rem] text-center text-sm font-semibold lowercase tracking-wide text-rose-500"
         aria-live="polite"
       >
         {{ errorMessage }}
