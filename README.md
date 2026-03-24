@@ -47,7 +47,7 @@ https://koicha-frontend.onrender.com/explore
 
 ---
 
-## Engineering Design Highlights
+## Engineering & Design Decisions
 
 **Avoided creating fake "guest users"**
 Instead of creating a guest or temporary account, I use a system-owned taste profile. This avoids a fake user profile which adds unneeded user objects while still allowing unauthenticated users to experience the full product flow.
@@ -95,7 +95,7 @@ POSTGRES_PORT=5432
 
 ```bash
 cd backend
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
@@ -110,6 +110,8 @@ cd koicha-app
 npm install
 npm start
 ```
+
+**Note:** The frontend must run on port 4200 (the default). Django's CORS policy is configured to allow `localhost:4200` only.
 
 ## Roadmap
 
