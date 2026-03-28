@@ -79,6 +79,7 @@ export class AuthService {
         tap(({ access, refresh, user }) => {
           localStorage.setItem('access', access);
           localStorage.setItem('refresh', refresh);
+          this.reviewService.clearUserCache();
           this.userSubject.next(user);
         })
       );
