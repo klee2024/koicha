@@ -79,6 +79,10 @@ export class ReviewService {
     return this.http.post<UserReviewRequest>(
       `${this.baseUrl}/${this.appUrl}/`,
       payload
+    ).pipe(
+      tap(() => {
+        this._userReviewsLoaded = false;
+      })
     );
   }
 
