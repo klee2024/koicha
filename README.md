@@ -63,6 +63,8 @@ In order to enjoy matcha in its best form, it should be consumed according to th
 ## System Architecture
 
 ![Architecture Flow](/architecture_flow.drawio.svg)
+
+
 The frontend Angular and backend Django architecture contains domain centric components and apps that support this flow.
 
 ---
