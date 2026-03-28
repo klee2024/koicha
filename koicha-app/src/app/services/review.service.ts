@@ -86,6 +86,11 @@ export class ReviewService {
     );
   }
 
+  clearUserCache(): void {
+    this._userReviews$.next([]);
+    this._userReviewsLoaded = false;
+  }
+
   // Gets the requesting user's product reviews, sorted by the user's rating descending.
   // Fetches once and returns the cached result on subsequent calls.
   getUserProductReviews() {

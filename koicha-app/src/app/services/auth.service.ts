@@ -12,6 +12,7 @@ import {
   tap,
 } from 'rxjs';
 import { User } from '../models/User';
+import { ReviewService } from './review.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +23,7 @@ export class AuthService {
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private reviewService: ReviewService) {}
 
   /**
    * Gets if the user is signed in or not based off of the user field
@@ -133,5 +134,6 @@ export class AuthService {
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
     this.userSubject.next(null);
+    this.reviewService.clearUserCache();
   }
 }
