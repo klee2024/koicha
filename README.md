@@ -10,7 +10,7 @@ understand their taste preferences and find products they’ll love.
 Koicha solves the problem of matcha discovery by aggregating matcha products across brands and creating personalized taste profiles so users can find their perfect matcha:
 
 - **Taste Profile Visualization**: Radar charts across multiple flavor dimensions (umami, grassy, nutty, etc.)
-- **Smart Onboarding**: First time quiz for users new to matcha to find their initial matcha preferences
+- **Smart Onboarding**: First-time quiz for users new to matcha to find their initial matcha preferences
 - **Product Discovery**: Browse and review matcha products with flavor profile and preparation tags
 - **Persistent User Data**: Authentication with saved reviews, bookmarks, and evolving taste profiles
 
@@ -22,7 +22,7 @@ https://koicha.app
 
 **Frontend**
 
-- Angular 19 with Typescript
+- Angular 19 with TypeScript
 - Tailwind CSS for responsive UI
 - ECharts for taste profile visualization
 
@@ -63,9 +63,6 @@ In order to enjoy matcha in its best form, it should be consumed according to th
 ## System Architecture
 
 ![Architecture Flow](/architecture_flow.drawio.svg)
-
-
-The frontend Angular and backend Django architecture contains domain centric components and apps that support this flow.
 
 ---
 
@@ -117,18 +114,19 @@ npm start
 
 ## Roadmap
 
-**Phase 1: Core Product** (Complete)
+**Phase 1: Core Product** (In Progress)
 
 - User authentication and profiles
 - Product browsing and reviews
 - Taste profile visualization
 
-**Phase 2: Smart Recommendations** (In Progress)
+**Phase 2: Smart Recommendations** (Planned)
 
 - Recommendation engine to create a match % for a product based on the user's taste profile
 - Automated product scraper to expand catalog
 - Taste archetype classification (e.g., "Traditionalist," "Adventurer")
 - Smarter product rating and comparison tool
+- Unit, integration, and E2E test coverage
 
 **Phase 3: Social**
 
